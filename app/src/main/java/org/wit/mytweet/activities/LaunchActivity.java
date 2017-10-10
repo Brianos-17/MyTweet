@@ -29,4 +29,13 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
         loginButton = (Button) findViewById(R.id.loginButton);
         loginButton.setOnClickListener(this);
     }
+
+    public void signupButtonPressed(View view) {
+        startActivity(new Intent(this, SignUp.class));
+    }
+
+    @Override
+    public void onClick(View view) {
+    }
+
 }
