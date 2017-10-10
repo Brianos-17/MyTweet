@@ -22,12 +22,12 @@
 
     <TextView
         android:id="@+id/launchMessage"
-        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="32dp"
+        android:gravity="center"
         android:text="@string/launchMessage"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintLeft_toLeftOf="parent"

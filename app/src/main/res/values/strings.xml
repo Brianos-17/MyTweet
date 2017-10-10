@@ -9,4 +9,6 @@
     <string name="signupEmail">Email</string>
     <string name="signupPassword">Password</string>
     <string name="registerButton">Sign Up</string>
+    <string name="loginPrompt1">Please enter your email and password</string>
+    <string name="loginPromot2">You must be registered</string>
 </resources>
