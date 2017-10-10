@@ -4,4 +4,9 @@
     <string name="launchMessage">See what\'s happening in the great WIT world right now</string>
     <string name="signupButton">Sign Up</string>
     <string name="loginButton">Log In</string>
+    <string name="signupFirstName">First Name</string>
+    <string name="signupLastName">Last Name</string>
+    <string name="signupEmail">Email</string>
+    <string name="signupPassword">Password</string>
+    <string name="registerButton">Sign Up</string>
 </resources>
