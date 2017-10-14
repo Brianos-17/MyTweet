@@ -1,6 +1,7 @@
 package org.wit.mytweet.activities;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -30,16 +31,16 @@ public class SignUp extends AppCompatActivity{
     }
 
     public void register(View view) {
-        TextView firstName = (TextView) findViewById(R.id.signupFirstName);
-        TextView lastName = (TextView) findViewById(R.id.signupLastName);
-        TextView email = (TextView) findViewById(R.id.signupEmail);
-        TextView password = (TextView) findViewById(R.id.signupPassword);
+        String firstName = ((TextView) findViewById(R.id.signupFirstName)).getText().toString();
+        String lastName = ((TextView) findViewById(R.id.signupLastName)).getText().toString();
+        String email = ((TextView) findViewById(R.id.signupEmail)).getText().toString();
+        String password = ((TextView) findViewById(R.id.signupPassword)).getText().toString();
 
-        if((firstName != null) && (lastName != null) && (email != null) && (password != null)) {
-            User newUser = new User(firstName.getText().toString(), lastName.getText().toString(),
-                    email.getText().toString(), password.getText().toString());
-        } else {
+        if((firstName.isEmpty()) || (lastName.isEmpty()) || (email.isEmpty()) || (password.isEmpty())) {
             Toast.makeText(this, "You've left some blank spaces!", Toast.LENGTH_SHORT).show();
+        } else {
+            User newUser = new User(firstName, lastName, email, password);
+            startActivity(new Intent(this, LogIn.class));
         }
     }
 }
