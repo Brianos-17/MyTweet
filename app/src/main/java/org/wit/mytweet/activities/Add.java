@@ -38,12 +38,14 @@ public class Add extends AppCompatActivity {
         //Retrieved from: https://stackoverflow.com/questions/2271131/display-the-current-time-and-date-in-an-android-application
         String currentDate = DateFormat.getDateTimeInstance().format(new Date());
         tweetDate.setText(currentDate);
+
         addTweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
                 addNewTweet(view);
             }
         });
+
         //TextWatcher which counts down value of character count
         //Retrieved from: https://stackoverflow.com/questions/24110265/android-create-count-down-word-field-when-user-type-in-edittext
         newTweet.addTextChangedListener(new TextWatcher() {

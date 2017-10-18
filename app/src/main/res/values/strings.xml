@@ -15,4 +15,6 @@
     <string name="newTweetHint">What\'s on your mind?</string>
     <string name="contactButton">Select Contact</string>
     <string name="emailButton">Email Tweet</string>
+    <string name="tweetSubstring">20 character substring...</string>
+    <string name="tweetDate">Date of tweet</string>
 </resources>
