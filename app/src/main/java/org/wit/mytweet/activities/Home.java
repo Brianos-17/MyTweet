@@ -30,6 +30,11 @@ public class Home extends AppCompatActivity{
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     public void addTweetButtonPressed(View view) {
         startActivity(new Intent(this, Add.class));
     }
