@@ -36,7 +36,6 @@ public class Add extends AppCompatActivity {
         newTweet.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                characterCount.setText(String.valueOf(140));
             }
 
             @Override
@@ -46,7 +45,6 @@ public class Add extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
     }
