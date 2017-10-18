@@ -6,6 +6,7 @@ import org.wit.mytweet.models.Tweet;
 import org.wit.mytweet.models.User;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,6 +26,10 @@ public class MyTweetApp extends Application {
 
     public void addUser(User user) {
         users.add(user);
+    }
+
+    public void addTweet(Tweet tweet) {
+        tweetList.add(tweet);
     }
 
     public boolean validUser(String email, String password) {
