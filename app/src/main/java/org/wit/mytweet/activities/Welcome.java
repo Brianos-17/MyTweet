@@ -5,11 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import org.wit.mytweet.R;
 
-public class LaunchActivity extends AppCompatActivity implements View.OnClickListener {
+public class Welcome extends AppCompatActivity implements View.OnClickListener {
 
     private Button signupButton;
     private Button loginButton;
@@ -17,7 +16,7 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_launch);
+        setContentView(R.layout.activity_welcome);
 
         signupButton = (Button) findViewById(R.id.signupButton);
         signupButton.setOnClickListener(new View.OnClickListener() {

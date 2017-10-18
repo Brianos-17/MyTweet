@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * Created by Brian on 14/10/2017.
-
+ * Main App class, holds lists of users and tweets that other classes reference
  */
 
 public class MyTweetApp extends Application {
