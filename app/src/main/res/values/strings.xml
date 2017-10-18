@@ -11,4 +11,5 @@
     <string name="registerButton">Sign Up</string>
     <string name="loginPrompt1">Please enter your email and password</string>
     <string name="loginPromot2">You must be registered</string>
+    <string name="addTweet">Tweet</string>
 </resources>

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.wit.mytweet.R;
+import org.wit.mytweet.main.MyTweetApp;
 import org.wit.mytweet.models.User;
 
 public class SignUp extends AppCompatActivity{
@@ -36,10 +37,13 @@ public class SignUp extends AppCompatActivity{
         String email = ((TextView) findViewById(R.id.signupEmail)).getText().toString();
         String password = ((TextView) findViewById(R.id.signupPassword)).getText().toString();
 
+        MyTweetApp app = (MyTweetApp) getApplication();
+
         if((firstName.isEmpty()) || (lastName.isEmpty()) || (email.isEmpty()) || (password.isEmpty())) {
             Toast.makeText(this, "You've left some blank spaces!", Toast.LENGTH_SHORT).show();
         } else {
             User newUser = new User(firstName, lastName, email, password);
+            app.addUser(newUser);
             startActivity(new Intent(this, LogIn.class));
         }
     }

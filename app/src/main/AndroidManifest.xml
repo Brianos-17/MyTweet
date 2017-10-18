@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".activities.SignUp" />
         <activity android:name=".activities.LogIn" />
+        <activity android:name=".activities.Home" />
     </application>
 
 </manifest>

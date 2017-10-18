@@ -23,6 +23,10 @@ public class MyTweetApp extends Application {
         Log.v("mytweet", "MyTweet App started");
     }
 
+    public void addUser(User user) {
+        users.add(user);
+    }
+
     public boolean validUser(String email, String password) {
         for (User user : users) {
             if((user.email.equals(email) && (user.password.equals(password)))) {
