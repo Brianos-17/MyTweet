@@ -9,12 +9,12 @@ import org.wit.mytweet.models.Tweet;
 import java.util.List;
 
 
-public class ListAdapter extends ArrayAdapter<Tweet> {
+public class TweetListAdapter extends ArrayAdapter<Tweet> {
     private Context context;
     private OnClickListener deleteListener;
     public List<Tweet> tweetList;
 
-    public ListAdapter(Context xontext, OnClickListener deleteListener, List<Tweet> tweetList){
+    public TweetListAdapter(Context xontext, OnClickListener deleteListener, List<Tweet> tweetList){
 
     }
 }
