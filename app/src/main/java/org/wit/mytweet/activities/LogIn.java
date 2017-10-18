@@ -11,16 +11,14 @@ import android.widget.Toast;
 import org.wit.mytweet.R;
 import org.wit.mytweet.main.MyTweetApp;
 
-public class LogIn extends AppCompatActivity {
-
-    private Button login;
+public class LogIn extends Base {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        login = (Button) findViewById(R.id.login);
+        Button login = (Button) findViewById(R.id.login);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

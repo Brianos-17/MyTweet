@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 
 import org.wit.mytweet.R;
 
-public class Home extends AppCompatActivity{
+public class Home extends Base{
 
     private ImageButton addTweet, settingsButton;
 

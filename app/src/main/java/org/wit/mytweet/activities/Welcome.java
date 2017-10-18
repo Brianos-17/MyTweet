@@ -8,24 +8,21 @@ import android.widget.Button;
 
 import org.wit.mytweet.R;
 
-public class Welcome extends AppCompatActivity implements View.OnClickListener {
-
-    private Button signupButton;
-    private Button loginButton;
+public class Welcome extends Base implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        signupButton = (Button) findViewById(R.id.signupButton);
+        Button signupButton = (Button) findViewById(R.id.signupButton);
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signupButtonPressed(view);
             }
         });
-        loginButton = (Button) findViewById(R.id.loginButton);
+        Button loginButton = (Button) findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

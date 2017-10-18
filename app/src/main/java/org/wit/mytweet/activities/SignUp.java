@@ -13,15 +13,14 @@ import org.wit.mytweet.R;
 import org.wit.mytweet.main.MyTweetApp;
 import org.wit.mytweet.models.User;
 
-public class SignUp extends AppCompatActivity{
+public class SignUp extends Base{
 
-    private Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        registerButton = (Button) findViewById(R.id.registerButton);
+        Button registerButton = (Button) findViewById(R.id.registerButton);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

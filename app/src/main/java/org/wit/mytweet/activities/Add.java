@@ -18,7 +18,7 @@ import org.wit.mytweet.models.Tweet;
 import java.text.DateFormat;
 import java.util.Date;
 
-public class Add extends AppCompatActivity {
+public class Add extends Base {
 
     private TextView characterCount, tweetDate;
     private EditText newTweet;
