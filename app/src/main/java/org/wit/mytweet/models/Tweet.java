@@ -1,9 +1,10 @@
 package org.wit.mytweet.models;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Tweet {
+public class Tweet implements Serializable {
 
     public String message;
     public Date date;
