@@ -7,12 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 
 import org.wit.mytweet.fragments.TweetFragment;
 import org.wit.mytweet.main.MyTweetApp;
+import org.wit.mytweet.models.Portfolio;
 
 public class Base extends AppCompatActivity {
 
     public MyTweetApp app;
     protected Bundle activityInfo;
     protected TweetFragment tweetFragment;
+    private Portfolio portfolio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -21,7 +21,11 @@ public class TimelineItem {
     }
 
     private void updateTimeline(Tweet tweet) {
-        ((TextView) view.findViewById(R.id.tweetSubstring)).setText(tweet.message.substring(0,20));
+        if(tweet.message.length() > 20) {
+            ((TextView) view.findViewById(R.id.tweetSubstring)).setText(tweet.message.substring(0, 20));
+        } else {
+            ((TextView) view.findViewById(R.id.tweetSubstring)).setText(tweet.message);
+        }
         ((TextView) view.findViewById(R.id.tweetDate)).setText(tweet.date);
     }
 }

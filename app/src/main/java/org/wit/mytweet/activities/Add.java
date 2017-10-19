@@ -73,7 +73,7 @@ public class Add extends Base {
             Tweet tweet = new Tweet(message, date);
             app.addTweet(tweet);
             Log.v("Tweetcheck", "New Tweet added:" + message);
-            //goToActivity(this, Home.class, null);
+            goToActivity(this, Home.class, null);
         } else {
             Toast.makeText(this, "Oops, looks like you haven't said anything!", Toast.LENGTH_SHORT).show();
         }

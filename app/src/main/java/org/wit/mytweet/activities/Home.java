@@ -33,6 +33,12 @@ public class Home extends Base{
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        app.portfolio.saveUsers();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         tweetFragment = TweetFragment.newInstance();
