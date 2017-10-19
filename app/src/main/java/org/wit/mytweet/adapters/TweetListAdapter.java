@@ -33,6 +33,10 @@ public class TweetListAdapter extends ArrayAdapter<Tweet> {
         return item.view;
     }
 
+    public List<Tweet> getTweetList() {
+        return  this.tweetList;
+    }
+
     @Override
     public int getCount() {
         return tweetList.size();

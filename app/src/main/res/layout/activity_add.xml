@@ -31,7 +31,7 @@
 
     <EditText
         android:id="@+id/newTweet"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="110dp"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
@@ -73,7 +73,9 @@
         android:layout_marginRight="16dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="16dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <Button
         android:id="@+id/emailButton"
@@ -85,5 +87,7 @@
         android:text="@string/emailButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contactButton" />
+        app:layout_constraintTop_toBottomOf="@+id/contactButton"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 </android.support.constraint.ConstraintLayout>

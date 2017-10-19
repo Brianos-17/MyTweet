@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import org.wit.mytweet.R;
+import org.wit.mytweet.fragments.TweetFragment;
 
 public class Home extends Base{
 
@@ -33,6 +35,8 @@ public class Home extends Base{
     @Override
     protected void onResume() {
         super.onResume();
+        tweetFragment = TweetFragment.newInstance();
+        getFragmentManager().beginTransaction().replace(R.id.fragment_layout, tweetFragment).commit();
     }
 
     public void addTweetButtonPressed(View view) {

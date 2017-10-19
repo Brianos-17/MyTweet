@@ -1,10 +1,12 @@
 package org.wit.mytweet.activities;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +30,7 @@ public class Add extends Base {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        Button addTweet = (Button) findViewById(R.id.sendTweet);
+        Button sendTweet = (Button) findViewById(R.id.sendTweet);
         tweetDate = (TextView) findViewById(R.id.tweetDate);
         characterCount = (TextView) findViewById(R.id.characterCount);
         newTweet = (EditText) findViewById(R.id.newTweet);
@@ -39,7 +41,7 @@ public class Add extends Base {
         String currentDate = DateFormat.getDateTimeInstance().format(new Date());
         tweetDate.setText(currentDate);
 
-        addTweet.setOnClickListener(new View.OnClickListener() {
+        sendTweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
                 addNewTweet(view);
@@ -67,10 +69,11 @@ public class Add extends Base {
     public void addNewTweet(View view) {
         String message = newTweet.getText().toString();
         String date = tweetDate.getText().toString();
-        MyTweetApp app = (MyTweetApp) getApplication();
         if(message.length() > 0) {
             Tweet tweet = new Tweet(message, date);
             app.addTweet(tweet);
+            Log.v("Tweetcheck", "New Tweet added:" + message);
+            //goToActivity(this, Home.class, null);
         } else {
             Toast.makeText(this, "Oops, looks like you haven't said anything!", Toast.LENGTH_SHORT).show();
         }

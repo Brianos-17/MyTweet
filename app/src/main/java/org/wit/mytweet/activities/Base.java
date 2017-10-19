@@ -1,5 +1,7 @@
 package org.wit.mytweet.activities;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -16,5 +18,13 @@ public class Base extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         app = (MyTweetApp) getApplication();
+    }
+
+    protected void goToActivity(Activity current, Class<? extends Activity> activityClass, Bundle bundle) {
+        Intent newActivity = new Intent(current, activityClass);
+        if(bundle != null){
+            newActivity.putExtras(bundle);
+        }
+        current.startActivity(newActivity);
     }
 }
