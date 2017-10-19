@@ -61,7 +61,7 @@ public class PortfolioSerializer {
             for (int i = 0; i < array.length(); i++) {
                 users.add(new User(array.getJSONObject(i)));
             }
-        } catch (FileNotFoundException){
+        } catch (FileNotFoundException e){
             //
         }
         finally {

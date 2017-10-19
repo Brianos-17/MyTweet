@@ -2,6 +2,9 @@ package org.wit.mytweet.main;
 
 import android.app.Application;
 import android.util.Log;
+
+import org.wit.mytweet.models.Portfolio;
+import org.wit.mytweet.models.PortfolioSerializer;
 import org.wit.mytweet.models.Tweet;
 import org.wit.mytweet.models.User;
 
@@ -18,9 +21,13 @@ public class MyTweetApp extends Application {
 
     public List<Tweet> tweetList = new ArrayList<>();
     public List<User> users = new ArrayList<>();
+    private static  final String FILENAME = "portfolio.json";
+    public Portfolio portfolio;
 
     public void onCreate() {
         super.onCreate();
+        PortfolioSerializer serializer = new PortfolioSerializer(this, FILENAME);
+        portfolio = new Portfolio(serializer);
         Log.v("mytweet", "MyTweet App started");
     }
 
