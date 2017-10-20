@@ -1,5 +1,8 @@
 package org.wit.mytweet.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class User {
 
     public String firstName;
@@ -7,10 +10,34 @@ public class User {
     public String email;
     public String password;
 
+    //variables fields included for persistence to and from JSON
+    private static final String JSON_FIRSTNAME = "firstName";
+    private static final String JSON_LASTNAME = "lastName";
+    private static final String JSON_EMAIL = "email";
+    private static final String JSON_PASSWORD = "password";
+
     public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+    }
+
+    //Write a User Object to Json format
+    public User(JSONObject json) throws JSONException {
+        firstName = json.getString(JSON_FIRSTNAME);
+        lastName = json.getString(JSON_LASTNAME);
+        email = json.getString(JSON_EMAIL);
+        password = json.getString(JSON_PASSWORD);
+    }
+
+    //Reads a json object as a User object
+    public JSONObject toJson() throws JSONException {
+        JSONObject json = new JSONObject();
+        json.put(JSON_FIRSTNAME, firstName);
+        json.put(JSON_LASTNAME, lastName);
+        json.put(JSON_EMAIL, email);
+        json.put(JSON_PASSWORD, password);
+        return json;
     }
 }

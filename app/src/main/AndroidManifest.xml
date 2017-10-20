@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name="org.wit.mytweet.main.MyTweetApp">
-        <activity android:name=".activities.LaunchActivity">
+        <activity android:name=".activities.Welcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,6 +19,8 @@
         </activity>
         <activity android:name=".activities.SignUp" />
         <activity android:name=".activities.LogIn" />
+        <activity android:name=".activities.Home" />
+        <activity android:name=".activities.Add" />
     </application>
 
 </manifest>

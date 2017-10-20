@@ -11,23 +11,23 @@ import android.widget.Toast;
 import org.wit.mytweet.R;
 import org.wit.mytweet.main.MyTweetApp;
 
-public class LogIn extends AppCompatActivity {
+public class LogIn extends Base {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button authenticate = (Button) findViewById(R.id.authenticate);
-        authenticate.setOnClickListener(new View.OnClickListener() {
+        Button login = (Button) findViewById(R.id.login);
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                authenticate();
+                authenticate(view);
             }
         });
     }
 
-    public void authenticate() {
+    public void authenticate(View view) {
         MyTweetApp app = (MyTweetApp) getApplication();
         String email = ((TextView) findViewById(R.id.loginEmail)).getText().toString();
         String password = ((TextView) findViewById(R.id.loginPassword)).getText().toString();

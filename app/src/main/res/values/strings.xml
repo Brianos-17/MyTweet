@@ -11,4 +11,10 @@
     <string name="registerButton">Sign Up</string>
     <string name="loginPrompt1">Please enter your email and password</string>
     <string name="loginPromot2">You must be registered</string>
+    <string name="addTweet">Tweet</string>
+    <string name="newTweetHint">What\'s on your mind?</string>
+    <string name="contactButton">Select Contact</string>
+    <string name="emailButton">Email Tweet</string>
+    <string name="tweetSubstring">20 character substring...</string>
+    <string name="tweetDate">Date of tweet</string>
 </resources>
