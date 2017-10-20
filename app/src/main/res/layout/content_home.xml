@@ -73,12 +73,14 @@
 
         <FrameLayout
             android:id="@+id/fragment_layout"
-            android:layout_width="wrap_content"
+            android:layout_width="352dp"
             android:layout_height="wrap_content"
             android:layout_above="@+id/footerLinearLayout"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true" />
+            android:layout_alignParentTop="true"
+            tools:layout_editor_absoluteY="81dp"
+            tools:layout_editor_absoluteX="8dp" />
 
 
     </android.support.constraint.ConstraintLayout>

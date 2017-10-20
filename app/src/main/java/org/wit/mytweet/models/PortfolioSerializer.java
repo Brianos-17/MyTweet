@@ -2,10 +2,12 @@ package org.wit.mytweet.models;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONTokener;
+import org.wit.mytweet.main.MyTweetApp;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -16,25 +18,31 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PortfolioSerializer {
 
-    private Context context;
-    private String filename;
+    private Context mContext;
+    private String mFilename;
+    private MyTweetApp app;
 
     public PortfolioSerializer(Context context, String filename) {
-        this.context = context;
-        this.filename = filename;
+        mContext = context;
+        mFilename = filename;
     }
 
-    public void saveUsers(ArrayList<User> users) throws JSONException, IOException {
+
+
+    public void saveUsers(List<User> users) throws JSONException, IOException {
         JSONArray array = new JSONArray();
+        Log.v("i/o", "PS Users: " + users.toString());
         for (User user: users) {
             array.put(user.toJson());
+            Log.v("i/o", user.toString());
         }
         Writer writer = null;
         try {
-            OutputStream out = context.openFileOutput(filename, Context.MODE_PRIVATE);
+            OutputStream out = mContext.openFileOutput(mFilename, Context.MODE_PRIVATE);
             writer = new OutputStreamWriter(out);
             writer.write(array.toString());
         } finally {
@@ -44,11 +52,11 @@ public class PortfolioSerializer {
         }
     }
 
-    public ArrayList<User> loadUsers() throws JSONException, IOException {
-        ArrayList<User> users = new ArrayList<>();
+    public List<User> loadUsers(List<User> users) throws JSONException, IOException {
+//        ArrayList<User> users = new ArrayList<>();
         BufferedReader reader = null;
         try {
-            InputStream in = context.openFileInput(filename);
+            InputStream in = mContext.openFileInput(mFilename);
             reader = new BufferedReader(new InputStreamReader(in));
             StringBuilder jsonString = new StringBuilder();
             String line = null;

@@ -45,4 +45,11 @@ public class SignUp extends Base{
             startActivity(new Intent(this, LogIn.class));
         }
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        app.portfolio.saveUsers(app.users);
+        app.portfolio.loadUsers(app.users);
+    }
 }

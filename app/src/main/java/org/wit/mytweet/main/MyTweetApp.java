@@ -19,20 +19,21 @@ import java.util.List;
 
 public class MyTweetApp extends Application {
 
+    private static  final String FILENAME = "users.json";
+    public Portfolio portfolio;
     public List<Tweet> tweetList = new ArrayList<>();
     public List<User> users = new ArrayList<>();
-    private static  final String FILENAME = "portfolio.json";
-    public Portfolio portfolio;
 
     public void onCreate() {
         super.onCreate();
         PortfolioSerializer serializer = new PortfolioSerializer(this, FILENAME);
-        portfolio = new Portfolio(serializer);
+        portfolio = new Portfolio(serializer, users);
         Log.v("mytweet", "MyTweet App started");
     }
 
     public void addUser(User user) {
         users.add(user);
+        Log.v("i/o", "Ad user: " + users);
     }
 
     public void addTweet(Tweet tweet) {
