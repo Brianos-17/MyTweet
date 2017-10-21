@@ -2,14 +2,12 @@ package org.wit.mytweet.adapters;
 
 
 import org.wit.mytweet.models.Tweet;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserTweetFilter {
 
     public UserTweetFilter(){
-
     }
 
     public List<Tweet> filter(String currentUserId, List<Tweet> tweetList){

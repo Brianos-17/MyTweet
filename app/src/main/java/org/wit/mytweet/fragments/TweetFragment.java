@@ -49,8 +49,10 @@ public class TweetFragment extends ListFragment implements OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        //cycles through each tweet in the tweetList and pulls out the ones written by the current user
         filteredList = new UserTweetFilter();
         List<Tweet> newList = filteredList.filter(activity.app.currentUserId, activity.app.tweetList);
+
         listAdapter = new TweetListAdapter(activity, this, newList);
         setListAdapter (listAdapter);
     }
