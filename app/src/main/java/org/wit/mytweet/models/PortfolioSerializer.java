@@ -20,11 +20,12 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
+//Info for this class retrieved from lecture: https://wit-ictskills-2017.github.io/mobile-app-dev/topic05-a/talk-3-fileio-in-myrent/d-fileio-in-myrent.pdf
+
 public class PortfolioSerializer {
 
     private Context mContext;
     private String mFilename;
-    private MyTweetApp app;
 
     public PortfolioSerializer(Context context, String filename) {
         mContext = context;
@@ -53,7 +54,6 @@ public class PortfolioSerializer {
     }
 
     public List<User> loadUsers(List<User> users) throws JSONException, IOException {
-//        ArrayList<User> users = new ArrayList<>();
         BufferedReader reader = null;
         try {
             InputStream in = mContext.openFileInput(mFilename);

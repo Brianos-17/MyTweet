@@ -69,10 +69,13 @@ public class Add extends Base {
     public void addNewTweet(View view) {
         String message = newTweet.getText().toString();
         String date = tweetDate.getText().toString();
+        String userId = app.currentUserId;
         if(message.length() > 0) {
-            Tweet tweet = new Tweet(message, date);
+            Tweet tweet = new Tweet(message, date, userId);
             app.addTweet(tweet);
-            Log.v("Tweetcheck", "New Tweet added:" + message);
+            Log.v("tweetcheck", "New Tweet added:" + message);
+            Log.v("tweetcheck", "Tweet ID is " + tweet.tweetId);
+            Log.v("tweetcheck", "This tweet belongs to the user" + app.currentUserId);
             goToActivity(this, Home.class, null);
         } else {
             Toast.makeText(this, "Oops, looks like you haven't said anything!", Toast.LENGTH_SHORT).show();

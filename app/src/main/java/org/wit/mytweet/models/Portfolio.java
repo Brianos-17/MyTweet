@@ -8,6 +8,8 @@ import org.wit.mytweet.main.MyTweetApp;
 import java.util.ArrayList;
 import java.util.List;
 
+//Info for this class retrieved from lecture: https://wit-ictskills-2017.github.io/mobile-app-dev/topic05-a/talk-3-fileio-in-myrent/d-fileio-in-myrent.pdf
+
 public class Portfolio {
 
     public PortfolioSerializer serializer;
