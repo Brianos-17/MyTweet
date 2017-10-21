@@ -25,14 +25,14 @@ import java.util.List;
 public class PortfolioSerializer {
 
     private Context mContext;
-    private String mFilename;
+    private String mFilename1;
+    private String mFilename2;
 
-    public PortfolioSerializer(Context context, String filename) {
+    public PortfolioSerializer(Context context, String filename1, String filename2) {
         mContext = context;
-        mFilename = filename;
+        mFilename1 = filename1;
+        mFilename2 = filename2;
     }
-
-
 
     public void saveUsers(List<User> users) throws JSONException, IOException {
         JSONArray array = new JSONArray();
@@ -43,7 +43,24 @@ public class PortfolioSerializer {
         }
         Writer writer = null;
         try {
-            OutputStream out = mContext.openFileOutput(mFilename, Context.MODE_PRIVATE);
+            OutputStream out = mContext.openFileOutput(mFilename1, Context.MODE_PRIVATE);
+            writer = new OutputStreamWriter(out);
+            writer.write(array.toString());
+        } finally {
+            if(writer != null) {
+                writer.close();
+            }
+        }
+    }
+
+    public void saveTweets(List<Tweet> tweetList) throws JSONException, IOException {
+        JSONArray array = new JSONArray();
+        for (Tweet tweet: tweetList) {
+            array.put(tweet.toJson());
+        }
+        Writer writer = null;
+        try{
+            OutputStream out = mContext.openFileOutput(mFilename2, Context.MODE_PRIVATE);
             writer = new OutputStreamWriter(out);
             writer.write(array.toString());
         } finally {
@@ -56,7 +73,7 @@ public class PortfolioSerializer {
     public List<User> loadUsers(List<User> users) throws JSONException, IOException {
         BufferedReader reader = null;
         try {
-            InputStream in = mContext.openFileInput(mFilename);
+            InputStream in = mContext.openFileInput(mFilename1);
             reader = new BufferedReader(new InputStreamReader(in));
             StringBuilder jsonString = new StringBuilder();
             String line = null;
@@ -67,7 +84,7 @@ public class PortfolioSerializer {
             JSONArray array = (JSONArray) new JSONTokener(jsonString.toString()).nextValue();
 
             for (int i = 0; i < array.length(); i++) {
-                users.add(new User(array.getJSONObject(i)));
+                    users.add(new User(array.getJSONObject(i)));
             }
         } catch (FileNotFoundException e){
             //
@@ -79,6 +96,33 @@ public class PortfolioSerializer {
             }
             return users;
         }
+
+    public List<Tweet> loadTweets(List<Tweet> tweetList) throws JSONException, IOException {
+        BufferedReader reader = null;
+        try {
+            InputStream in = mContext.openFileInput(mFilename2);
+            reader = new BufferedReader(new InputStreamReader(in));
+            StringBuilder jsonString = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                jsonString.append(line);
+            }
+
+            JSONArray array = (JSONArray) new JSONTokener(jsonString.toString()).nextValue();
+
+            for (int i = 0; i < array.length(); i++) {
+                tweetList.add(new Tweet(array.getJSONObject(i)));
+            }
+        } catch (FileNotFoundException e){
+            //
+        }
+        finally {
+            if (reader != null) {
+                reader.close();
+            }
+        }
+        return tweetList;
+    }
 }
 
 

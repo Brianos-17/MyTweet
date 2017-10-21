@@ -36,6 +36,17 @@ public class Portfolio {
         }
     }
 
+    public boolean saveTweets(List<Tweet> tweetList) {
+        try{
+            serializer.saveTweets(tweetList);
+            Log.v("i/o", "Tweets saved to file" + tweetList);
+            return true;
+        } catch (Exception e) {
+            Log.v("i/o", "Error saving tweets: " + e.getMessage());
+            return false;
+        }
+    }
+
     public boolean loadUsers(List<User> users) {
         try{
             serializer.loadUsers(users);
@@ -43,6 +54,17 @@ public class Portfolio {
             return true;
         } catch (Exception e) {
             Log.v("i/o", "Error loading users: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean loadTweets(List<Tweet> tweetList) {
+        try{
+            serializer.loadTweets(tweetList);
+            Log.v("i/o", "Tweets loaded" + tweetList);
+            return true;
+        } catch (Exception e) {
+            Log.v("i/o", "Error loading tweets: " + e.getMessage());
             return false;
         }
     }

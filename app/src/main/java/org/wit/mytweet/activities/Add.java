@@ -66,6 +66,12 @@ public class Add extends Base {
         });
     }
 
+    @Override
+    protected  void onPause() {
+        super.onPause();
+        app.portfolio.saveTweets(app.tweetList);
+    }
+
     public void addNewTweet(View view) {
         String message = newTweet.getText().toString();
         String date = tweetDate.getText().toString();

@@ -31,6 +31,13 @@ public class Welcome extends Base implements View.OnClickListener {
         });
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        app.portfolio.loadUsers(app.users);
+        app.portfolio.loadTweets(app.tweetList);
+    }
+
     public void signupButtonPressed(View view) {
         startActivity(new Intent(this, SignUp.class));
     }
