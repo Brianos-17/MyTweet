@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.wit.mytweet.R;
+import org.wit.mytweet.main.MyTweetApp;
 import org.wit.mytweet.models.Tweet;
 
 public class TimelineItem {

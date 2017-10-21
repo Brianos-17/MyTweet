@@ -8,6 +8,10 @@ import android.view.View.OnClickListener;
 
 import org.wit.mytweet.activities.Base;
 import org.wit.mytweet.adapters.TweetListAdapter;
+import org.wit.mytweet.adapters.UserTweetFilter;
+import org.wit.mytweet.models.Tweet;
+
+import java.util.List;
 
 
 //Help for this class retrieved from lab: https://wit-ictskills-2017.github.io/mobile-app-dev/topic07-a/book-coffeemate-lab-02/index.html#/03
@@ -15,14 +19,14 @@ import org.wit.mytweet.adapters.TweetListAdapter;
 public class TweetFragment extends ListFragment implements OnClickListener {
 
     protected static TweetListAdapter listAdapter;
+    protected UserTweetFilter filteredList;
     protected Base activity;
 
     public TweetFragment() {
     }
 
     public static TweetFragment newInstance() {
-        TweetFragment fragment = new TweetFragment();
-        return fragment;
+        return new TweetFragment();
     }
 
     @Override
@@ -32,8 +36,7 @@ public class TweetFragment extends ListFragment implements OnClickListener {
 
 
     @Override
-    public void onAttach(Context context)
-    {
+    public void onAttach(Context context) {
         super.onAttach(context);
         this.activity = (Base) context;
     }
@@ -46,8 +49,9 @@ public class TweetFragment extends ListFragment implements OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        //Context = Base class
-        listAdapter = new TweetListAdapter(activity, this, activity.app.tweetList);
+        filteredList = new UserTweetFilter();
+        List<Tweet> newList = filteredList.filter(activity.app.currentUserId, activity.app.tweetList);
+        listAdapter = new TweetListAdapter(activity, this, newList);
         setListAdapter (listAdapter);
     }
 

@@ -31,6 +31,7 @@ public class TweetListAdapter extends ArrayAdapter<Tweet> {
     public View getView(int position, View convertView, ViewGroup parent) {
         TimelineItem item = new TimelineItem(context, parent, deleteListener, tweetList.get(position));
         return item.view;
+
     }
 
     public List<Tweet> getTweetList() {
