@@ -73,7 +73,7 @@ public class TweetFragment extends ListFragment implements OnClickListener {
     //Method for deleting single tweet
     public void deleteTweet(final Tweet tweet) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setMessage("Are you sure you want to delete this tweet?\n" + tweet.message);
+        builder.setMessage("Are you sure you want to delete this tweet?\n\n" + tweet.message);
         builder.setCancelable(true);//allow users click out of dialog box
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {

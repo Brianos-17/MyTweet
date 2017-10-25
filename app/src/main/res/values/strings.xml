@@ -17,4 +17,5 @@
     <string name="emailButton">Email Tweet</string>
     <string name="tweetSubstring">20 character substring...</string>
     <string name="tweetDate">Date of tweet</string>
+    <string name="deleteTweetMulti">Delete Tweets</string>
 </resources>
