@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.wit.mytweet.R;
@@ -19,6 +20,10 @@ public class TimelineItem {
         view = inflater.inflate(R.layout.content_timeline_item, parent, false);
         view.setId(tweet.tweetId);
         updateTimeline(tweet);
+
+        ImageButton deleteTweet = (ImageButton) view.findViewById(R.id.deleteTweet);
+        deleteTweet.setTag(tweet);
+        deleteTweet.setOnClickListener(deleteListener);
     }
 
     private void updateTimeline(Tweet tweet) {

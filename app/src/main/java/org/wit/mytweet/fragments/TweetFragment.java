@@ -1,12 +1,18 @@
 package org.wit.mytweet.fragments;
 
+import android.app.AlertDialog;
 import android.app.ListFragment;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ListView;
 
+import org.wit.mytweet.R;
 import org.wit.mytweet.activities.Base;
+import org.wit.mytweet.activities.Edit;
 import org.wit.mytweet.adapters.TweetListAdapter;
 import org.wit.mytweet.adapters.UserTweetFilter;
 import org.wit.mytweet.models.Tweet;
@@ -54,11 +60,35 @@ public class TweetFragment extends ListFragment implements OnClickListener {
         List<Tweet> newList = filteredList.filter(activity.app.currentUserId, activity.app.tweetList);
 
         listAdapter = new TweetListAdapter(activity, this, newList);
-        setListAdapter (listAdapter);
+        setListAdapter(listAdapter);
     }
 
     @Override
     public void onClick(View view) {
+        if (view.getTag() instanceof Tweet) {
+            deleteTweet((Tweet) view.getTag());
+        }
+    }
 
+    //Method for deleting single tweet
+    //Retrieved from: https://wit-ictskills-2017.github.io/mobile-app-dev/topic07-a/book-coffeemate-lab-02/index.html#/04
+    public void deleteTweet(final Tweet tweet) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setMessage("Are you sure you want to delete this tweet?\n" + tweet.message);
+        builder.setCancelable(true);
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                activity.app.tweetList.remove(tweet); // remove from our list
+                listAdapter.tweetList.remove(tweet); // update adapters data
+                listAdapter.notifyDataSetChanged(); // refresh adapter
+            }
+        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

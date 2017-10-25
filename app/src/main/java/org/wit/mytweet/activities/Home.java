@@ -35,6 +35,7 @@ public class Home extends Base{
     @Override
     protected void onResume() {
         super.onResume();
+        app.portfolio.loadTweets(app.tweetList);
         tweetFragment = TweetFragment.newInstance();
         getFragmentManager().beginTransaction().replace(R.id.fragment_layout, tweetFragment).commit();
     }
