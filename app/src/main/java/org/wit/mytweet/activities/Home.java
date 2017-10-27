@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.wit.mytweet.R;
@@ -17,22 +18,20 @@ import org.wit.mytweet.fragments.TweetFragment;
 
 public class Home extends Base{
 
-    private ImageButton addTweet, settingsButton;
+    private ImageView addTweet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_home1);
 
-//        addTweet = (ImageButton) findViewById(R.id.addTweet);
-//        settingsButton = (ImageButton) findViewById(R.id.settingsButton);
-//
-//        addTweet.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                addTweetButtonPressed(view);
-//            }
-//        });
+        addTweet = (ImageView) findViewById(R.id.addTweet);
+        addTweet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addTweetButtonPressed(view);
+            }
+        });
     }
 
     @Override
@@ -65,7 +64,7 @@ public class Home extends Base{
         getFragmentManager().beginTransaction().replace(R.id.fragment_layout, tweetFragment).commit();
     }
 
-//    public void addTweetButtonPressed(View view) {
-//        startActivity(new Intent(this, Add.class));
-//    }
+    public void addTweetButtonPressed(View view) {
+        startActivity(new Intent(this, Add.class));
+    }
 }
