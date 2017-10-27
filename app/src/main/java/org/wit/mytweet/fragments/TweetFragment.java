@@ -6,8 +6,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ActionMode;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 
 import org.wit.mytweet.R;
@@ -22,11 +30,12 @@ import java.util.List;
 
 //Help for this class retrieved from lab: https://wit-ictskills-2017.github.io/mobile-app-dev/topic07-a/book-coffeemate-lab-02/index.html#/03
 
-public class TweetFragment extends ListFragment implements OnClickListener {
+public class TweetFragment extends ListFragment implements OnClickListener, AbsListView.MultiChoiceModeListener {
 
-    protected static TweetListAdapter listAdapter;
-    protected UserTweetFilter filteredList;
-    protected Base activity;
+    private static TweetListAdapter listAdapter;
+    private UserTweetFilter filteredList;
+    private Base activity;
+    private ListView listView;
 
     public TweetFragment() {
     }
@@ -34,12 +43,6 @@ public class TweetFragment extends ListFragment implements OnClickListener {
     public static TweetFragment newInstance() {
         return new TweetFragment();
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
 
     @Override
     public void onAttach(Context context) {
@@ -50,11 +53,7 @@ public class TweetFragment extends ListFragment implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
+        setHasOptionsMenu(true);
         //cycles through each tweet in the tweetList and pulls out the ones written by the current user
         filteredList = new UserTweetFilter();
         List<Tweet> newList = filteredList.filter(activity.app.currentUserId, activity.app.tweetList);
@@ -64,10 +63,41 @@ public class TweetFragment extends ListFragment implements OnClickListener {
     }
 
     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+        View v  = super.onCreateView(inflater, parent, savedInstanceState);
+        listView =(ListView) v.findViewById(android.R.id.list);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        listView.setMultiChoiceModeListener(this);
+        return v;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
     public void onClick(View view) {
         if (view.getTag() instanceof Tweet) {
             deleteTweet((Tweet) view.getTag());
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((TweetListAdapter)getListAdapter()).notifyDataSetChanged();
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        Bundle activityInfo = new Bundle();
+        activityInfo.putInt("tweetID", v.getId());//ensures we have the id of the selected tweet
+        Log.v("itemcheck", "Item pressed" + v.getId());
+
+        Intent goEdit = new Intent(getActivity(), Edit.class);
+        goEdit.putExtras(activityInfo);
+        getActivity().startActivity(goEdit);
     }
 
     //Method for deleting single tweet
@@ -90,4 +120,50 @@ public class TweetFragment extends ListFragment implements OnClickListener {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    /* ************ MultiChoiceModeListener methods (begin) *********** */
+    @Override
+    public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+        MenuInflater inflater = actionMode.getMenuInflater();
+        inflater.inflate(R.menu.menu_delete_multi_tweet, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+        return false;
+    }
+
+    @Override
+    public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+        switch(menuItem.getItemId()) {
+            case R.id.delete_multi_tweet:
+                deleteMultiTweets(actionMode);
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private void deleteMultiTweets(ActionMode actionMode){
+        for(int i = listAdapter.getCount() -1; i > 0; i --) {
+            if(listView.isItemChecked(i)){
+                activity.app.tweetList.remove(listAdapter.getItem(i));
+                activity.app.portfolio.saveTweets(activity.app.tweetList);
+            }
+        }
+        actionMode.finish();
+        listAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDestroyActionMode(ActionMode actionMode) {
+
+    }
+
+    @Override
+    public void onItemCheckedStateChanged(ActionMode actionMode, int position, long id, boolean checked) {
+
+    }
+    /* ************ MultiChoiceModeListener methods (end) *********** */
 }

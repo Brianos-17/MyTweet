@@ -33,7 +33,7 @@ public class Edit extends Base{
         tweetToEdit = findTweet(activityInfo.getInt("tweetId"));
 
         editTweet = (Button) findViewById(R.id.editTweet);
-        tweetDate = (TextView) findViewById(R.id.tweetDate);
+        tweetDate = (TextView) findViewById(R.id.textView3);
         characterCount = (TextView) findViewById(R.id.characterCount);
         editedTweet = (EditText) findViewById(R.id.editedTweet);
         characterCount.setText(String.valueOf(140));
