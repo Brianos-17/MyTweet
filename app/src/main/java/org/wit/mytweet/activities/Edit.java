@@ -24,16 +24,18 @@ public class Edit extends Base{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit);
+        setContentView(R.layout.activity_add);
 
         activityInfo = getIntent().getExtras();
-        tweetToEdit = findTweet(activityInfo.getInt("tweetId"));
+        tweetToEdit = findTweet(activityInfo.getInt("tweetID"));
 
-        editTweet = (Button) findViewById(R.id.editTweet);
+        editTweet = (Button) findViewById(R.id.sendTweet);
         tweetDate = (TextView) findViewById(R.id.tweetDate);
         characterCount = (TextView) findViewById(R.id.characterCount);
-        editedTweet = (EditText) findViewById(R.id.editedTweet);
-        characterCount.setText(String.valueOf(140));
+        editedTweet = (EditText) findViewById(R.id.newTweet);
+
+        editedTweet.setText(tweetToEdit.message);
+        characterCount.setText(String.valueOf(140 - tweetToEdit.message.length()));
         tweetDate.setText(tweetToEdit.date);
 
         editTweet.setOnClickListener(new View.OnClickListener() {
@@ -77,9 +79,10 @@ public class Edit extends Base{
 
     public void editTweet(View view) {
         String message = editedTweet.getText().toString();
-        String date = tweetDate.getText().toString();
         if(message.length() > 0) {
-            tweetToEdit.message = message;
+            app.editTweet(message, tweetToEdit.tweetId);
+            app.portfolio.saveTweets();
+            Toast.makeText(this, "Tweet has been edited", Toast.LENGTH_SHORT).show();
             goToActivity(this, Home.class, null);
         } else {
             Toast.makeText(this, "Oops, looks like you haven't said anything!", Toast.LENGTH_SHORT).show();

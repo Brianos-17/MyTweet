@@ -41,6 +41,15 @@ public class MyTweetApp extends Application {
         portfolio.tweetList.add(tweet);
     }
 
+    public void editTweet(String message, int tweetId) {
+        for(Tweet tweet : portfolio.tweetList) {
+            if(tweet.tweetId == tweetId) {
+                tweet.message = message;
+            }
+        }
+
+    }
+
     public boolean validUser(String email, String password) {
         for (User user : portfolio.users) {
             if((user.email.equals(email) && (user.password.equals(password)))) {
