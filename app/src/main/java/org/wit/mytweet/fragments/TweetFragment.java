@@ -153,6 +153,7 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
             if(listView.isItemChecked(i)){
                 Log.v("deletetweet", "Deleting tweet: " + listAdapter.getItemId(i));
                 activity.app.portfolio.tweetList.remove(listAdapter.getItem(i));
+                listAdapter.tweetList.remove(listAdapter.getItem(i));
             }
         }
         actionMode.finish();
