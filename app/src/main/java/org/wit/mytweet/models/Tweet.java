@@ -18,6 +18,7 @@ public class Tweet implements Serializable {
     private static final String JSON_MESSAGE = "message";
     private static final String JSON_DATE = "date";
     private static final String JSON_USERID = "userId";
+    private static final String JSON_TWEETID = "tweetId";
 
     public Tweet(String message, String date, String userId) {
         this.message = message;
@@ -39,6 +40,7 @@ public class Tweet implements Serializable {
         message = json.getString(JSON_MESSAGE);
         date = json.getString(JSON_DATE);
         userId = json.getString(JSON_USERID);
+        tweetId = json.getInt(JSON_TWEETID);
     }
 
     //Reads a json object as a User object
@@ -47,6 +49,7 @@ public class Tweet implements Serializable {
         json.put(JSON_MESSAGE, message);
         json.put(JSON_DATE, date);
         json.put(JSON_USERID, userId);
+        json.put(JSON_TWEETID, tweetId);
         return json;
     }
 }
