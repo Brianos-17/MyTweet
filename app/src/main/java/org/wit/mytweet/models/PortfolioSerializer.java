@@ -70,7 +70,8 @@ public class PortfolioSerializer {
         }
     }
 
-    public List<User> loadUsers(List<User> users) throws JSONException, IOException {
+    public List<User> loadUsers() throws JSONException, IOException {
+        List<User> users = new ArrayList<>();
         BufferedReader reader = null;
         try {
             InputStream in = mContext.openFileInput(mFilename1);
@@ -97,7 +98,8 @@ public class PortfolioSerializer {
             return users;
         }
 
-    public List<Tweet> loadTweets(List<Tweet> tweetList) throws JSONException, IOException {
+    public List<Tweet> loadTweets() throws JSONException, IOException {
+        List<Tweet> tweetList = new ArrayList<>();
         BufferedReader reader = null;
         try {
             InputStream in = mContext.openFileInput(mFilename2);

@@ -14,9 +14,6 @@ import android.widget.Toast;
 import org.wit.mytweet.R;
 import org.wit.mytweet.models.Tweet;
 
-import java.text.DateFormat;
-import java.util.Date;
-
 public class Edit extends Base{
 
     private TextView characterCount, tweetDate;
@@ -33,7 +30,7 @@ public class Edit extends Base{
         tweetToEdit = findTweet(activityInfo.getInt("tweetId"));
 
         editTweet = (Button) findViewById(R.id.editTweet);
-        tweetDate = (TextView) findViewById(R.id.textView3);
+        tweetDate = (TextView) findViewById(R.id.tweetDate);
         characterCount = (TextView) findViewById(R.id.characterCount);
         editedTweet = (EditText) findViewById(R.id.editedTweet);
         characterCount.setText(String.valueOf(140));
@@ -62,9 +59,16 @@ public class Edit extends Base{
         });
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        app.portfolio.saveTweets();
+    }
+
     private Tweet findTweet(int tweetId){
-        for (Tweet tweet: app.tweetList){
+        for (Tweet tweet: app.portfolio.tweetList){
             if (tweet.tweetId == tweetId) {
+                Log.v("itemcheck", "In the Edit class Im working on tweetId: " +tweet.tweetId);
                 return tweet;
             }
         }
@@ -75,7 +79,7 @@ public class Edit extends Base{
         String message = editedTweet.getText().toString();
         String date = tweetDate.getText().toString();
         if(message.length() > 0) {
-            tweetToEdit.message = message + "(edited)";
+            tweetToEdit.message = message;
             goToActivity(this, Home.class, null);
         } else {
             Toast.makeText(this, "Oops, looks like you haven't said anything!", Toast.LENGTH_SHORT).show();

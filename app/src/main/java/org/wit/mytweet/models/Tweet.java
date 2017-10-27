@@ -3,6 +3,7 @@ package org.wit.mytweet.models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.util.UUID;
 
 import java.io.Serializable;
 
@@ -10,8 +11,7 @@ public class Tweet implements Serializable {
 
     public String message;
     public String date;
-    private static int autoId = 1;
-    public int tweetId;
+    public String tweetId;
     public String userId;
 
     //variables fields included for persistence to and from JSON
@@ -23,7 +23,8 @@ public class Tweet implements Serializable {
         this.message = message;
         this.date = date;
         this.userId = userId;
-        this.tweetId = autoId++;
+        UUID uuid = UUID.randomUUID();
+        this.tweetId = uuid.toString();
     }
 
     //Write a User Object to Json format

@@ -68,7 +68,7 @@ public class Add extends Base {
     @Override
     protected  void onPause() {
         super.onPause();
-        app.portfolio.saveTweets(app.tweetList);
+        app.portfolio.saveTweets();
     }
 
     public void addNewTweet(View view) {

@@ -49,6 +49,6 @@ public class SignUp extends Base{
     @Override
     protected void onPause() {
         super.onPause();
-        app.portfolio.saveUsers(app.users);
+        app.portfolio.saveUsers();
     }
 }

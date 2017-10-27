@@ -34,8 +34,8 @@ public class Welcome extends Base implements View.OnClickListener {
     @Override
     protected void onPause() {
         super.onPause();
-        app.portfolio.loadUsers(app.users);
-        app.portfolio.loadTweets(app.tweetList);
+        app.portfolio.loadUsers();
+        app.portfolio.loadTweets();
     }
 
     public void signupButtonPressed(View view) {

@@ -12,20 +12,21 @@ import java.util.List;
 
 public class Portfolio {
 
+    public List<Tweet> tweetList;
+    public List<User> users;
     public PortfolioSerializer serializer;
 
-    public Portfolio(PortfolioSerializer serializer, List<User> users) {
+    public Portfolio(PortfolioSerializer serializer) {
         this.serializer = serializer;
         try {
-            users = serializer.loadUsers(users);
-            Log.v("i/o", "Users loaded on app start:" + users.toString());
+            tweetList = serializer.loadTweets();
+            users = serializer.loadUsers();
         } catch (Exception e){
             Log.v("i/o", "Error loading users: "+ e.getMessage());
-            users = new ArrayList<>();
         }
     }
 
-    public boolean saveUsers(List<User> users) {
+    public boolean saveUsers() {
         try{
             serializer.saveUsers(users);
             Log.v("i/o", "Users saved to file" + users);
@@ -36,7 +37,7 @@ public class Portfolio {
         }
     }
 
-    public boolean saveTweets(List<Tweet> tweetList) {
+    public boolean saveTweets() {
         try{
             serializer.saveTweets(tweetList);
             Log.v("i/o", "Tweets saved to file" + tweetList);
@@ -47,9 +48,9 @@ public class Portfolio {
         }
     }
 
-    public boolean loadUsers(List<User> users) {
+    public boolean loadUsers() {
         try{
-            serializer.loadUsers(users);
+            this.users = serializer.loadUsers();
             Log.v("i/o", "Users loaded" + users);
             return true;
         } catch (Exception e) {
@@ -58,9 +59,9 @@ public class Portfolio {
         }
     }
 
-    public boolean loadTweets(List<Tweet> tweetList) {
+    public boolean loadTweets() {
         try{
-            serializer.loadTweets(tweetList);
+            this.tweetList = serializer.loadTweets();
             Log.v("i/o", "Tweets loaded" + tweetList);
             return true;
         } catch (Exception e) {

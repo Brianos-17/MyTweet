@@ -53,10 +53,9 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
         //cycles through each tweet in the tweetList and pulls out the ones written by the current user
         filteredList = new UserTweetFilter();
-        List<Tweet> newList = filteredList.filter(activity.app.currentUserId, activity.app.tweetList);
+        List<Tweet> newList = filteredList.filter(activity.app.currentUserId, activity.app.portfolio.tweetList);
 
         listAdapter = new TweetListAdapter(activity, this, newList);
         setListAdapter(listAdapter);
@@ -65,6 +64,9 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v  = super.onCreateView(inflater, parent, savedInstanceState);
+
+        setHasOptionsMenu(true);
+
         listView =(ListView) v.findViewById(android.R.id.list);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         listView.setMultiChoiceModeListener(this);
@@ -86,14 +88,15 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
     @Override
     public void onResume() {
         super.onResume();
-        ((TweetListAdapter)getListAdapter()).notifyDataSetChanged();
+        ((TweetListAdapter) getListAdapter()).notifyDataSetChanged();
     }
 
+    //Method which comes from ListFragment and acts as onClick listener for List Items
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         Bundle activityInfo = new Bundle();
         activityInfo.putInt("tweetID", v.getId());//ensures we have the id of the selected tweet
-        Log.v("itemcheck", "Item pressed" + v.getId());
+        Log.v("itemcheck", "Item pressed: " + v.getId());
 
         Intent goEdit = new Intent(getActivity(), Edit.class);
         goEdit.putExtras(activityInfo);
@@ -108,7 +111,7 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                activity.app.tweetList.remove(tweet); // remove from our list
+                activity.app.portfolio.tweetList.remove(tweet); // remove from our list
                 listAdapter.tweetList.remove(tweet); // update adapters data
                 listAdapter.notifyDataSetChanged(); // refresh adapter
             }
@@ -137,7 +140,7 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
     @Override
     public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
         switch(menuItem.getItemId()) {
-            case R.id.delete_multi_tweet:
+            case R.id.menu_delete_multi_tweet:
                 deleteMultiTweets(actionMode);
                 return true;
             default:
@@ -146,10 +149,10 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
     }
 
     private void deleteMultiTweets(ActionMode actionMode){
-        for(int i = listAdapter.getCount() -1; i > 0; i --) {
+        for(int i = listAdapter.getCount() -1; i >= 0; i --) {
             if(listView.isItemChecked(i)){
-                activity.app.tweetList.remove(listAdapter.getItem(i));
-                activity.app.portfolio.saveTweets(activity.app.tweetList);
+                Log.v("deletetweet", "Deleting tweet: " + listAdapter.getItemId(i));
+                activity.app.portfolio.tweetList.remove(listAdapter.getItem(i));
             }
         }
         actionMode.finish();

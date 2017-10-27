@@ -20,32 +20,31 @@ import java.util.List;
 public class MyTweetApp extends Application {
 
     private static  final String FILENAME1 = "users.json";
-    private static final String Filename2 = "tweets.json";
+    private static final String FILENAME2 = "tweets.json";
     public Portfolio portfolio;
-    public List<Tweet> tweetList = new ArrayList<>();
-    public List<User> users = new ArrayList<>();
     public String currentUserId;//variable introduced in order to associate tweets with specific users
 
     public void onCreate() {
         super.onCreate();
-        PortfolioSerializer serializer = new PortfolioSerializer(this, FILENAME1, Filename2);
-        portfolio = new Portfolio(serializer, users);//passes the PortfolioSerializer and List of users to the portfolio class for persistence
+        PortfolioSerializer serializer = new PortfolioSerializer(this, FILENAME1, FILENAME2);
+        portfolio = new Portfolio(serializer);//passes the PortfolioSerializer and List of users to the portfolio class for persistence
         currentUserId = "";
         Log.v("mytweet", "MyTweet App started");
     }
 
     public void addUser(User user) {
-        users.add(user);
-        Log.v("i/o", "User added: " + users);
+        portfolio.users.add(user);
+        Log.v("i/o", "User added: " + user);
     }
 
     public void addTweet(Tweet tweet) {
-        tweetList.add(tweet);
+        portfolio.tweetList.add(tweet);
     }
 
     public boolean validUser(String email, String password) {
-        for (User user : users) {
+        for (User user : portfolio.users) {
             if((user.email.equals(email) && (user.password.equals(password)))) {
+                Log.v("validuser", user.email + "successfully logged in");
                 this.currentUserId = user.userId;//sets the global variable to current users id
                 return true;
             }
