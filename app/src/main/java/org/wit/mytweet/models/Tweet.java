@@ -11,7 +11,7 @@ public class Tweet implements Serializable {
 
     public String message;
     public String date;
-    public long tweetId;
+    public int tweetId;
     public String userId;
 
     //variables fields included for persistence to and from JSON
@@ -23,13 +23,13 @@ public class Tweet implements Serializable {
         this.message = message;
         this.date = date;
         this.userId = userId;
-        this.tweetId = unsignedLong();
+        this.tweetId = unsignedInt();
     }
 
-    private Long unsignedLong() {
-        long id = 0;
+    private int unsignedInt() {
+        int id = 0;
         do {
-            id = new Random().nextLong();
+            id = new Random().nextInt();
         } while (id <= 0); //Keeps generating a new number until it is a positive
         return id;
     }
