@@ -4,9 +4,13 @@ package org.wit.mytweet.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.wit.mytweet.R;
@@ -14,16 +18,14 @@ import org.wit.mytweet.fragments.TweetFragment;
 
 public class Home extends Base{
 
-    private ImageButton addTweet, settingsButton;
+    private ImageView addTweet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.content_home1);
 
-        addTweet = (ImageButton) findViewById(R.id.addTweet);
-        settingsButton = (ImageButton) findViewById(R.id.settingsButton);
-
+        addTweet = (ImageView) findViewById(R.id.addTweet);
         addTweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,9 +35,26 @@ public class Home extends Base{
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        app.portfolio.saveUsers();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.menuTweet:
+                Toast.makeText(this, "Tweet Selected", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menuSettings:
+                Toast.makeText(this, "Settings Selected", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return true;
     }
 
     @Override

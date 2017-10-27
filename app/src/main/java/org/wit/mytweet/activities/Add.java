@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.wit.mytweet.R;
-import org.wit.mytweet.main.MyTweetApp;
 import org.wit.mytweet.models.Tweet;
 
 import java.text.DateFormat;
@@ -66,13 +65,23 @@ public class Add extends Base {
         });
     }
 
+    @Override
+    protected  void onPause() {
+        super.onPause();
+        app.portfolio.saveTweets();
+    }
+
     public void addNewTweet(View view) {
         String message = newTweet.getText().toString();
         String date = tweetDate.getText().toString();
+        String userId = app.currentUserId;
         if(message.length() > 0) {
-            Tweet tweet = new Tweet(message, date);
+            Tweet tweet = new Tweet(message, date, userId);
             app.addTweet(tweet);
-            Log.v("Tweetcheck", "New Tweet added:" + message);
+            Log.v("tweetcheck", "New Tweet added:" + message);
+            Log.v("tweetcheck", "Tweet ID is " + tweet.tweetId);
+            Log.v("tweetcheck", "This tweet belongs to the user" + app.currentUserId);
+            Toast.makeText(this, "Good job!", Toast.LENGTH_SHORT).show();
             goToActivity(this, Home.class, null);
         } else {
             Toast.makeText(this, "Oops, looks like you haven't said anything!", Toast.LENGTH_SHORT).show();
