@@ -20,5 +20,5 @@
     <string name="deleteTweetMulti">Delete Tweets</string>
     <string name="title_activity_home1">Home1</string>
     <string name="menuSettings">Settings</string>
-    <string name="menuTweet">Tweet</string>
+    <string name="menuClear">Clear</string>
 </resources>
