@@ -1,12 +1,11 @@
 package org.wit.mytweet.activities;
 
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +18,8 @@ import org.wit.mytweet.models.Tweet;
 import java.text.DateFormat;
 import java.util.Date;
 
+import static org.wit.helpers.IntentHelper.navigateUp;
+
 public class Add extends Base {
 
     private TextView characterCount, tweetDate;
@@ -29,6 +30,7 @@ public class Add extends Base {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Button sendTweet = (Button) findViewById(R.id.sendTweet);
         tweetDate = (TextView) findViewById(R.id.tweetDate);
@@ -87,5 +89,16 @@ public class Add extends Base {
         } else {
             Toast.makeText(this, "Oops, looks like you haven't said anything!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:  navigateUp(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
