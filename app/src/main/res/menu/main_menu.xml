@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/menuTweet"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="@string/menuTweet"
+        app:showAsAction="ifRoom|withText"/>
 
     <item android:id="@+id/menuSettings"
         android:title="@string/menuSettings"

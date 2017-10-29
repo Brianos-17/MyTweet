@@ -1,4 +1,4 @@
-package org.wit.mytweet.adapters;
+package org.wit.helpers;
 
 
 import org.wit.mytweet.models.Tweet;

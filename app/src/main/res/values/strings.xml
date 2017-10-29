@@ -15,10 +15,11 @@
     <string name="newTweetHint">What\'s on your mind?</string>
     <string name="contactButton">Select Contact</string>
     <string name="emailButton">Email Tweet</string>
-    <string name="tweetSubstring">20 character substring...</string>
+    <string name="tweetSubstring">20 character substring&#8230;</string>
     <string name="tweetDate">Date of tweet</string>
     <string name="deleteTweetMulti">Delete Tweets</string>
     <string name="title_activity_home1">Home1</string>
+    <string name="menuTweet">Add New Tweet</string>
     <string name="menuSettings">Settings</string>
     <string name="menuClear">Clear</string>
 </resources>

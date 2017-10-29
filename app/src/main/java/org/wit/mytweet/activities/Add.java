@@ -23,6 +23,7 @@ public class Add extends Base {
 
     private TextView characterCount, tweetDate;
     private EditText newTweet;
+    private Intent data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -22,7 +22,7 @@ import org.wit.mytweet.R;
 import org.wit.mytweet.activities.Base;
 import org.wit.mytweet.activities.Edit;
 import org.wit.mytweet.adapters.TweetListAdapter;
-import org.wit.mytweet.adapters.UserTweetFilter;
+import org.wit.helpers.UserTweetFilter;
 import org.wit.mytweet.models.Tweet;
 
 import java.util.List;
@@ -56,7 +56,6 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
         //cycles through each tweet in the tweetList and pulls out the ones written by the current user
         filteredList = new UserTweetFilter();
         List<Tweet> newList = filteredList.filter(activity.app.currentUserId, activity.app.portfolio.tweetList);
-
         listAdapter = new TweetListAdapter(activity, this, newList);
         setListAdapter(listAdapter);
     }

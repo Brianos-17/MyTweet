@@ -1,6 +1,8 @@
 package org.wit.mytweet.activities;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -47,12 +49,14 @@ public class Home extends Base{
     {
         switch (item.getItemId())
         {
-            case R.id.menuTweet:
-                Toast.makeText(this, "Tweet Selected", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.menuSettings:
                 Toast.makeText(this, "Settings Selected", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.menuClear:
+                Toast.makeText(this, "Tweet Selected", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menuTweet:
+                startActivity(new Intent(this, Add.class));
         }
         return true;
     }
