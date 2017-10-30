@@ -92,12 +92,10 @@ public class Add extends Base {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-            case android.R.id.home:  navigateUp(this);
-                return true;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                navigateUp(this);
         }
         return super.onOptionsItemSelected(item);
     }

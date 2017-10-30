@@ -13,6 +13,8 @@ import android.widget.Toast;
 import org.wit.mytweet.R;
 import org.wit.mytweet.fragments.TweetFragment;
 
+import static org.wit.helpers.IntentHelper.navigateUp;
+
 public class Home extends Base{
 
     private ImageView addTweet;
@@ -52,6 +54,7 @@ public class Home extends Base{
                 break;
             case R.id.menuTweet:
                 startActivity(new Intent(this, Add.class));
+                break;
         }
         return true;
     }
