@@ -147,6 +147,7 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
                 activity.app.portfolio.tweetList.remove(tweet); // remove from our list
                 listAdapter.tweetList.remove(tweet); // update adapters data
                 listAdapter.notifyDataSetChanged(); // refresh adapter
+                activity.app.portfolio.saveTweets();
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -164,6 +165,7 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
                 Log.v("deletetweet", "Deleting tweet: " + listAdapter.getItemId(i));
                 activity.app.portfolio.tweetList.remove(listAdapter.getItem(i));
                 listAdapter.tweetList.remove(listAdapter.getItem(i));//updates the adapter too to provide instant feedback
+                activity.app.portfolio.saveTweets();
             }
         }
         actionMode.finish();
@@ -176,6 +178,7 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
             activity.app.portfolio.tweetList.remove(listAdapter.getItem(i));
             listAdapter.tweetList.remove(listAdapter.getItem(i));//updates the adapter too to provide instant feedback
             listAdapter.notifyDataSetChanged(); // refresh adapter
+            activity.app.portfolio.saveTweets();
             Log.v("deletetweet", "Deleting all tweets");
         }
     }
