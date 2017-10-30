@@ -49,16 +49,16 @@
         android:layout_marginTop="32dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_add_tweet" />
+        app:srcCompat="@drawable/ic_add_tweet"
+        android:layout_marginStart="32dp" />
 
     <FrameLayout
         android:id="@+id/fragment_layout"
         android:layout_width="353dp"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="-1dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"

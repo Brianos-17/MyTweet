@@ -27,6 +27,10 @@
         <activity android:name=".activities.Edit">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.Home" /></activity>
+        <activity android:name=".activities.GlobalTimeline">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.Home" />
+        </activity>
     </application>
 
 </manifest>
