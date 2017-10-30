@@ -19,18 +19,23 @@ import static org.wit.helpers.IntentHelper.navigateUp;
 
 public class Home extends Base{
 
-    private ImageView addTweet;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        addTweet = (ImageView) findViewById(R.id.addTweet);
+        ImageView addTweet = (ImageView) findViewById(R.id.addTweet);
+        ImageView viewTimeline = (ImageView) findViewById(R.id.viewTimeline);
         addTweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addTweetButtonPressed(view);
+            }
+        });
+        viewTimeline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewTimelineButtonPressed(view);
             }
         });
     }
@@ -68,6 +73,10 @@ public class Home extends Base{
 
     public void addTweetButtonPressed(View view) {
         startActivity(new Intent(this, Add.class));
+    }
+
+    public void viewTimelineButtonPressed(View view) {
+        startActivity(new Intent(this, GlobalTimeline.class));
     }
 
     public void deleteAllTweets(){

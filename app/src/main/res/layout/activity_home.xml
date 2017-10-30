@@ -20,9 +20,9 @@
         app:layout_constraintVertical_bias="0.142"
         app:srcCompat="@drawable/twitter_icon"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toLeftOf="@+id/viewTimeline"
+        app:layout_constraintLeft_toRightOf="@+id/addTweet" />
 
     <TextView
         android:id="@+id/timelineDivider"
@@ -70,5 +70,15 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/viewTimeline"
+        android:layout_width="61dp"
+        android:layout_height="47dp"
+        app:srcCompat="@drawable/ic_list_timeline"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="32dp"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

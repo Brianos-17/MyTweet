@@ -91,13 +91,4 @@ public class Edit extends Base{
             Toast.makeText(this, "Oops, looks like you haven't said anything!", Toast.LENGTH_SHORT).show();
         }
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                navigateUp(this);
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
