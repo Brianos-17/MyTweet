@@ -17,6 +17,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.wit.mytweet.R;
 import org.wit.mytweet.activities.Base;
@@ -53,6 +54,7 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);//Allows fragment to access menu
         //cycles through each tweet in the tweetList and pulls out the ones written by the current user
         filteredList = new UserTweetFilter();
         List<Tweet> newList = filteredList.filter(activity.app.currentUserId, activity.app.portfolio.tweetList);
@@ -63,9 +65,6 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v  = super.onCreateView(inflater, parent, savedInstanceState);
-
-        setHasOptionsMenu(true);
-
         listView =(ListView) v.findViewById(android.R.id.list);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         listView.setMultiChoiceModeListener(this);
@@ -102,27 +101,6 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
         getActivity().startActivity(goEdit);
     }
 
-    //Method for deleting single tweet
-    public void deleteTweet(final Tweet tweet) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setMessage("Are you sure you want to delete this tweet?\n\n" + tweet.message);
-        builder.setCancelable(true);//allow users click out of dialog box
-
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                activity.app.portfolio.tweetList.remove(tweet); // remove from our list
-                listAdapter.tweetList.remove(tweet); // update adapters data
-                listAdapter.notifyDataSetChanged(); // refresh adapter
-            }
-        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
     /* ************ MultiChoiceModeListener methods (begin) *********** */
     @Override
     public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
@@ -147,6 +125,39 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
         }
     }
 
+    @Override
+    public void onDestroyActionMode(ActionMode actionMode) {
+
+    }
+
+    @Override
+    public void onItemCheckedStateChanged(ActionMode actionMode, int position, long id, boolean checked) {
+
+    }
+    /* ************ MultiChoiceModeListener methods (end) *********** */
+
+    //Method for deleting single tweet
+    public void deleteTweet(final Tweet tweet) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setMessage("Are you sure you want to delete this tweet?\n\n" + tweet.message);
+        builder.setCancelable(true);//allow users click out of dialog box
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                activity.app.portfolio.tweetList.remove(tweet); // remove from our list
+                listAdapter.tweetList.remove(tweet); // update adapters data
+                listAdapter.notifyDataSetChanged(); // refresh adapter
+            }
+        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    //Method for deleting multiple tweets in action mode
     private void deleteMultiTweets(ActionMode actionMode){
         for(int i = listAdapter.getCount() -1; i >= 0; i --) {
             if(listView.isItemChecked(i)){
@@ -159,14 +170,13 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
         listAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onDestroyActionMode(ActionMode actionMode) {
-
+    //Method to delete all tweets a user has
+    public void deleteAllTweets() {
+        for(int i = listAdapter.getCount() -1; i >= 0; i--){
+            activity.app.portfolio.tweetList.remove(listAdapter.getItem(i));
+            listAdapter.tweetList.remove(listAdapter.getItem(i));//updates the adapter too to provide instant feedback
+            listAdapter.notifyDataSetChanged(); // refresh adapter
+            Log.v("deletetweet", "Deleting all tweets");
+        }
     }
-
-    @Override
-    public void onItemCheckedStateChanged(ActionMode actionMode, int position, long id, boolean checked) {
-
-    }
-    /* ************ MultiChoiceModeListener methods (end) *********** */
 }

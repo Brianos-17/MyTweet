@@ -1,6 +1,8 @@
 package org.wit.mytweet.activities;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -42,15 +44,13 @@ public class Home extends Base{
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.menuSettings:
                 Toast.makeText(this, "Settings Selected", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menuClear:
-                Toast.makeText(this, "Tweet Selected", Toast.LENGTH_SHORT).show();
+                deleteAllTweets();
                 break;
             case R.id.menuTweet:
                 startActivity(new Intent(this, Add.class));
@@ -68,5 +68,23 @@ public class Home extends Base{
 
     public void addTweetButtonPressed(View view) {
         startActivity(new Intent(this, Add.class));
+    }
+
+    public void deleteAllTweets(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("This will delete all of your current tweets?\nAre you sure you want to do this?\n");
+        builder.setCancelable(true);//allow users click out of dialog box
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                tweetFragment.deleteAllTweets();
+            }
+        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }
