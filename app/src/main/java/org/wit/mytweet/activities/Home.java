@@ -52,7 +52,7 @@ public class Home extends Base{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuSettings:
-                Toast.makeText(this, "Settings Selected", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, Settings.class));
                 break;
             case R.id.menuClear:
                 deleteAllTweets();
