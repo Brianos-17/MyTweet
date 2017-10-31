@@ -1,5 +1,4 @@
 package org.wit.helpers;
-import java.io.Serializable;
 
 import android.app.Activity;
 import android.content.Intent;

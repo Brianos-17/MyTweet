@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.content.ContentResolver;
+import android.util.Log;
 
 
 public class ContactHelper {
@@ -36,15 +37,16 @@ public class ContactHelper {
 
         if (cur.getCount() > 0) {
             try {
-                cur.moveToFirst();
+                cur.moveToFirst();// true
                 String contactId = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
+                Log.v("contactHelper", "contactID for Brian: " + contactId);
                 Cursor emails = cr.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null,
                         ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = " + contactId, null, null);
                 emails.moveToFirst();
                 email = emails.getString(emails.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
                 emails.close();
             } catch (Exception e) {
-                //
+                Log.v("contactHelper", "Error " + e);
             }
         } return email;
     }
