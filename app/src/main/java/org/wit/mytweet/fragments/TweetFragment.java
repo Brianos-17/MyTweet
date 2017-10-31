@@ -22,6 +22,8 @@ import android.widget.Toast;
 import org.wit.mytweet.R;
 import org.wit.mytweet.activities.Base;
 import org.wit.mytweet.activities.Edit;
+import org.wit.mytweet.activities.GlobalTimeline;
+import org.wit.mytweet.activities.Home;
 import org.wit.mytweet.adapters.TweetListAdapter;
 import org.wit.helpers.UserTweetFilter;
 import org.wit.mytweet.models.Tweet;
@@ -55,11 +57,18 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);//Allows fragment to access menu
-        //cycles through each tweet in the tweetList and pulls out the ones written by the current user
-        filteredList = new UserTweetFilter();
-        List<Tweet> newList = filteredList.filter(activity.app.currentUserId, activity.app.portfolio.tweetList);
-        listAdapter = new TweetListAdapter(activity, this, newList);
-        setListAdapter(listAdapter);
+
+        //Toggles list view between global timeline of every tweet and personalised timeline for current user
+        if(getActivity() instanceof GlobalTimeline) {
+            listAdapter = new TweetListAdapter(activity, this, activity.app.portfolio.tweetList);
+            setListAdapter(listAdapter);
+        } else {
+            //cycles through each tweet in the tweetList and pulls out the ones written by the current user
+            filteredList = new UserTweetFilter();
+            List<Tweet> newList = filteredList.filter(activity.app.currentUserId, activity.app.portfolio.tweetList);
+            listAdapter = new TweetListAdapter(activity, this, newList);
+            setListAdapter(listAdapter);
+        }
     }
 
     @Override

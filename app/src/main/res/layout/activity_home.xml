@@ -8,6 +8,27 @@
     android:background="@drawable/gradient">
 
     <ImageView
+        android:id="@+id/addTweet"
+        android:layout_width="61dp"
+        android:layout_height="47dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_add_tweet" />
+
+    <ImageView
+        android:id="@+id/viewTimeline"
+        android:layout_width="61dp"
+        android:layout_height="47dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_list_timeline" />
+
+    <ImageView
         android:id="@+id/imageView2"
         android:layout_width="64dp"
         android:layout_height="34dp"
@@ -41,17 +62,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addTweet" />
 
-    <ImageView
-        android:id="@+id/addTweet"
-        android:layout_width="61dp"
-        android:layout_height="47dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_add_tweet"
-        android:layout_marginStart="32dp" />
-
     <FrameLayout
         android:id="@+id/fragment_layout"
         android:layout_width="353dp"
@@ -70,15 +80,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/viewTimeline"
-        android:layout_width="61dp"
-        android:layout_height="47dp"
-        app:srcCompat="@drawable/ic_list_timeline"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="32dp"
-        android:layout_marginRight="32dp"
-        app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
