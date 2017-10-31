@@ -1,8 +1,15 @@
 package org.wit.mytweet.activities;
 
-/**
- * Created by Brian on 31/10/2017.
- */
 
-public class Settings {
+import android.os.Bundle;
+
+import org.wit.mytweet.R;
+
+public class Settings extends Base {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings);
+    }
 }
