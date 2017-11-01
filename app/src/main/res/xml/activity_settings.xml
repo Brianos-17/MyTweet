@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/gradient" >
+    
+    <EditTextPreference
+        android:key="username"
+        android:summary="@string/settingsUserName"
+        android:title="@string/settingsUserName"/>
+
+    <EditTextPreference
+        android:key="password"
+        android:summary="@string/settingsPassword"
+        android:title="@string/settingsPassword"
+        android:inputType="textPassword"/>
+
+</PreferenceScreen>

@@ -106,7 +106,6 @@ public class Add extends Base {
             Tweet tweet = new Tweet(message, date, userId);
             app.addTweet(tweet);
             Log.v("tweetcheck", "New Tweet added:" + message);
-            Log.v("tweetcheck", "Tweet ID is " + tweet.tweetId);
             Log.v("tweetcheck", "This tweet belongs to the user" + app.currentUserId);
             Toast.makeText(this, "Tweet sent!", Toast.LENGTH_SHORT).show();
             goToActivity(this, Home.class, null);
