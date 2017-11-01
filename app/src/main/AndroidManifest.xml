@@ -38,16 +38,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.Home" />
         </activity>
-        <activity android:name=".activities.Settings">
+        <activity android:name=".activities.Settings"
+            android:theme="@style/PreferencesTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.Home" />
         </activity>
-        <activity
-            android:name=".activities.Splash2"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_splash2"
-            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>
