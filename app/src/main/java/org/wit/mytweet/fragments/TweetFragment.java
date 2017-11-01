@@ -17,18 +17,20 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.wit.mytweet.R;
 import org.wit.mytweet.activities.Base;
 import org.wit.mytweet.activities.Edit;
 import org.wit.mytweet.activities.GlobalTimeline;
 import org.wit.mytweet.activities.Home;
+import org.wit.mytweet.adapters.TimelineItem;
 import org.wit.mytweet.adapters.TweetListAdapter;
 import org.wit.helpers.UserTweetFilter;
 import org.wit.mytweet.models.Tweet;
 
 import java.util.List;
+
+import static org.wit.mytweet.R.id.deleteTweet;
 
 
 //Help for this class retrieved from lab: https://wit-ictskills-2017.github.io/mobile-app-dev/topic07-a/book-coffeemate-lab-02/index.html#/03
@@ -36,7 +38,6 @@ import java.util.List;
 public class TweetFragment extends ListFragment implements OnClickListener, AbsListView.MultiChoiceModeListener {
 
     private static TweetListAdapter listAdapter;
-    private UserTweetFilter filteredList;
     private Base activity;
     private ListView listView;
 
@@ -64,7 +65,7 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
             setListAdapter(listAdapter);
         } else {
             //cycles through each tweet in the tweetList and pulls out the ones written by the current user
-            filteredList = new UserTweetFilter();
+            UserTweetFilter filteredList = new UserTweetFilter();
             List<Tweet> newList = filteredList.filter(activity.app.currentUserId, activity.app.portfolio.tweetList);
             listAdapter = new TweetListAdapter(activity, this, newList);
             setListAdapter(listAdapter);
@@ -74,9 +75,11 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v  = super.onCreateView(inflater, parent, savedInstanceState);
-        listView =(ListView) v.findViewById(android.R.id.list);
-        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-        listView.setMultiChoiceModeListener(this);
+        if(getActivity() instanceof Home) {
+            listView = (ListView) v.findViewById(android.R.id.list);
+            listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+            listView.setMultiChoiceModeListener(this);
+        }
         return v;
     }
 
@@ -101,13 +104,15 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
     //Method which comes from ListFragment and acts as onClick listener for List Items
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        Bundle activityInfo = new Bundle();
-        activityInfo.putInt("tweetID", v.getId());//ensures we have the id of the selected tweet
-        Log.v("itemcheck", "Item pressed: " + v.getId());
+        if(getActivity() instanceof Home) {
+            Bundle activityInfo = new Bundle();
+            activityInfo.putInt("tweetID", v.getId());//ensures we have the id of the selected tweet
+            Log.v("itemcheck", "Item pressed: " + v.getId());
 
-        Intent goEdit = new Intent(getActivity(), Edit.class);
-        goEdit.putExtras(activityInfo);
-        getActivity().startActivity(goEdit);
+            Intent goEdit = new Intent(getActivity(), Edit.class);
+            goEdit.putExtras(activityInfo);
+            getActivity().startActivity(goEdit);
+        }
     }
 
     /* ************ MultiChoiceModeListener methods (begin) *********** */

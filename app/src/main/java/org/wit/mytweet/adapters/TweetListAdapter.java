@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 
 import org.wit.mytweet.R;
 import org.wit.mytweet.models.Tweet;
@@ -31,7 +32,6 @@ public class TweetListAdapter extends ArrayAdapter<Tweet> {
     public View getView(int position, View convertView, ViewGroup parent) {
         TimelineItem item = new TimelineItem(context, parent, deleteListener, tweetList.get(position));
         return item.view;
-
     }
 
     public List<Tweet> getTweetList() {

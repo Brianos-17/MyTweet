@@ -23,10 +23,14 @@
     <string name="menuSettings">Settings</string>
     <string name="menuClear">Clear</string>
     <string name="latestTweetHeader">My Latest Tweet</string>
-    <string name="settingsEmail">User Name</string>
+    <string name="settingsEmail">Email</string>
     <string name="defaultEmail">default</string>
     <string name="settingsEmailSub">Change your log in email</string>
     <string name="settingsPassword">Password</string>
     <string name="defaultPassword">default</string>
     <string name="settingsPasswordSub">Change your log in password</string>
+
+    <string name="title_activity_splash2">Splash2</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

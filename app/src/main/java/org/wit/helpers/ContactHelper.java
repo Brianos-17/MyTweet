@@ -8,24 +8,9 @@ import android.provider.ContactsContract;
 import android.content.ContentResolver;
 import android.util.Log;
 
-
+//Help for this class recieved from:
+// https://wit-ictskills-2017.github.io/mobile-app-dev/topic05-a/book-a-myrent-06%20(Contact%20&%20Email)/index.html#/02
 public class ContactHelper {
-
-    public static String getDisplayName(Context context, Intent data) {
-        String contact = "unable to find contact";
-        Uri contactUri = data.getData();
-        String[] queryFields = new String[] { ContactsContract.Contacts.DISPLAY_NAME };
-        Cursor c = context.getContentResolver().query(contactUri, queryFields, null, null, null);
-        if (c.getCount() == 0) {
-            c.close();
-            return contact;
-        }
-        c.moveToFirst();
-        contact = c.getString(0);
-        c.close();
-
-        return contact;
-    }
 
     public static String getEmail(Context context, Intent data) {
         String email = "no email";

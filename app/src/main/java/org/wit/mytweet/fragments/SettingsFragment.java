@@ -6,11 +6,15 @@ import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import org.wit.mytweet.R;
 import org.wit.mytweet.activities.Base;
 import org.wit.mytweet.models.User;
+
+//Help for this class Retrieved from: https://wit-ictskills-2017.github.io/mobile-app-dev/topic06-b/book-a-settings/index.html#/MyRent-10 (Settings)
+// and https://developer.android.com/guide/topics/ui/settings.html
 
 public class SettingsFragment extends PreferenceFragment
         implements SharedPreferences.OnSharedPreferenceChangeListener  {
@@ -24,6 +28,7 @@ public class SettingsFragment extends PreferenceFragment
         addPreferencesFromResource(R.xml.activity_settings);
     }
 
+    //Binds the Base class to this fragment in order to allow for proper updating and saving of user details through the portfolio class
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
