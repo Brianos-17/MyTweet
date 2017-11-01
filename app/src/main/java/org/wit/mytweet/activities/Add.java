@@ -39,7 +39,7 @@ public class Add extends Base {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Button sendTweet = (Button) findViewById(R.id.sendTweet);
         tweetDate = (TextView) findViewById(R.id.tweetDate);

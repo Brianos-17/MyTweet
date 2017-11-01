@@ -23,8 +23,10 @@
     <string name="menuSettings">Settings</string>
     <string name="menuClear">Clear</string>
     <string name="latestTweetHeader">My Latest Tweet</string>
-    <string name="settingsUserName">User Name</string>
-    <string name="settingsUserNameSub">Change your log in email</string>
+    <string name="settingsEmail">User Name</string>
+    <string name="defaultEmail">default</string>
+    <string name="settingsEmailSub">Change your log in email</string>
     <string name="settingsPassword">Password</string>
+    <string name="defaultPassword">default</string>
     <string name="settingsPasswordSub">Change your log in password</string>
 </resources>

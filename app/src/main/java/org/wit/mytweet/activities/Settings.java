@@ -15,7 +15,7 @@ public class Settings extends Base {
         if (savedInstanceState == null) {
             SettingsFragment fragment = new SettingsFragment();
             getFragmentManager().beginTransaction()
-                    .add(android.R.id.content, fragment, fragment.getClass().getSimpleName())
+                    .add(android.R.id.content, fragment)
                     .commit();
         }
     }

@@ -10,12 +10,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import org.wit.mytweet.R;
 import org.wit.mytweet.fragments.TweetFragment;
 
-import static org.wit.helpers.IntentHelper.navigateUp;
 
 public class Home extends Base{
 
