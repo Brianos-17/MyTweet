@@ -1,35 +1,39 @@
 package org.wit.mytweet.activities;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import org.wit.mytweet.R;
 import org.wit.mytweet.fragments.TweetFragment;
 
-public class Home extends Base{
 
-    private ImageView addTweet;
+public class Home extends Base{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_home1);
+        setContentView(R.layout.activity_home);
 
-        addTweet = (ImageView) findViewById(R.id.addTweet);
+        ImageView addTweet = (ImageView) findViewById(R.id.addTweet);
+        ImageView viewTimeline = (ImageView) findViewById(R.id.viewTimeline);
         addTweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addTweetButtonPressed(view);
+            }
+        });
+        viewTimeline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewTimelineButtonPressed(view);
             }
         });
     }
@@ -43,15 +47,16 @@ public class Home extends Base{
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-            case R.id.menuTweet:
-                Toast.makeText(this, "Tweet Selected", Toast.LENGTH_SHORT).show();
-                break;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.menuSettings:
-                Toast.makeText(this, "Settings Selected", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, Settings.class));
+                break;
+            case R.id.menuClear:
+                deleteAllTweets();
+                break;
+            case R.id.menuTweet:
+                startActivity(new Intent(this, Add.class));
                 break;
         }
         return true;
@@ -66,5 +71,27 @@ public class Home extends Base{
 
     public void addTweetButtonPressed(View view) {
         startActivity(new Intent(this, Add.class));
+    }
+
+    public void viewTimelineButtonPressed(View view) {
+        startActivity(new Intent(this, GlobalTimeline.class));
+    }
+
+    public void deleteAllTweets(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("This will delete all of your current tweets?\nAre you sure you want to do this?\n");
+        builder.setCancelable(true);//allow users click out of dialog box
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                tweetFragment.deleteAllTweets();
+            }
+        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

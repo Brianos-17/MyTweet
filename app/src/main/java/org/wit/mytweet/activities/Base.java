@@ -14,7 +14,6 @@ public class Base extends AppCompatActivity {
     public MyTweetApp app;
     protected Bundle activityInfo;
     protected TweetFragment tweetFragment;
-    private Portfolio portfolio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

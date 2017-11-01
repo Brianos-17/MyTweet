@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 
 import org.wit.mytweet.R;
 import org.wit.mytweet.models.Tweet;
+
+import static org.wit.helpers.IntentHelper.navigateUp;
 
 public class Edit extends Base{
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/gradient" >
+
+    <EditTextPreference
+        android:key="email"
+        android:defaultValue="@string/defaultEmail"
+        android:summary="@string/settingsEmailSub"
+        android:title="@string/settingsEmail"/>
+
+    <EditTextPreference
+        android:key="password"
+        android:defaultValue="@string/defaultPassword"
+        android:summary="@string/settingsPasswordSub"
+        android:title="@string/settingsPassword"
+        android:inputType="textPassword"/>
+
+</PreferenceScreen>
