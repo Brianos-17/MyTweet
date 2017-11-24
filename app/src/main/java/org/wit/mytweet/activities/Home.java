@@ -2,9 +2,15 @@ package org.wit.mytweet.activities;
 
 
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,7 +21,7 @@ import org.wit.mytweet.R;
 import org.wit.mytweet.fragments.TweetFragment;
 
 
-public class Home extends Base{
+public class Home extends Base implements NavigationView.OnNavigationItemSelectedListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,19 @@ public class Home extends Base{
                 viewTimelineButtonPressed(view);
             }
         });
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        TweetFragment fragment = TweetFragment.newInstance();
+        ft.replace(R.id.fragment_layout, fragment);
+        ft.commit();
     }
 
     @Override
@@ -93,5 +112,21 @@ public class Home extends Base{
         });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+
+        // http://stackoverflow.com/questions/32944798/switch-between-fragments-with-onnavigationitemselected-in-new-navigation-drawer
+
+        int id = item.getItemId();
+        Fragment fragment;
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
