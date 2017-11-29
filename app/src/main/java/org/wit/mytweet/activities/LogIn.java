@@ -33,7 +33,7 @@ public class LogIn extends Base {
         String password = ((TextView) findViewById(R.id.loginPassword)).getText().toString();
 
         if(app.validUser(email, password)) {
-            startActivity(new Intent(this, Home.class));
+            startActivity(new Intent(this, new_home.class));
         } else
             Toast.makeText(this, "Email and Password do not match. \nPlease try again", Toast.LENGTH_SHORT).show();
 

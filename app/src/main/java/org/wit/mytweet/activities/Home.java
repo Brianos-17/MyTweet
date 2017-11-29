@@ -11,8 +11,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,23 +27,26 @@ public class Home extends Base implements NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        ImageView addTweet = (ImageView) findViewById(R.id.addTweet);
-        ImageView viewTimeline = (ImageView) findViewById(R.id.viewTimeline);
-        addTweet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addTweetButtonPressed(view);
-            }
-        });
-        viewTimeline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewTimelineButtonPressed(view);
-            }
-        });
+//        ImageView addTweet = (ImageView) findViewById(R.id.addTweet);
+//        ImageView viewTimeline = (ImageView) findViewById(R.id.viewTimeline);
+//        addTweet.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                addTweetButtonPressed(view);
+//            }
+//        });
+//        viewTimeline.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                viewTimelineButtonPressed(view);
+//            }
+//        });
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -55,30 +57,6 @@ public class Home extends Base implements NavigationView.OnNavigationItemSelecte
         TweetFragment fragment = TweetFragment.newInstance();
         ft.replace(R.id.fragment_layout, fragment);
         ft.commit();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuSettings:
-                startActivity(new Intent(this, Settings.class));
-                break;
-            case R.id.menuClear:
-                deleteAllTweets();
-                break;
-            case R.id.menuTweet:
-                startActivity(new Intent(this, Add.class));
-                break;
-        }
-        return true;
     }
 
     @Override
@@ -128,5 +106,15 @@ public class Home extends Base implements NavigationView.OnNavigationItemSelecte
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 }
