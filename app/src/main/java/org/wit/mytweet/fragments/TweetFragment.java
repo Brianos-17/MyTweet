@@ -22,15 +22,12 @@ import org.wit.mytweet.R;
 import org.wit.mytweet.activities.Base;
 import org.wit.mytweet.activities.Edit;
 import org.wit.mytweet.activities.GlobalTimeline;
-import org.wit.mytweet.activities.Home;
-import org.wit.mytweet.adapters.TimelineItem;
+import org.wit.mytweet.activities.oldHome;
 import org.wit.mytweet.adapters.TweetListAdapter;
 import org.wit.helpers.UserTweetFilter;
 import org.wit.mytweet.models.Tweet;
 
 import java.util.List;
-
-import static org.wit.mytweet.R.id.deleteTweet;
 
 
 //Help for this class retrieved from lab: https://wit-ictskills-2017.github.io/mobile-app-dev/topic07-a/book-coffeemate-lab-02/index.html#/03
@@ -75,7 +72,7 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v  = super.onCreateView(inflater, parent, savedInstanceState);
-        if(getActivity() instanceof Home) {
+        if(getActivity() instanceof oldHome) {
             listView = (ListView) v.findViewById(android.R.id.list);
             listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
             listView.setMultiChoiceModeListener(this);
@@ -104,7 +101,7 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
     //Method which comes from ListFragment and acts as onClick listener for List Items
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        if(getActivity() instanceof Home) {
+        if(getActivity() instanceof oldHome) {
             Bundle activityInfo = new Bundle();
             activityInfo.putInt("tweetID", v.getId());//ensures we have the id of the selected tweet
             Log.v("itemcheck", "Item pressed: " + v.getId());

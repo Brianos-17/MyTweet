@@ -1,6 +1,7 @@
-package org.wit.mytweet.activities;
+package org.wit.mytweet.fragments;
 
 import android.Manifest;
+import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -9,44 +10,61 @@ import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.wit.mytweet.R;
+import org.wit.mytweet.activities.Base;
+import org.wit.mytweet.activities.Home;
 import org.wit.mytweet.models.Tweet;
-
-import static org.wit.helpers.ContactHelper.getContact;
-import static org.wit.helpers.ContactHelper.getEmail;
-import static org.wit.helpers.IntentHelper.selectContact;
-import static org.wit.helpers.ContactHelper.sendEmail;
 
 import java.text.DateFormat;
 import java.util.Date;
 
-public class Add extends Base {
+import static org.wit.helpers.ContactHelper.getContact;
+import static org.wit.helpers.ContactHelper.getEmail;
+import static org.wit.helpers.ContactHelper.sendEmail;
+import static org.wit.helpers.IntentHelper.selectContact;
 
+public class AddFragment extends Fragment {
     private TextView characterCount, tweetDate;
     private EditText newTweet;
-    private Button contactButton, emailButton;
+    private Button contactButton, emailButton, sendTweet;
     private Intent data;
     private String emailAddress;
     private static final int REQUEST_CONTACT = 1;
+    private Base activity;
+
+    public AddFragment() {
+        //Empty Constructor
+    }
+
+    public static AddFragment newInstance() {
+        AddFragment fragment = new AddFragment();
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Button sendTweet = (Button) findViewById(R.id.sendTweet);
-        tweetDate = (TextView) findViewById(R.id.tweetDate);
-        characterCount = (TextView) findViewById(R.id.characterCount);
-        newTweet = (EditText) findViewById(R.id.newTweet);
-        contactButton = (Button) findViewById(R.id.contactButton);
-        emailButton = (Button) findViewById(R.id.emailButton);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_add, container, false);
+
+        characterCount = (TextView) v.findViewById(R.id.characterCount);
+        sendTweet = (Button) v.findViewById(R.id.sendTweet);
+        newTweet = (EditText) v.findViewById(R.id.newTweet);
+        tweetDate = (TextView) v.findViewById(R.id.tweetDate);
+        contactButton = (Button) v.findViewById(R.id.contactButton);
+        emailButton = (Button) v.findViewById(R.id.emailButton);
 
         characterCount.setText(String.valueOf(140));//Sets value of TextView to 140
         //Code to get today's date in form of string and pass to tweetDate TextView
@@ -73,7 +91,6 @@ public class Add extends Base {
             }
         });
 
-
         //TextWatcher which counts down value of character count
         //Retrieved from: https://stackoverflow.com/questions/24110265/android-create-count-down-word-field-when-user-type-in-edittext
         newTweet.addTextChangedListener(new TextWatcher() {
@@ -90,36 +107,38 @@ public class Add extends Base {
             public void afterTextChanged(Editable s) {
             }
         });
+
+        return v;
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        app.portfolio.saveTweets();
+    public void onResume() {
+        super.onResume();
     }
 
     public void addNewTweet(View view) {
         String message = newTweet.getText().toString();
         String date = tweetDate.getText().toString();
-        String userId = app.currentUserId;
+        String userId = activity.app.currentUserId;
         if (message.length() > 0) {
             Tweet tweet = new Tweet(message, date, userId);
-            app.addTweet(tweet);
+            activity.app.addTweet(tweet);
             Log.v("tweetcheck", "New Tweet added:" + message);
-            Log.v("tweetcheck", "This tweet belongs to the user" + app.currentUserId);
-            Toast.makeText(this, "Tweet sent!", Toast.LENGTH_SHORT).show();
-            goToActivity(this, oldHome.class, null);
+            Log.v("tweetcheck", "This tweet belongs to the user" + activity.app.currentUserId);
+            Toast.makeText(getActivity(), "Tweet sent!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), Home.class);
+            getActivity().startActivity(intent); // Brings user back to home class
         } else {
-            Toast.makeText(this, "Oops, looks like you haven't said anything!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Oops, looks like you haven't said anything!", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void contactButtonPressed(View view) {
-        selectContact(this, REQUEST_CONTACT);
+        selectContact(getActivity(), REQUEST_CONTACT);
     }
 
     public void emailButtonPressed(View view) {
-        sendEmail(this, emailAddress, this.getString(R.string.latestTweetHeader), newTweet.getText().toString());
+        sendEmail(getActivity(), emailAddress, this.getString(R.string.latestTweetHeader), newTweet.getText().toString());
     }
 
     @Override
@@ -135,10 +154,10 @@ public class Add extends Base {
     //https://developer.android.com/training/permissions/requesting.html
     private void checkContactsReadPermission() {
         // Here, thisActivity is the current activity
-        if (ContextCompat.checkSelfPermission(this,
+        if (ContextCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             //We can request the permission.
-            ActivityCompat.requestPermissions(this,
+            ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_CONTACT);
         } else {
             //We already have permission, so go head and read the contact
@@ -163,8 +182,8 @@ public class Add extends Base {
     }
 
     private void readContact() {
-        String name = getContact(this, data);
-        emailAddress = getEmail(this, data);
+        String name = getContact(getActivity(), data);
+        emailAddress = getEmail(getActivity(), data);
         contactButton.setText(name + " : " + emailAddress);
     }
 }

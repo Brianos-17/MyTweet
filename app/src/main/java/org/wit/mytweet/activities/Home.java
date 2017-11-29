@@ -1,49 +1,34 @@
 package org.wit.mytweet.activities;
 
-
-import android.app.AlertDialog;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
+import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 
 import org.wit.mytweet.R;
+import org.wit.mytweet.fragments.AddFragment;
 import org.wit.mytweet.fragments.TweetFragment;
 
-
-public class Home extends Base implements NavigationView.OnNavigationItemSelectedListener{
+public class Home extends Base
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-
-//        ImageView addTweet = (ImageView) findViewById(R.id.addTweet);
-//        ImageView viewTimeline = (ImageView) findViewById(R.id.viewTimeline);
-//        addTweet.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                addTweetButtonPressed(view);
-//            }
-//        });
-//        viewTimeline.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                viewTimelineButtonPressed(view);
-//            }
-//        });
-
+        setContentView(R.layout.activity_new_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -60,55 +45,6 @@ public class Home extends Base implements NavigationView.OnNavigationItemSelecte
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        tweetFragment = TweetFragment.newInstance();
-        getFragmentManager().beginTransaction().replace(R.id.fragment_layout, tweetFragment).commit();
-    }
-
-    public void addTweetButtonPressed(View view) {
-        startActivity(new Intent(this, Add.class));
-    }
-
-    public void viewTimelineButtonPressed(View view) {
-        startActivity(new Intent(this, GlobalTimeline.class));
-    }
-
-    public void deleteAllTweets(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("This will delete all of your current tweets?\nAre you sure you want to do this?\n");
-        builder.setCancelable(true);//allow users click out of dialog box
-
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                tweetFragment.deleteAllTweets();
-            }
-        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-
-        // http://stackoverflow.com/questions/32944798/switch-between-fragments-with-onnavigationitemselected-in-new-navigation-drawer
-
-        int id = item.getItemId();
-        Fragment fragment;
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -116,5 +52,60 @@ public class Home extends Base implements NavigationView.OnNavigationItemSelecte
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.new_home, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+        Fragment fragment;
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+        if (id == R.id.nav_home) {
+            fragment = TweetFragment.newInstance();
+            ft.replace(R.id.fragment_layout, fragment);
+            ft.addToBackStack(null);
+            ft.commit();
+        } else if (id == R.id.nav_add) {
+            fragment = AddFragment.newInstance();
+            ft.replace(R.id.fragment_layout, fragment);
+            ft.addToBackStack(null);
+            ft.commit();
+        } else if (id == R.id.nav_gt) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
