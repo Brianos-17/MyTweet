@@ -10,7 +10,6 @@ import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +22,6 @@ import org.wit.mytweet.models.Tweet;
 import static org.wit.helpers.ContactHelper.getContact;
 import static org.wit.helpers.ContactHelper.getEmail;
 import static org.wit.helpers.ContactHelper.sendEmail;
-import static org.wit.helpers.IntentHelper.navigateUp;
 import static org.wit.helpers.IntentHelper.selectContact;
 
 public class Edit extends Base{
@@ -112,7 +110,7 @@ public class Edit extends Base{
             app.editTweet(message, tweetToEdit.tweetId);
             app.portfolio.saveTweets();
             Toast.makeText(this, "Tweet has been edited", Toast.LENGTH_SHORT).show();
-            goToActivity(this, Home.class, null);
+            goToActivity(this, oldHome.class, null);
         } else {
             Toast.makeText(this, "Oops, looks like you haven't said anything!", Toast.LENGTH_SHORT).show();
         }

@@ -4,6 +4,7 @@
     <string name="launchMessage">See what\'s happening in the great WIT world right now</string>
     <string name="signupButton">Sign Up</string>
     <string name="loginButton">Log In</string>
+    <string name="logout">Logout</string>
     <string name="signupFirstName">First Name</string>
     <string name="signupLastName">Last Name</string>
     <string name="signupEmail">Email</string>
@@ -33,4 +34,10 @@
     <string name="title_activity_splash2">Splash2</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_new_home">new_home</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

@@ -22,28 +22,33 @@
         <activity android:name=".activities.Welcome" />
         <activity android:name=".activities.SignUp" />
         <activity android:name=".activities.LogIn" />
-        <activity android:name=".activities.Home" />
+        <activity android:name=".activities.oldHome" />
         <activity android:name=".activities.Add">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.Home" />
+                android:value=".activities.oldHome" />
         </activity>
         <activity android:name=".activities.Edit">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.Home" />
+                android:value=".activities.oldHome" />
         </activity>
         <activity android:name=".activities.GlobalTimeline">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.Home" />
+                android:value=".activities.oldHome" />
         </activity>
-        <activity android:name=".activities.Settings"
+        <activity
+            android:name=".activities.Settings"
             android:theme="@style/PreferencesTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.Home" />
+                android:value=".activities.oldHome" />
         </activity>
+        <activity
+            android:name=".activities.Home"
+            android:label="@string/title_activity_new_home"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
