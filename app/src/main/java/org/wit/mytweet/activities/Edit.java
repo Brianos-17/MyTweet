@@ -110,7 +110,7 @@ public class Edit extends Base{
             app.editTweet(message, tweetToEdit.tweetId);
             app.portfolio.saveTweets();
             Toast.makeText(this, "Tweet has been edited", Toast.LENGTH_SHORT).show();
-            goToActivity(this, oldHome.class, null);
+            goToActivity(this, Home.class, null);
         } else {
             Toast.makeText(this, "Oops, looks like you haven't said anything!", Toast.LENGTH_SHORT).show();
         }

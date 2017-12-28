@@ -108,7 +108,7 @@ public class Add extends Base {
             Log.v("tweetcheck", "New Tweet added:" + message);
             Log.v("tweetcheck", "This tweet belongs to the user" + app.currentUserId);
             Toast.makeText(this, "Tweet sent!", Toast.LENGTH_SHORT).show();
-            goToActivity(this, oldHome.class, null);
+            goToActivity(this, Home.class, null);
         } else {
             Toast.makeText(this, "Oops, looks like you haven't said anything!", Toast.LENGTH_SHORT).show();
         }
