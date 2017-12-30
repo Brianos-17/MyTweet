@@ -1,5 +1,6 @@
 package org.wit.mytweet.activities;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -10,13 +11,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import org.wit.mytweet.R;
 import org.wit.mytweet.fragments.AddFragment;
+import org.wit.mytweet.fragments.EditFragment;
 import org.wit.mytweet.fragments.TweetFragment;
 
 public class Home extends Base
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, EditFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,5 +106,13 @@ public class Home extends Base
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void edit(View v) {
+        EditFragment editFrag = (EditFragment) getFragmentManager().findFragmentById(R.id.fragment_layout);
+        if (editFrag != null) {
+            editFrag.edit(v);
+        }
     }
 }

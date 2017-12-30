@@ -1,10 +1,11 @@
 package org.wit.mytweet.fragments;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ActionMode;
@@ -20,7 +21,6 @@ import android.widget.ListView;
 
 import org.wit.mytweet.R;
 import org.wit.mytweet.activities.Base;
-import org.wit.mytweet.activities.Edit;
 import org.wit.mytweet.activities.GlobalTimeline;
 import org.wit.mytweet.activities.Home;
 import org.wit.mytweet.adapters.TweetListAdapter;
@@ -106,9 +106,11 @@ public class TweetFragment extends ListFragment implements OnClickListener, AbsL
             activityInfo.putInt("tweetID", v.getId());//ensures we have the id of the selected tweet
             Log.v("itemcheck", "Item pressed: " + v.getId());
 
-            Intent goEdit = new Intent(getActivity(), Edit.class);
-            goEdit.putExtras(activityInfo);
-            getActivity().startActivity(goEdit);
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            Fragment fragment = EditFragment.newInstance(activityInfo);
+            ft.replace(R.id.fragment_layout, fragment);
+            ft.addToBackStack(null);
+            ft.commit();
         }
     }
 
