@@ -57,27 +57,20 @@ public class TweetFragment extends ListFragment implements OnClickListener,
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);//Allows fragment to access menu
 
-        //Toggles list view between global timeline of every tweet and personalised timeline for current user
-        if(getActivity() instanceof GlobalTimeline) {
-            listAdapter = new TweetListAdapter(activity, this, activity.app.dbManager.getAllTweets());
-            setListAdapter(listAdapter);
-        } else {
-            //cycles through each tweet in the tweetList and pulls out the ones written by the current user
-            UserTweetFilter filteredList = new UserTweetFilter();
-            List<Tweet> newList = filteredList.filter(activity.app.currentUserId, activity.app.dbManager.getAllTweets());
-            listAdapter = new TweetListAdapter(activity, this, newList);
-            setListAdapter(listAdapter);
-        }
+        //cycles through each tweet in the tweetList and pulls out the ones written by the current user
+        UserTweetFilter filteredList = new UserTweetFilter();
+        List<Tweet> newList = filteredList.filter(activity.app.currentUserId, activity.app.dbManager.getAllTweets());
+        listAdapter = new TweetListAdapter(activity, this, newList);
+        setListAdapter(listAdapter);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v  = super.onCreateView(inflater, parent, savedInstanceState);
-        if(getActivity() instanceof Home) {
-            listView = (ListView) v.findViewById(android.R.id.list);
-            listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-            listView.setMultiChoiceModeListener(this);
-        }
+        listView = (ListView) v.findViewById(android.R.id.list);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        listView.setMultiChoiceModeListener(this);
+
         return v;
     }
 
@@ -102,17 +95,15 @@ public class TweetFragment extends ListFragment implements OnClickListener,
     //Method which comes from ListFragment and acts as onClick listener for List Items
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        if(getActivity() instanceof Home) {
-            Bundle activityInfo = new Bundle();
-            activityInfo.putInt("tweetID", v.getId());//ensures we have the id of the selected tweet
-            Log.v("itemcheck", "Item pressed: " + v.getId());
+        Bundle activityInfo = new Bundle();
+        activityInfo.putInt("tweetID", v.getId());//ensures we have the id of the selected tweet
+        Log.v("itemcheck", "Item pressed: " + v.getId());
 
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            Fragment fragment = EditFragment.newInstance(activityInfo);
-            ft.replace(R.id.fragment_layout, fragment);
-            ft.addToBackStack(null);
-            ft.commit();
-        }
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment fragment = EditFragment.newInstance(activityInfo);
+        ft.replace(R.id.fragment_layout, fragment);
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
     /* ************ MultiChoiceModeListener methods (begin) *********** */

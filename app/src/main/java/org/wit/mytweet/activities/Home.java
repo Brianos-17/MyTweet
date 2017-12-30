@@ -1,6 +1,5 @@
 package org.wit.mytweet.activities;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -9,13 +8,13 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import org.wit.mytweet.R;
 import org.wit.mytweet.fragments.AddFragment;
 import org.wit.mytweet.fragments.EditFragment;
+import org.wit.mytweet.fragments.GlobalTimelineFragment;
 import org.wit.mytweet.fragments.TweetFragment;
 
 public class Home extends Base
@@ -94,6 +93,10 @@ public class Home extends Base
             ft.addToBackStack(null);
             ft.commit();
         } else if (id == R.id.nav_gt) {
+            fragment = GlobalTimelineFragment.newInstance();
+            ft.replace(R.id.fragment_layout, fragment);
+            ft.addToBackStack(null);
+            ft.commit();
 
         } else if (id == R.id.nav_manage) {
 
