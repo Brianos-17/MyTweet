@@ -20,6 +20,10 @@ public class Tweet implements Serializable {
     private static final String JSON_USERID = "userId";
     private static final String JSON_TWEETID = "tweetId";
 
+    public Tweet() {
+        //Empty constructor used for DB
+    }
+
     public Tweet(String message, String date, String userId) {
         this.message = message;
         this.date = date;
