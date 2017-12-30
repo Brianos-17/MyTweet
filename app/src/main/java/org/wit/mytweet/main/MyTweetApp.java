@@ -3,6 +3,7 @@ package org.wit.mytweet.main;
 import android.app.Application;
 import android.util.Log;
 
+import org.wit.mytweet.db.DBManager;
 import org.wit.mytweet.models.Portfolio;
 import org.wit.mytweet.models.PortfolioSerializer;
 import org.wit.mytweet.models.Tweet;
@@ -21,15 +22,17 @@ public class MyTweetApp extends Application {
 
     private static  final String FILENAME1 = "users.json";
     private static final String FILENAME2 = "tweets.json";
-    public Portfolio portfolio;
+//    public Portfolio portfolio;//Persist data is JSON format
     public String currentUserId;//variable introduced in order to associate tweets with specific users
+    public DBManager  dbManager = new DBManager(this);//Persist data in SQL
 
     public void onCreate() {
         super.onCreate();
         PortfolioSerializer serializer = new PortfolioSerializer(this, FILENAME1, FILENAME2);
-        portfolio = new Portfolio(serializer);//passes the PortfolioSerializer and List of users to the portfolio class for persistence
+//        portfolio = new Portfolio(serializer);//passes the PortfolioSerializer and List of users to the portfolio class for persistence
         currentUserId = "";
         Log.v("mytweet", "MyTweet App started");
+        dbManager.open();
     }
 
     public void addUser(User user) {
@@ -59,5 +62,11 @@ public class MyTweetApp extends Application {
             }
         }
         return false;
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        dbManager.close();
     }
 }

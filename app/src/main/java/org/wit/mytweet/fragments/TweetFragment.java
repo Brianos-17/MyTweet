@@ -32,7 +32,8 @@ import java.util.List;
 
 //Help for this class retrieved from lab: https://wit-ictskills-2017.github.io/mobile-app-dev/topic07-a/book-coffeemate-lab-02/index.html#/03
 
-public class TweetFragment extends ListFragment implements OnClickListener, AbsListView.MultiChoiceModeListener {
+public class TweetFragment extends ListFragment implements OnClickListener,
+        AbsListView.MultiChoiceModeListener {
 
     private static TweetListAdapter listAdapter;
     private Base activity;

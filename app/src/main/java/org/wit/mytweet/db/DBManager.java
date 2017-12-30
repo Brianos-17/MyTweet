@@ -11,6 +11,7 @@ import android.util.Log;
 
 import org.wit.mytweet.db.DBDesigner;
 import org.wit.mytweet.models.Tweet;
+import org.wit.mytweet.models.User;
 
 
 public class DBManager {
@@ -30,14 +31,26 @@ public class DBManager {
 		database.close();
 	}
 
-	public void insert(Tweet tweet) {
+	public void insertTweet(Tweet tweet) {
 		ContentValues values = new ContentValues();
 		values.put(DBDesigner.COLUMN_ID, tweet.tweetId);
-		values.put(DBDesigner.COLUMN_USERID, tweet.userId);
+		values.put(DBDesigner.COLUMN_USER_TWEET_ID, tweet.userId);
 		values.put(DBDesigner.COLUMN_MESSAGE, tweet.message);
 		values.put(DBDesigner.COLUMN_DATE, tweet.date);
 
 		long insertId = database.insert(DBDesigner.TABLE_TWEET, null,
+				values);
+	}
+
+	public void insertUser(User user) {
+		ContentValues values = new ContentValues();
+		values.put(DBDesigner.COLUMN_USERID, user.userId);
+		values.put(DBDesigner.COLUMN_FIRSTNAME, user.firstName);
+		values.put(DBDesigner.COLUMN_LASTNAME, user.lastName);
+		values.put(DBDesigner.COLUMN_EMAIL, user.email);
+		values.put(DBDesigner.COLUMN_PASSWORD, user.password);
+
+		long insertId = database.insert(DBDesigner.TABLE_USER, null,
 				values);
 	}
 
