@@ -45,14 +45,12 @@ public class AddFragment extends Fragment {
     }
 
     public static AddFragment newInstance() {
-        AddFragment fragment = new AddFragment();
-        return fragment;
+        return new AddFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override

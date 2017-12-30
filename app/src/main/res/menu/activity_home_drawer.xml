@@ -8,8 +8,8 @@
             android:title="Home" />
         <item
             android:id="@+id/nav_add"
-            android:icon="@drawable/ic_add_tweet"
-            android:title="Add a Coffee" />
+            android:icon="@drawable/ic_send_black_24dp"
+            android:title="Add a Tweet" />
         <item
             android:id="@+id/nav_gt"
             android:icon="@drawable/ic_list_timeline"
