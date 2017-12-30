@@ -54,16 +54,22 @@ public class DBManager {
 				values);
 	}
 
-	public void delete(int id) {
-		Log.v("DB", "Coffee deleted with id: " + id);
+	public void deleteTweet(int id) {
+		Log.v("DB", "Tweet deleted with id: " + id);
 		database.delete(DBDesigner.TABLE_TWEET,
 				DBDesigner.COLUMN_ID + " = " + id, null);
 	}
 
-	public void update(Tweet tweet) {
+	public void deleteUser(int id) {
+		Log.v("DB", "User deleted with id: " + id);
+		database.delete(DBDesigner.TABLE_USER,
+				DBDesigner.COLUMN_USERID + " = " + id, null);
+	}
+
+	public void updateTweet(Tweet tweet) {
 		ContentValues values = new ContentValues();
 		values.put(DBDesigner.COLUMN_ID, tweet.tweetId);
-		values.put(DBDesigner.COLUMN_USERID, tweet.userId);
+		values.put(DBDesigner.COLUMN_USER_TWEET_ID, tweet.userId);
 		values.put(DBDesigner.COLUMN_MESSAGE, tweet.message);
 		values.put(DBDesigner.COLUMN_DATE, tweet.date);
 
@@ -75,22 +81,53 @@ public class DBManager {
 
 	}
 
-	public List<Tweet> getAll() {
-		List<Tweet> coffees = new ArrayList<Tweet>();
+	public void updateUser(User user) {
+		ContentValues values = new ContentValues();
+		values.put(DBDesigner.COLUMN_USERID, user.userId);
+		values.put(DBDesigner.COLUMN_FIRSTNAME, user.firstName);
+		values.put(DBDesigner.COLUMN_LASTNAME, user.lastName);
+		values.put(DBDesigner.COLUMN_EMAIL, user.email);
+		values.put(DBDesigner.COLUMN_PASSWORD, user.password);
+
+		long insertId = database
+				.update(DBDesigner.TABLE_USER,
+						values,
+						DBDesigner.COLUMN_USERID + " = "
+								+ user.userId, null);
+
+	}
+
+	public List<Tweet> getAllTweets() {
+		List<Tweet> tweets = new ArrayList<Tweet>();
 		Cursor cursor = database.rawQuery("SELECT * FROM "
 				+ DBDesigner.TABLE_TWEET, null);
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
 			Tweet pojo = toTweet(cursor);
-			coffees.add(pojo);
+			tweets.add(pojo);
 			cursor.moveToNext();
 		}
 		// Make sure to close the cursor
 		cursor.close();
-		return coffees;
+		return tweets;
 	}
 
-	public Tweet get(int id) {
+	public List<User> getAllUsers() {
+		List<User> users = new ArrayList<User>();
+		Cursor cursor = database.rawQuery("SELECT * FROM "
+				+ DBDesigner.TABLE_USER, null);
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			User pojo = toUser(cursor);
+			users.add(pojo);
+			cursor.moveToNext();
+		}
+		// Make sure to close the cursor
+		cursor.close();
+		return users;
+	}
+
+	public Tweet getTweet(int id) {
 		Tweet pojo = null;
 
 		Cursor cursor = database.rawQuery("SELECT * FROM "
@@ -106,6 +143,23 @@ public class DBManager {
 		cursor.close();
 		return pojo;
 	}
+
+	public User getUser(int id) {
+		User pojo = null;
+
+		Cursor cursor = database.rawQuery("SELECT * FROM "
+				+ DBDesigner.TABLE_USER + " WHERE "
+				+ DBDesigner.COLUMN_USERID + " = " + id, null);
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			User temp = toUser(cursor);
+			pojo = temp;
+			cursor.moveToNext();
+		}
+		// Make sure to close the cursor
+		cursor.close();
+		return pojo;
+	}
 	
 	private Tweet toTweet(Cursor cursor) {
 		Tweet pojo = new Tweet();
@@ -113,6 +167,17 @@ public class DBManager {
 		pojo.userId = cursor.getString(1);
 		pojo.message = cursor.getString(2);
 		pojo.date = cursor.getString(3);
+
+		return pojo;
+	}
+
+	private User toUser(Cursor cursor) {
+		User pojo = new User();
+		pojo.userId = cursor.getString(0);
+		pojo.firstName = cursor.getString(1);
+		pojo.lastName = cursor.getString(2);
+		pojo.email = cursor.getString(3);
+		pojo.password = cursor.getString(4);
 
 		return pojo;
 	}
