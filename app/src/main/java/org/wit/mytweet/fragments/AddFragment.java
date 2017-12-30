@@ -120,7 +120,7 @@ public class AddFragment extends Fragment {
         String userId = activity.app.currentUserId;
         if (message.length() > 0) {
             Tweet tweet = new Tweet(message, date, userId);
-            activity.app.addTweet(tweet);
+            activity.app.dbManager.insertTweet(tweet);
             Log.v("tweetcheck", "New Tweet added:" + message);
             Log.v("tweetcheck", "This tweet belongs to the user" + activity.app.currentUserId);
             Toast.makeText(getActivity(), "Tweet sent!", Toast.LENGTH_SHORT).show();

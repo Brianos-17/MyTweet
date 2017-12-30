@@ -20,18 +20,18 @@ public class DBDesigner extends SQLiteOpenHelper
 	public static final String COLUMN_EMAIL = "email";
 	public static final String COLUMN_PASSWORD = "password";
 	
-	private static final String DATABASE_NAME = "mytweet.db";
+	private static final String DATABASE_NAME = "mytweet-android-986475289gvbxhgkfw.db";//Name needs to be unique
 	private static final int DATABASE_VERSION = 1;
 
 	// Database creation sql statement
 	private static final String DATABASE_CREATE_TABLE_TWEET = "create table "
-			+ TABLE_TWEET + "( " + COLUMN_ID + " integer primary key autoincrement, "
-			+ COLUMN_USER_TWEET_ID + " integer not null,"
+			+ TABLE_TWEET + "( " + COLUMN_ID + " integer primary key, "
+			+ COLUMN_USER_TWEET_ID + " text not null,"
 			+ COLUMN_MESSAGE + " text not null,"
 			+ COLUMN_DATE + " text not null);";
 
 	private static final String DATABASE_CREATE_TABLE_USER = "create table "
-			+ TABLE_USER + "( " + COLUMN_USERID + " integer primary key autoincrement, "
+			+ TABLE_USER + "( " + COLUMN_USERID + " text primary key not null,"
 			+ COLUMN_FIRSTNAME + " text not null,"
 			+ COLUMN_LASTNAME + " text not null,"
 			+ COLUMN_EMAIL + " text not null,"

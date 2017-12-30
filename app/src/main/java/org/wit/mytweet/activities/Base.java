@@ -11,7 +11,7 @@ import org.wit.mytweet.models.Portfolio;
 
 public class Base extends AppCompatActivity {
 
-    public MyTweetApp app;
+    public static MyTweetApp app;
     protected Bundle activityInfo;
     protected TweetFragment tweetFragment;
 

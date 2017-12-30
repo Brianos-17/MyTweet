@@ -52,6 +52,7 @@ public class DBManager {
 
 		long insertId = database.insert(DBDesigner.TABLE_USER, null,
 				values);
+		Log.v("insertUser", insertId + "");
 	}
 
 	public void deleteTweet(int id) {

@@ -58,7 +58,7 @@ public class EditFragment extends Fragment {
         super.onCreate(savedInstanceState);
         app = (MyTweetApp) getActivity().getApplication();
         if(getArguments() != null)
-            tweetToEdit = app.portfolio.tweetList.get(getArguments().getInt("tweetID"));
+            tweetToEdit = app.dbManager.getTweet(getArguments().getInt("tweetID"));
     }
 
     @Override

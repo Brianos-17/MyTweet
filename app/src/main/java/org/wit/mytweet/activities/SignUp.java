@@ -41,7 +41,7 @@ public class SignUp extends Base{
             Toast.makeText(this, "You've left some blank spaces!", Toast.LENGTH_SHORT).show();
         } else {
             User newUser = new User(firstName, lastName, email, password);
-            app.addUser(newUser);
+            app.dbManager.insertUser(newUser);
             startActivity(new Intent(this, LogIn.class));
         }
     }
@@ -49,6 +49,6 @@ public class SignUp extends Base{
     @Override
     protected void onPause() {
         super.onPause();
-        app.portfolio.saveUsers();
+//        app.portfolio.saveUsers();
     }
 }
