@@ -23,6 +23,8 @@ import org.wit.mytweet.R;
 import org.wit.mytweet.activities.Base;
 import org.wit.mytweet.adapters.TweetListAdapter;
 import org.wit.helpers.UserTweetFilter;
+import org.wit.mytweet.api.TweetAPI;
+import org.wit.mytweet.api.VolleyListener;
 import org.wit.mytweet.models.Tweet;
 
 import java.util.List;
@@ -31,7 +33,7 @@ import java.util.List;
 //Help for this class retrieved from lab: https://wit-ictskills-2017.github.io/mobile-app-dev/topic07-a/book-coffeemate-lab-02/index.html#/03
 
 public class TweetFragment extends ListFragment implements OnClickListener,
-        AbsListView.MultiChoiceModeListener {
+        AbsListView.MultiChoiceModeListener, VolleyListener {
 
     private static TweetListAdapter listAdapter;
     private Base activity;
@@ -48,18 +50,19 @@ public class TweetFragment extends ListFragment implements OnClickListener,
     public void onAttach(Context context) {
         super.onAttach(context);
         this.activity = (Base) context;
+        TweetAPI.attachListener(this);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);//Allows fragment to access menu
-
         //cycles through each tweet in the tweetList and pulls out the ones written by the current user
         UserTweetFilter filteredList = new UserTweetFilter();
         List<Tweet> newList = filteredList.filter(activity.app.currentUserId, activity.app.dbManager.getAllTweets());
         listAdapter = new TweetListAdapter(activity, this, newList);
         setListAdapter(listAdapter);
+        TweetAPI.get("/");
     }
 
     @Override
@@ -190,5 +193,15 @@ public class TweetFragment extends ListFragment implements OnClickListener,
     public void onDetach() {
         super.onDetach();
         // mListener = null;
+    }
+
+    @Override
+    public void setList(List list) {
+        Base.app.tweetList = list;
+    }
+
+    @Override
+    public void updateUI(Fragment fragment) {
+        fragment.onResume();
     }
 }

@@ -38,9 +38,9 @@ public class TimelineItem {
         ((TextView) view.findViewById(R.id.tweetDate)).setText(tweet.date);
     }
 
-    public void toggleDeleteButton(Context context){
-//        if (context instanceof GlobalTimeline){
-            deleteTweet.setVisibility(View.INVISIBLE);
-//        }
-    }
+//    public void toggleDeleteButton(Context context){
+////        if (context instanceof GlobalTimeline){
+//            deleteTweet.setVisibility(View.INVISIBLE);
+////        }
+//    }
 }

@@ -21,28 +21,18 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.SignUp" />
-        <activity android:name=".activities.LogIn" />
+        <activity android:name=".activities.Login" />
         <activity android:name=".activities.Home"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|adjustResize"/>
-        <activity android:name=".activities.Edit">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.Home" />
-        </activity>
-        <activity android:name=".activities.GlobalTimeline">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.Home" />
-        </activity>
-        <activity
-            android:name=".activities.Settings"
-            android:theme="@style/PreferencesTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.Home" />
-        </activity>
+        <!--<activity-->
+            <!--android:name=".activities.Settings"-->
+            <!--android:theme="@style/PreferencesTheme">-->
+            <!--<meta-data-->
+                <!--android:name="android.support.PARENT_ACTIVITY"-->
+                <!--android:value=".activities.Home" />-->
+        <!--</activity>-->
     </application>
 
 </manifest>

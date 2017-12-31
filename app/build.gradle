@@ -17,6 +17,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
 }
 
 dependencies {
@@ -25,9 +28,8 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    // for Googles Gson JSON Parser
-    compile 'com.google.code.gson:gson:2.7'
-    compile 'com.google.android.gms:play-services-auth:11.0.2'
+    compile 'com.google.code.gson:gson:2.7'// for Googles Gson JSON Parser
+    compile 'com.google.android.gms:play-services-auth:11.0.4'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.makeramen:roundedimageview:2.2.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'

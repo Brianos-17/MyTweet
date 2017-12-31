@@ -6,6 +6,9 @@ import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.wit.mytweet.db.DBManager;
 import org.wit.mytweet.models.Portfolio;
@@ -29,11 +32,12 @@ public class MyTweetApp extends Application {
 //    private static  final String FILENAME1 = "users.json";
 //    private static final String FILENAME2 = "tweets.json";
 //    public Portfolio portfolio;//Persist data is JSON format
+
     public String currentUserId;//variable introduced in order to associate tweets with specific users
     public DBManager  dbManager = new DBManager(this);//Persist data in SQL
     /* Client used to interact with Google APIs. */
-//    public GoogleApiClient mGoogleApiClient;
-//    public GoogleSignInOptions mGoogleSignInOptions;
+    public GoogleApiClient mGoogleApiClient;
+    public GoogleSignInOptions mGoogleSignInOptions;
 
     public boolean signedIn = false;
     public String googleToken;
@@ -44,6 +48,8 @@ public class MyTweetApp extends Application {
     public int drawerID = 0;
     private static MyTweetApp mInstance;
     private RequestQueue mRequestQueue;
+    public List <Tweet> tweetList = new ArrayList<>();
+    public static final String TAG = MyTweetApp.class.getName();
 
     public void onCreate() {
         super.onCreate();
@@ -52,6 +58,8 @@ public class MyTweetApp extends Application {
         currentUserId = "";
         Log.v("mytweet", "MyTweet App started");
         dbManager.open();
+        mInstance = this;
+        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
     }
 
     @Override
@@ -96,6 +104,10 @@ public class MyTweetApp extends Application {
     public <T> void add(Request<T> req) {
         req.setTag(TAG);
         getRequestQueue().add(req);
+    }
+
+    public void cancel() {
+        mRequestQueue.cancelAll(TAG);
     }
 
     public RequestQueue getRequestQueue() {

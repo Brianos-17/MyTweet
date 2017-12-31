@@ -18,16 +18,25 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+
 import org.wit.mytweet.R;
 import org.wit.mytweet.api.TweetAPI;
+import org.wit.mytweet.api.VolleyListener;
 import org.wit.mytweet.fragments.AddFragment;
 import org.wit.mytweet.fragments.EditFragment;
 import org.wit.mytweet.fragments.GlobalTimelineFragment;
 import org.wit.mytweet.fragments.TweetFragment;
 import org.wit.mytweet.main.MyTweetApp;
 
+import java.util.List;
+
 public class Home extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, EditFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, EditFragment.OnFragmentInteractionListener,
+        VolleyListener{
 
     public static MyTweetApp app = MyTweetApp.getInstance();
     private ImageView googlePhoto;
@@ -130,9 +139,9 @@ public class Home extends AppCompatActivity
 
                 //FirebaseAuth.getInstance().signOut();
                 if(app.mGoogleApiClient.isConnected()) {
-                    Auth.GoogleSignInApi.signOut(app.mGoogleApiClient).setResultCallback(new ResultCallback<ModernAsyncTask.Status>() {
+                    Auth.GoogleSignInApi.signOut(app.mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
                         @Override
-                        public void onResult(@NonNull ModernAsyncTask.Status status) {
+                        public void onResult(@NonNull Status status) {
                             if (status.isSuccess()) {
                                 Log.v("coffeemate", "User Logged out");
                                 Intent intent = new Intent(Home.this, Login.class);
@@ -149,6 +158,18 @@ public class Home extends AppCompatActivity
                 Log.d("coffeemate", "Google API Client Connection Suspended");
             }
         });
+    }
+
+    @Override
+    public void setList(List list) {
+        Home.app.tweetList = list;
+    }
+
+    @Override
+    public void updateUI(Fragment fragment) {
+        if(fragment != null){
+            ((TweetFragment)fragment).updateUI(fragment);
+        }
     }
     // [END signOut]
 }

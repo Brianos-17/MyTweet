@@ -3,7 +3,6 @@ package org.wit.mytweet.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -42,7 +41,7 @@ public class SignUp extends Base{
         } else {
             User newUser = new User(firstName, lastName, email, password);
             app.dbManager.insertUser(newUser);
-            startActivity(new Intent(this, LogIn.class));
+            startActivity(new Intent(this, Login.class));
         }
     }
 

@@ -20,6 +20,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
 import org.wit.mytweet.main.MyTweetApp;
+import org.wit.mytweet.R;
 
 public class Login extends FragmentActivity implements
         GoogleApiClient.OnConnectionFailedListener,
@@ -37,8 +38,10 @@ public class Login extends FragmentActivity implements
         // [START configure_signin]
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        app.mGoogleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        app.mGoogleSignInOptions = new GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
+                .requestProfile()
                 .build();
         // [END configure_signin]
 
