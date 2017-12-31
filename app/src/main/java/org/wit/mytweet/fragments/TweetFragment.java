@@ -49,20 +49,12 @@ public class TweetFragment extends ListFragment implements OnClickListener,
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        this.activity = (Base) context;
         TweetAPI.attachListener(this);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);//Allows fragment to access menu
-        //cycles through each tweet in the tweetList and pulls out the ones written by the current user
-        UserTweetFilter filteredList = new UserTweetFilter();
-//        List<Tweet> newList = filteredList.filter(activity.app.googleToken, activity.app.dbManager.getAllTweets());
-//        listAdapter = new TweetListAdapter(activity, this, newList);
-        setListAdapter(listAdapter);
-//        TweetAPI.get("/");
     }
 
     @Override

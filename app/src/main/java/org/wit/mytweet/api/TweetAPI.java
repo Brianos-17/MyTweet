@@ -17,7 +17,6 @@ import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.wit.mytweet.activities.Base;
 import org.wit.mytweet.models.Tweet;
 
 import java.lang.reflect.Type;

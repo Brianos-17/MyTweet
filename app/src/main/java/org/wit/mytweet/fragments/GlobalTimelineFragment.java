@@ -9,17 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import org.wit.mytweet.activities.Base;
 import org.wit.mytweet.adapters.TweetListAdapter;
-
+import org.wit.mytweet.main.MyTweetApp;
 
 
 public class GlobalTimelineFragment extends ListFragment
         implements View.OnClickListener {
 
     private static TweetListAdapter listAdapter;
-    private Base activity;
     private ListView listView;
+    public MyTweetApp app = MyTweetApp.getInstance();
 
     public GlobalTimelineFragment() {
         // Required empty public constructor
@@ -32,14 +31,13 @@ public class GlobalTimelineFragment extends ListFragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.activity = (Base) context;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);//Allows fragment to access menu
-        listAdapter = new TweetListAdapter(activity, this, activity.app.dbManager.getAllTweets());
+        listAdapter = new TweetListAdapter(getActivity(), this, app.dbManager.getAllTweets());
         setListAdapter(listAdapter);
     }
 

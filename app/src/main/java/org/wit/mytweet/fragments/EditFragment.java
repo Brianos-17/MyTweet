@@ -20,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.wit.mytweet.R;
-import org.wit.mytweet.activities.Base;
 import org.wit.mytweet.main.MyTweetApp;
 import org.wit.mytweet.models.Tweet;
 
