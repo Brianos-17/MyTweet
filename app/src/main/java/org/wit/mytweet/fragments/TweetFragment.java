@@ -21,8 +21,6 @@ import android.widget.ListView;
 
 import org.wit.mytweet.R;
 import org.wit.mytweet.activities.Base;
-import org.wit.mytweet.activities.GlobalTimeline;
-import org.wit.mytweet.activities.Home;
 import org.wit.mytweet.adapters.TweetListAdapter;
 import org.wit.helpers.UserTweetFilter;
 import org.wit.mytweet.models.Tweet;

@@ -1,24 +1,35 @@
 package org.wit.mytweet.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.wit.mytweet.R;
 import org.wit.mytweet.fragments.AddFragment;
 import org.wit.mytweet.fragments.EditFragment;
 import org.wit.mytweet.fragments.GlobalTimelineFragment;
 import org.wit.mytweet.fragments.TweetFragment;
+import org.wit.mytweet.main.MyTweetApp;
 
-public class Home extends Base
+public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, EditFragment.OnFragmentInteractionListener {
+
+    public static MyTweetApp app = MyTweetApp.getInstance();
+    private ImageView googlePhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +47,16 @@ public class Home extends Base
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //SetUp GooglePhoto and Email for Drawer here
+        googlePhoto = (ImageView)navigationView.getHeaderView(0).findViewById(R.id.googlephoto);
+        CoffeeApi.getGooglePhoto(app.googlePhotoURL,googlePhoto);
+
+        TextView googleName = (TextView)navigationView.getHeaderView(0).findViewById(R.id.googlename);
+        googleName.setText(app.googleName);
+
+        TextView googleMail = (TextView)navigationView.getHeaderView(0).findViewById(R.id.googlemail);
+        googleMail.setText(app.googleMail);
+
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         TweetFragment fragment = TweetFragment.newInstance();
         ft.replace(R.id.fragment_layout, fragment);
@@ -51,28 +72,6 @@ public class Home extends Base
             super.onBackPressed();
         }
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.new_home, menu);
-//        return true;
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -118,4 +117,37 @@ public class Home extends Base
             editFrag.edit(v);
         }
     }
+
+    // [START signOut]
+    public void menuSignOut(MenuItem m) {
+
+        //https://stackoverflow.com/questions/38039320/googleapiclient-is-not-connected-yet-on-logout-when-using-firebase-auth-with-g
+        app.mGoogleApiClient.connect();
+        app.mGoogleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+            @Override
+            public void onConnected(@Nullable Bundle bundle) {
+
+                //FirebaseAuth.getInstance().signOut();
+                if(app.mGoogleApiClient.isConnected()) {
+                    Auth.GoogleSignInApi.signOut(app.mGoogleApiClient).setResultCallback(new ResultCallback<ModernAsyncTask.Status>() {
+                        @Override
+                        public void onResult(@NonNull ModernAsyncTask.Status status) {
+                            if (status.isSuccess()) {
+                                Log.v("coffeemate", "User Logged out");
+                                Intent intent = new Intent(Home.this, Login.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onConnectionSuspended(int i) {
+                Log.d("coffeemate", "Google API Client Connection Suspended");
+            }
+        });
+    }
+    // [END signOut]
 }

@@ -1,6 +1,7 @@
 package org.wit.mytweet.main;
 
 import android.app.Application;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import org.wit.mytweet.db.DBManager;
@@ -25,6 +26,18 @@ public class MyTweetApp extends Application {
 //    public Portfolio portfolio;//Persist data is JSON format
     public String currentUserId;//variable introduced in order to associate tweets with specific users
     public DBManager  dbManager = new DBManager(this);//Persist data in SQL
+    /* Client used to interact with Google APIs. */
+//    public GoogleApiClient mGoogleApiClient;
+//    public GoogleSignInOptions mGoogleSignInOptions;
+
+    public boolean signedIn = false;
+    public String googleToken;
+    public String googleName;
+    public String googleMail;
+    public String googlePhotoURL;
+    public Bitmap googlePhoto;
+    public int drawerID = 0;
+    private static MyTweetApp mInstance;
 
     public void onCreate() {
         super.onCreate();
@@ -68,5 +81,9 @@ public class MyTweetApp extends Application {
             }
         }
         return false;
+    }
+
+    public static synchronized MyTweetApp getInstance() {
+        return mInstance;
     }
 }

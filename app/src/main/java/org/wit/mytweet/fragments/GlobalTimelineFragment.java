@@ -9,12 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import org.wit.mytweet.R;
 import org.wit.mytweet.activities.Base;
 import org.wit.mytweet.adapters.TweetListAdapter;
-import org.wit.mytweet.models.Tweet;
 
-import java.util.List;
 
 
 public class GlobalTimelineFragment extends ListFragment
