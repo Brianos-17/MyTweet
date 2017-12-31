@@ -21,7 +21,6 @@ import com.google.android.gms.common.api.Status;
 
 import org.wit.mytweet.main.MyTweetApp;
 
-
 public class Login extends FragmentActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         OnClickListener {
