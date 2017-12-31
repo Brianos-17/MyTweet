@@ -33,7 +33,7 @@ public class MyTweetApp extends Application {
 //    private static final String FILENAME2 = "tweets.json";
 //    public Portfolio portfolio;//Persist data is JSON format
 
-    public String currentUserId;//variable introduced in order to associate tweets with specific users
+//    public String currentUserId;//variable introduced in order to associate tweets with specific users
     public DBManager  dbManager = new DBManager(this);//Persist data in SQL
     /* Client used to interact with Google APIs. */
     public GoogleApiClient mGoogleApiClient;
@@ -55,7 +55,7 @@ public class MyTweetApp extends Application {
         super.onCreate();
 //        PortfolioSerializer serializer = new PortfolioSerializer(this, FILENAME1, FILENAME2);
 //        portfolio = new Portfolio(serializer);//passes the PortfolioSerializer and List of users to the portfolio class for persistence
-        currentUserId = "";
+//        currentUserId = "";
         Log.v("mytweet", "MyTweet App started");
         dbManager.open();
         mInstance = this;
@@ -90,7 +90,7 @@ public class MyTweetApp extends Application {
         for (User user : dbManager.getAllUsers()) {
             if((user.email.equals(email) && (user.password.equals(password)))) {
                 Log.v("validuser", user.email + "successfully logged in");
-                this.currentUserId = user.userId;//sets the global variable to current users id
+//                this.currentUserId = user.userId;//sets the global variable to current users id
                 return true;
             }
         }

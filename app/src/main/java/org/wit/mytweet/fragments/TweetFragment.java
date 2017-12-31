@@ -20,11 +20,11 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 
 import org.wit.mytweet.R;
-import org.wit.mytweet.activities.Base;
 import org.wit.mytweet.adapters.TweetListAdapter;
 import org.wit.helpers.UserTweetFilter;
 import org.wit.mytweet.api.TweetAPI;
 import org.wit.mytweet.api.VolleyListener;
+import org.wit.mytweet.main.MyTweetApp;
 import org.wit.mytweet.models.Tweet;
 
 import java.util.List;
@@ -36,8 +36,8 @@ public class TweetFragment extends ListFragment implements OnClickListener,
         AbsListView.MultiChoiceModeListener, VolleyListener {
 
     private static TweetListAdapter listAdapter;
-    private Base activity;
     private ListView listView;
+    public MyTweetApp app = MyTweetApp.getInstance();
 
     public TweetFragment() {
     }
@@ -49,7 +49,7 @@ public class TweetFragment extends ListFragment implements OnClickListener,
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.activity = (Base) context;
+//        this.activity = (Base) context;
         TweetAPI.attachListener(this);
     }
 
@@ -59,10 +59,10 @@ public class TweetFragment extends ListFragment implements OnClickListener,
         setHasOptionsMenu(true);//Allows fragment to access menu
         //cycles through each tweet in the tweetList and pulls out the ones written by the current user
         UserTweetFilter filteredList = new UserTweetFilter();
-        List<Tweet> newList = filteredList.filter(activity.app.currentUserId, activity.app.dbManager.getAllTweets());
-        listAdapter = new TweetListAdapter(activity, this, newList);
+//        List<Tweet> newList = filteredList.filter(activity.app.googleToken, activity.app.dbManager.getAllTweets());
+//        listAdapter = new TweetListAdapter(activity, this, newList);
         setListAdapter(listAdapter);
-        TweetAPI.get("/");
+//        TweetAPI.get("/");
     }
 
     @Override
@@ -90,7 +90,7 @@ public class TweetFragment extends ListFragment implements OnClickListener,
     @Override
     public void onResume() {
         super.onResume();
-        ((TweetListAdapter) getListAdapter()).notifyDataSetChanged();
+//        ((TweetListAdapter) getListAdapter()).notifyDataSetChanged();
     }
 
     //Method which comes from ListFragment and acts as onClick listener for List Items
@@ -144,13 +144,13 @@ public class TweetFragment extends ListFragment implements OnClickListener,
 
     //Method for deleting single tweet
     public void deleteTweet(final Tweet tweet) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        AlertDialog.Builder builder = new AlertDialog.Builder(app);
         builder.setMessage("Are you sure you want to delete this tweet?\n\n" + tweet.message);
         builder.setCancelable(true);//allow users click out of dialog box
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                activity.app.dbManager.deleteTweet(tweet.tweetId); // remove from our list
+                app.dbManager.deleteTweet(tweet.tweetId); // remove from our list
                 listAdapter.tweetList.remove(tweet); // update adapters data
                 listAdapter.notifyDataSetChanged(); // refresh adapter
 //                activity.app.portfolio.saveTweets();
@@ -169,7 +169,7 @@ public class TweetFragment extends ListFragment implements OnClickListener,
         for(int i = listAdapter.getCount() -1; i >= 0; i --) {
             if(listView.isItemChecked(i)){
                 Log.v("deletetweet", "Deleting tweet: " + listAdapter.getItemId(i));
-                activity.app.dbManager.deleteTweet(listAdapter.getItem(i).tweetId);
+                app.dbManager.deleteTweet(listAdapter.getItem(i).tweetId);
                 listAdapter.tweetList.remove(listAdapter.getItem(i));//updates the adapter too to provide instant feedback
 //                activity.app.portfolio.saveTweets();
             }
@@ -181,7 +181,7 @@ public class TweetFragment extends ListFragment implements OnClickListener,
     //Method to delete all tweets a user has
     public void deleteAllTweets() {
         for(int i = listAdapter.getCount() -1; i >= 0; i--){
-            activity.app.dbManager.deleteTweet(listAdapter.getItem(i).tweetId);
+            app.dbManager.deleteTweet(listAdapter.getItem(i).tweetId);
             listAdapter.tweetList.remove(listAdapter.getItem(i));//updates the adapter too to provide instant feedback
             listAdapter.notifyDataSetChanged(); // refresh adapter
 //            activity.app.portfolio.saveTweets();
@@ -197,7 +197,7 @@ public class TweetFragment extends ListFragment implements OnClickListener,
 
     @Override
     public void setList(List list) {
-        Base.app.tweetList = list;
+        app.tweetList = list;
     }
 
     @Override

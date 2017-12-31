@@ -115,6 +115,7 @@ public class Login extends FragmentActivity implements
 //                    + 100;
 
             app.googleToken = acct.getId();
+            Log.v("ACCT", acct.getId());
             app.signedIn = true;
             app.googleMail = acct.getEmail();
             if(acct.getPhotoUrl() == null)

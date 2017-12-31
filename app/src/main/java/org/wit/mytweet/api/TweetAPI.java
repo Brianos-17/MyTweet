@@ -2,22 +2,30 @@ package org.wit.mytweet.api;
 
 import android.app.Fragment;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.widget.ImageView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.wit.mytweet.activities.Base;
 import org.wit.mytweet.models.Tweet;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import static com.android.volley.VolleyLog.TAG;
 import static org.wit.mytweet.activities.Home.app;
 
 public class TweetAPI {
@@ -82,5 +90,45 @@ public class TweetAPI {
                 });
         // Add the request to the queue
         app.add(imgRequest);
+    }
+
+    public static void post(String url,Tweet aTweet) {
+        Log.v(TAG, "POSTing to : " + url);
+        Type objType = new TypeToken<Tweet>(){}.getType();
+        String json = new Gson().toJson(aTweet, objType);
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(json);
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest gsonRequest = new JsonObjectRequest( Request.Method.POST, hostURL + url, jsonObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.v(TAG, "insert new Coffee " + response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) { // Handle Error
+                        Log.v(TAG, "Unable to insert new Coffee");
+                    }
+                }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+
+                return headers;
+            }
+        };
+
+        // Add the request to the queue
+        app.add(gsonRequest);
     }
 }
