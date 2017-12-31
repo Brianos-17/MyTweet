@@ -4,6 +4,9 @@ import android.app.Application;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+
 import org.wit.mytweet.db.DBManager;
 import org.wit.mytweet.models.Portfolio;
 import org.wit.mytweet.models.PortfolioSerializer;
@@ -13,6 +16,8 @@ import org.wit.mytweet.models.User;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static com.android.volley.VolleyLog.TAG;
 
 /**
  * Created by Brian on 14/10/2017.
@@ -38,6 +43,7 @@ public class MyTweetApp extends Application {
     public Bitmap googlePhoto;
     public int drawerID = 0;
     private static MyTweetApp mInstance;
+    private RequestQueue mRequestQueue;
 
     public void onCreate() {
         super.onCreate();
@@ -85,5 +91,14 @@ public class MyTweetApp extends Application {
 
     public static synchronized MyTweetApp getInstance() {
         return mInstance;
+    }
+
+    public <T> void add(Request<T> req) {
+        req.setTag(TAG);
+        getRequestQueue().add(req);
+    }
+
+    public RequestQueue getRequestQueue() {
+        return mRequestQueue;
     }
 }

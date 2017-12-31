@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.wit.mytweet.R;
+import org.wit.mytweet.api.TweetAPI;
 import org.wit.mytweet.fragments.AddFragment;
 import org.wit.mytweet.fragments.EditFragment;
 import org.wit.mytweet.fragments.GlobalTimelineFragment;
@@ -48,8 +49,8 @@ public class Home extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //SetUp GooglePhoto and Email for Drawer here
-        googlePhoto = (ImageView)navigationView.getHeaderView(0).findViewById(R.id.googlephoto);
-        CoffeeApi.getGooglePhoto(app.googlePhotoURL,googlePhoto);
+        googlePhoto = (ImageView)navigationView.getHeaderView(0).findViewById(R.id.googlephoto1);
+        TweetAPI.getGooglePhoto(app.googlePhotoURL,googlePhoto);
 
         TextView googleName = (TextView)navigationView.getHeaderView(0).findViewById(R.id.googlename);
         googleName.setText(app.googleName);
