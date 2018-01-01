@@ -18,6 +18,7 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationServices;
 
 import org.wit.mytweet.main.MyTweetApp;
 import org.wit.mytweet.R;
@@ -51,6 +52,7 @@ public class Login extends FragmentActivity implements
         app.mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, app.mGoogleSignInOptions)
+                .addApi(LocationServices.API)
                 .build();
         // [END build_client]
 

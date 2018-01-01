@@ -29,6 +29,7 @@ import org.wit.mytweet.api.VolleyListener;
 import org.wit.mytweet.fragments.AddFragment;
 import org.wit.mytweet.fragments.EditFragment;
 import org.wit.mytweet.fragments.GlobalTimelineFragment;
+import org.wit.mytweet.fragments.MapsFragment;
 import org.wit.mytweet.fragments.TweetFragment;
 import org.wit.mytweet.main.MyTweetApp;
 
@@ -108,9 +109,10 @@ public class Home extends AppCompatActivity
             ft.commit();
 
         } else if (id == R.id.nav_map) {
-                startActivity(new Intent(this, Map.class));
-
-        } else if (id == R.id.nav_share) {
+            fragment = MapsFragment.newInstance();
+            ft.replace(R.id.fragment_layout, fragment);
+            ft.addToBackStack(null);
+            ft.commit();
 
         }
 

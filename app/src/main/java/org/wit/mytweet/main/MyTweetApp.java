@@ -2,6 +2,7 @@ package org.wit.mytweet.main;
 
 import android.app.Application;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -38,6 +39,7 @@ public class MyTweetApp extends Application {
     /* Client used to interact with Google APIs. */
     public GoogleApiClient mGoogleApiClient;
     public GoogleSignInOptions mGoogleSignInOptions;
+    public Location mCurrentLocation;
 
     public boolean signedIn = false;
     public String googleToken;
