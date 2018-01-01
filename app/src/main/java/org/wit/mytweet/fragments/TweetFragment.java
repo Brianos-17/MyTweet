@@ -64,6 +64,8 @@ public class TweetFragment extends ListFragment implements OnClickListener,
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         listView.setMultiChoiceModeListener(this);
 
+//        TweetAPI.get("/api/users/" + hf + "/tweets");
+
         return v;
     }
 

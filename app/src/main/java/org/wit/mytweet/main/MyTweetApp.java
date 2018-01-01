@@ -64,7 +64,7 @@ public class MyTweetApp extends Application {
         super.onTerminate();
         dbManager.close();
     }
-    
+
     public boolean validUser(String email, String password) {
         for (User user : dbManager.getAllUsers()) {
             if((user.email.equals(email) && (user.password.equals(password)))) {
