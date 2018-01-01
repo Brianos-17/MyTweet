@@ -2,20 +2,18 @@ package org.wit.mytweet.fragments;
 
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.os.Looper;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -27,11 +25,15 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.wit.mytweet.R;
+import org.wit.mytweet.api.TweetAPI;
+import org.wit.mytweet.api.VolleyListener;
 import org.wit.mytweet.main.MyTweetApp;
 import org.wit.mytweet.models.Tweet;
 
@@ -40,16 +42,12 @@ import java.util.List;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.CAMERA;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MapsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MapsFragment extends MapFragment implements
         GoogleMap.OnInfoWindowClickListener,
         GoogleMap.OnMapClickListener,
         GoogleMap.OnMarkerClickListener,
-        OnMapReadyCallback {
+        OnMapReadyCallback,
+        VolleyListener{
 
     private LocationRequest             mLocationRequest;
     private FusedLocationProviderClient mFusedLocationClient;
@@ -135,6 +133,8 @@ public class MapsFragment extends MapFragment implements
     public void onResume() {
         super.onResume();
         getMapAsync(this);
+        TweetAPI.attachListener(this);
+//        TweetAPI.getAll("/coffees/" + app.googleToken, null);
         if (checkPermission()) {
             if (app.mCurrentLocation != null) {
                 Toast.makeText(getActivity(), "GPS location was found!", Toast.LENGTH_SHORT).show();
@@ -278,5 +278,25 @@ public class MapsFragment extends MapFragment implements
                 .setNegativeButton("Cancel", null)
                 .create()
                 .show();
+    }
+
+    public void addTweets(List<Tweet> list){
+        for(Tweet tweet : list)
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(tweet.marker.coords.latitude, tweet.marker.coords.longitude))
+                    .title(tweet.message)
+                    .snippet(tweet.date)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker)));
+    }
+
+    @Override
+    public void setList(List list) {
+        addTweets(list);
+        Log.v("MyTweet", "List to add is : " + list);
+    }
+
+    @Override
+    public void updateUI(Fragment fragment) {
+
     }
 }

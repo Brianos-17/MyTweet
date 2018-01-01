@@ -12,8 +12,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.wit.mytweet.db.DBManager;
-import org.wit.mytweet.models.Portfolio;
-import org.wit.mytweet.models.PortfolioSerializer;
 import org.wit.mytweet.models.Tweet;
 import org.wit.mytweet.models.User;
 
@@ -30,9 +28,6 @@ import static com.android.volley.VolleyLog.TAG;
 
 public class MyTweetApp extends Application {
 
-//    private static  final String FILENAME1 = "users.json";
-//    private static final String FILENAME2 = "tweets.json";
-//    public Portfolio portfolio;//Persist data is JSON format
 
 //    public String currentUserId;//variable introduced in order to associate tweets with specific users
     public DBManager  dbManager = new DBManager(this);//Persist data in SQL
@@ -69,25 +64,7 @@ public class MyTweetApp extends Application {
         super.onTerminate();
         dbManager.close();
     }
-
-//    public void addUser(User user) {
-//        portfolio.users.add(user);
-//        Log.v("i/o", "User added: " + user);
-//    }
-//
-//    public void addTweet(Tweet tweet) {
-//        portfolio.tweetList.add(tweet);
-//    }
-//
-//    public void editTweet(String message, int tweetId) {
-//        for(Tweet tweet : portfolio.tweetList) {
-//            if(tweet.tweetId == tweetId) {
-//                tweet.message = message;
-//            }
-//        }
-//
-//    }
-//
+    
     public boolean validUser(String email, String password) {
         for (User user : dbManager.getAllUsers()) {
             if((user.email.equals(email) && (user.password.equals(password)))) {
