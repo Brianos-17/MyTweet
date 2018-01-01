@@ -107,11 +107,12 @@ public class Home extends AppCompatActivity
             ft.addToBackStack(null);
             ft.commit();
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_map) {
+                startActivity(new Intent(this, Map.class));
 
         } else if (id == R.id.nav_share) {
 
-        } 
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

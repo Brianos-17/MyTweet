@@ -30,14 +30,11 @@
     <string name="settingsPassword">Password</string>
     <string name="defaultPassword">default</string>
     <string name="settingsPasswordSub">Change your log in password</string>
-
-    <string name="title_activity_splash2">Splash2</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_map">Map</string>
+    <string name="google_maps_key">AIzaSyA-S2smtXLMloNQMaQL3z6Wk6gw3gv5wHY</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="title_activity_new_home">new_home</string>
 
     <string name="action_settings">Settings</string>
 
