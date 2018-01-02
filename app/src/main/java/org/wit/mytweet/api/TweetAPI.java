@@ -137,7 +137,7 @@ public class TweetAPI {
         app.add(imgRequest);
     }
 
-    public static void post(String url,Tweet aTweet) {
+    public static void postTweet(String url,Tweet aTweet) {
         Log.v(TAG, "POSTing to : " + url);
         Type objType = new TypeToken<Tweet>(){}.getType();
         String json = new Gson().toJson(aTweet, objType);
@@ -161,6 +161,46 @@ public class TweetAPI {
                     @Override
                     public void onErrorResponse(VolleyError error) { // Handle Error
                         Log.v(TAG, "Unable to insert new Coffee");
+                    }
+                }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+
+                return headers;
+            }
+        };
+
+        // Add the request to the queue
+        app.add(gsonRequest);
+    }
+
+    public static void postUser(String url,User user) {
+        Log.v(TAG, "POSTing to : " + url);
+        Type objType = new TypeToken<User>(){}.getType();
+        String json = new Gson().toJson(user, objType);
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(json);
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest gsonRequest = new JsonObjectRequest( Request.Method.POST, hostURL + url, jsonObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.v(TAG, "insert new User " + response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) { // Handle Error
+                        Log.v(TAG, "Unable to insert new User");
                     }
                 }) {
 

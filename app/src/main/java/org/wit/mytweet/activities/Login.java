@@ -141,7 +141,7 @@ public class Login extends FragmentActivity implements
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.login_button) {
-//            authenticate();
+            authenticate();
         } else if (v.getId() == R.id.sign_in_button) {
             signIn();
         } else if (v.getId() == R.id.disconnect_button) {
@@ -164,9 +164,15 @@ public class Login extends FragmentActivity implements
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-//    private void authenticate() {
-//        TweetAPI.
-//    }
+    private void authenticate() {
+        String email = ((TextView) findViewById(R.id.loginEmail)).getText().toString();
+        String password = ((TextView) findViewById(R.id.loginPassword)).getText().toString();
+
+        if(app.validUser(email, password)) {
+            startActivity(new Intent(this, Home.class));
+        } else
+            Toast.makeText(this, "Email and Password do not match. \nPlease try again", Toast.LENGTH_SHORT).show();
+    }
 
     // [START revokeAccess]
     private void revokeAccess() {

@@ -123,7 +123,7 @@ public class AddFragment extends Fragment {
             Tweet tweet = new Tweet(message, date, userId);
             app.addTweet(tweet); //Persists in JSON
             app.dbManager.insertTweet(tweet);//Persists in SQL
-            TweetAPI.post("/api/tweet", tweet);//PErsists in mLab
+            TweetAPI.postTweet("/api/tweet", tweet);//Persists in mLab
             Log.v("tweetcheck", "New Tweet added:" + message);
             Log.v("tweetcheck", "This tweet belongs to the user" + app.googleToken);
             Toast.makeText(getActivity(), "Tweet sent!", Toast.LENGTH_SHORT).show();

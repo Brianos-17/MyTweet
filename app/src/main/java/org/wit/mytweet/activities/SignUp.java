@@ -10,10 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.wit.mytweet.R;
+import org.wit.mytweet.api.TweetAPI;
 import org.wit.mytweet.main.MyTweetApp;
 import org.wit.mytweet.models.User;
 
 public class SignUp extends FragmentActivity {
+
+    public MyTweetApp app = MyTweetApp.getInstance();
 
 
     @Override
@@ -35,14 +38,13 @@ public class SignUp extends FragmentActivity {
         String email = ((TextView) findViewById(R.id.signupEmail)).getText().toString();
         String password = ((TextView) findViewById(R.id.signupPassword)).getText().toString();
 
-        MyTweetApp app = (MyTweetApp) getApplication();
-
         if((firstName.isEmpty()) || (lastName.isEmpty()) || (email.isEmpty()) || (password.isEmpty())) {
             Toast.makeText(this, "You've left some blank spaces!", Toast.LENGTH_SHORT).show();
         } else {
             User newUser = new User(firstName, lastName, email, password);
             app.addUser(newUser);//Persists in JSON
             app.dbManager.insertUser(newUser);//Persists in SQL
+            TweetAPI.postUser("/api/users", newUser);//Persists in mlab
             startActivity(new Intent(this, Login.class));
         }
     }
