@@ -296,7 +296,7 @@ public class MapsFragment extends MapFragment implements
     }
 
     @Override
-    public void updateUI(Fragment fragment) {
+    public void setTweet(Tweet tweet) {
 
     }
 }

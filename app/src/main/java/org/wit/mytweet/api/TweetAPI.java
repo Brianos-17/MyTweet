@@ -33,13 +33,16 @@ import static org.wit.mytweet.activities.Home.app;
 public class TweetAPI {
 
     private static final String hostURL = "https://calm-plains-62284.herokuapp.com";
-    private static final String LocalhostURL = "http://192.168.0.13:3000";
     private static VolleyListener vListener;
     public static ProgressDialog  dialog;
 
     public static void attachListener(VolleyListener fragment) {
         //System.out.println("Attaching Fragment : " + fragment);
         vListener = fragment;
+    }
+
+    public static void detachListener() {
+        vListener  = null;
     }
 
     public static void attachDialog(ProgressDialog mDialog) {
@@ -72,7 +75,7 @@ public class TweetAPI {
 
                         result = new Gson().fromJson(response, collectionType);
                         vListener.setList(result);
-                        vListener.updateUI((Fragment) vListener);
+//                        vListener.updateUI((Fragment) vListener);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -100,6 +103,7 @@ public class TweetAPI {
                         Type collectionType = new TypeToken<List<Tweet>>(){}.getType();
                         result = new Gson().fromJson(response, collectionType);
                         vListener.setList(result);
+                        Log.v("GETcheck", "Here are all the tweets" + result.toString());
                         mSwipeRefreshLayout.setRefreshing(false);
                         hideDialog();
                     }
@@ -108,6 +112,7 @@ public class TweetAPI {
             public void onErrorResponse(VolleyError error) {
                 // Error handling
                 Log.v(TAG,"Something went wrong with GET ALL!");
+                Log.v("GETcheck", "Nothing here");
                 mSwipeRefreshLayout.setRefreshing(false);
                 error.printStackTrace();
             }

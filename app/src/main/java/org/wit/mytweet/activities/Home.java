@@ -1,5 +1,6 @@
 package org.wit.mytweet.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -32,6 +33,7 @@ import org.wit.mytweet.fragments.GlobalTimelineFragment;
 import org.wit.mytweet.fragments.MapsFragment;
 import org.wit.mytweet.fragments.TweetFragment;
 import org.wit.mytweet.main.MyTweetApp;
+import org.wit.mytweet.models.Tweet;
 
 import java.util.List;
 
@@ -41,6 +43,7 @@ public class Home extends AppCompatActivity
 
     public static MyTweetApp app = MyTweetApp.getInstance();
     private ImageView googlePhoto;
+    public ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,9 @@ public class Home extends AppCompatActivity
 
         TextView googleMail = (TextView)navigationView.getHeaderView(0).findViewById(R.id.googlemail);
         googleMail.setText(app.googleMail);
+
+        dialog = new ProgressDialog(this);
+        TweetAPI.attachDialog(dialog);
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         TweetFragment fragment = TweetFragment.newInstance();
@@ -167,10 +173,15 @@ public class Home extends AppCompatActivity
     }
 
     @Override
-    public void updateUI(Fragment fragment) {
-        if(fragment != null){
-            ((TweetFragment)fragment).updateUI(fragment);
-        }
+    public void setTweet(Tweet tweet) {
+
     }
+
+//    @Override
+//    public void updateUI(Fragment fragment) {
+//        if(fragment != null){
+//            ((TweetFragment)fragment).updateUI(fragment);
+//        }
+//    }
     // [END signOut]
 }

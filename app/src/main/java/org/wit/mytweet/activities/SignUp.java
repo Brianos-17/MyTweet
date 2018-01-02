@@ -52,6 +52,5 @@ public class SignUp extends FragmentActivity {
     @Override
     protected void onPause() {
         super.onPause();
-//        app.portfolio.saveUsers();
     }
 }
