@@ -1,7 +1,9 @@
 package org.wit.mytweet.api;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -18,6 +20,7 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.wit.mytweet.models.Tweet;
+import org.wit.mytweet.models.User;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -29,14 +32,28 @@ import static org.wit.mytweet.activities.Home.app;
 
 public class TweetAPI {
 
-    private static final String hostURL = "https://safe-springs-59831.herokuapp.com";
+    private static final String hostURL = "https://calm-plains-62284.herokuapp.com";
     private static final String LocalhostURL = "http://192.168.0.13:3000";
-    //private static List<Coffee> result = null;
     private static VolleyListener vListener;
+    public static ProgressDialog  dialog;
 
     public static void attachListener(VolleyListener fragment) {
         //System.out.println("Attaching Fragment : " + fragment);
         vListener = fragment;
+    }
+
+    public static void attachDialog(ProgressDialog mDialog) {
+        dialog = mDialog;
+    }
+
+    private static void showDialog(String message) {
+        dialog.setMessage(message);
+        if (!dialog.isShowing())
+            dialog.show();
+    }
+    private static void hideDialog() {
+        if (dialog.isShowing())
+            dialog.dismiss();
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -66,7 +83,36 @@ public class TweetAPI {
             }
         });
 
-// Add the request to the queue
+        // Add the request to the queue
+        app.add(stringRequest);
+    }
+
+    public static void getAll(String url, final SwipeRefreshLayout mSwipeRefreshLayout) {
+        Log.v(TAG, "GETing All Tweets from " + url);
+        showDialog("Downloading Tweets...");
+        // Request a string response
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, hostURL + url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Result handling
+                        List<Tweet> result = null;
+                        Type collectionType = new TypeToken<List<Tweet>>(){}.getType();
+                        result = new Gson().fromJson(response, collectionType);
+                        vListener.setList(result);
+                        mSwipeRefreshLayout.setRefreshing(false);
+                        hideDialog();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Error handling
+                Log.v(TAG,"Something went wrong with GET ALL!");
+                mSwipeRefreshLayout.setRefreshing(false);
+                error.printStackTrace();
+            }
+        });
+        // Add the request to the queue
         app.add(stringRequest);
     }
 
@@ -130,4 +176,32 @@ public class TweetAPI {
         // Add the request to the queue
         app.add(gsonRequest);
     }
+
+//    public static void authenticate(String url, String email, String password) {
+//        Log.v(TAG, "Attempting to authenticate with : " + url);
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, hostURL + url, email, password,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        // Result handling
+//                        User user = null;
+//                        //System.out.println("COFFEE JSON DATA : " + response);
+//                        Type collectionType = new TypeToken<User>() {
+//                        }.getType();
+//                        user = new Gson().fromJson(response, collectionType);
+//                        vListener.;
+//                        vListener.updateUI((Fragment) vListener);
+//                    }
+//                }, new Response.ErrorListener() {
+//                        @Override
+//                        public void onErrorResponse(VolleyError error) {
+//                            // Error handling
+//                            System.out.println("Something went wrong!");
+//                            error.printStackTrace();
+//                        }
+//                    });
+//        // Add the request to the queue
+//        app.add(stringRequest);
+//    }
 }
+

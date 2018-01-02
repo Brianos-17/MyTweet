@@ -64,8 +64,6 @@ public class TweetFragment extends ListFragment implements OnClickListener,
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         listView.setMultiChoiceModeListener(this);
 
-//        TweetAPI.get("/api/users/" + hf + "/tweets");
-
         return v;
     }
 
@@ -85,6 +83,17 @@ public class TweetFragment extends ListFragment implements OnClickListener,
     public void onResume() {
         super.onResume();
 //        ((TweetListAdapter) getListAdapter()).notifyDataSetChanged();
+    }
+
+
+    @Override
+    public void setList(List list) {
+        app.tweetList = list;
+    }
+
+    @Override
+    public void updateUI(Fragment fragment) {
+        fragment.onResume();
     }
 
     //Method which comes from ListFragment and acts as onClick listener for List Items
@@ -186,16 +195,6 @@ public class TweetFragment extends ListFragment implements OnClickListener,
     @Override
     public void onDetach() {
         super.onDetach();
-        // mListener = null;
-    }
-
-    @Override
-    public void setList(List list) {
-        app.tweetList = list;
-    }
-
-    @Override
-    public void updateUI(Fragment fragment) {
-        fragment.onResume();
+//         mListener = null;
     }
 }

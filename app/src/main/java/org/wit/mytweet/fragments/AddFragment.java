@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import org.wit.mytweet.R;
 import org.wit.mytweet.activities.Home;
+import org.wit.mytweet.api.TweetAPI;
 import org.wit.mytweet.main.MyTweetApp;
 import org.wit.mytweet.models.Tweet;
 
@@ -120,7 +121,9 @@ public class AddFragment extends Fragment {
         String userId = app.googleToken;
         if (message.length() > 0) {
             Tweet tweet = new Tweet(message, date, userId);
-            app.dbManager.insertTweet(tweet);
+            app.addTweet(tweet); //Persists in JSON
+            app.dbManager.insertTweet(tweet);//Persists in SQL
+            TweetAPI.post("/api/tweet", tweet);//PErsists in mLab
             Log.v("tweetcheck", "New Tweet added:" + message);
             Log.v("tweetcheck", "This tweet belongs to the user" + app.googleToken);
             Toast.makeText(getActivity(), "Tweet sent!", Toast.LENGTH_SHORT).show();

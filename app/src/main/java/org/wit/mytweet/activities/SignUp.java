@@ -41,7 +41,8 @@ public class SignUp extends FragmentActivity {
             Toast.makeText(this, "You've left some blank spaces!", Toast.LENGTH_SHORT).show();
         } else {
             User newUser = new User(firstName, lastName, email, password);
-            app.dbManager.insertUser(newUser);
+            app.addUser(newUser);//Persists in JSON
+            app.dbManager.insertUser(newUser);//Persists in SQL
             startActivity(new Intent(this, Login.class));
         }
     }

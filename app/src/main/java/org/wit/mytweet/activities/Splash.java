@@ -26,7 +26,7 @@ public class Splash extends AppCompatActivity {
             public void run() { //ensures the splash screen wont show again if user presses back
                 finish();
                 if(!backButtonPressed){
-                    Intent intent = new Intent(Splash.this, Login.class);
+                    Intent intent = new Intent(Splash.this, Welcome.class);
                     backButtonPressed = true;
                     Splash.this.startActivity(intent);
                 }

@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -20,6 +22,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationServices;
 
+import org.wit.mytweet.api.TweetAPI;
 import org.wit.mytweet.main.MyTweetApp;
 import org.wit.mytweet.R;
 
@@ -35,7 +38,6 @@ public class Login extends FragmentActivity implements
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // [START configure_signin]
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -57,6 +59,7 @@ public class Login extends FragmentActivity implements
         // [END build_client]
 
         setContentView(R.layout.activity_login);
+        findViewById(R.id.login_button).setOnClickListener(this);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         findViewById(R.id.disconnect_button).setOnClickListener(this);
 
@@ -137,16 +140,13 @@ public class Login extends FragmentActivity implements
 
     @Override
     public void onClick(View v) {
-
-        if (v.getId() == R.id.sign_in_button) {
+        if(v.getId() == R.id.login_button) {
+//            authenticate();
+        } else if (v.getId() == R.id.sign_in_button) {
             signIn();
-        }
-
-        if (v.getId() == R.id.disconnect_button) {
+        } else if (v.getId() == R.id.disconnect_button) {
             revokeAccess();
-            }
-            else
-                Toast.makeText(this, "No Account to Disconenct....", Toast.LENGTH_SHORT).show();
+        } else Toast.makeText(this, "No Account to Disconenct....", Toast.LENGTH_SHORT).show();
     }
 
     private void startHomeScreen() {
@@ -158,12 +158,15 @@ public class Login extends FragmentActivity implements
         Intent intent = new Intent(this, Login.class);
         startActivity(intent);
     }
-    // [START signIn]
+
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(app.mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-    // [END signIn]
+
+//    private void authenticate() {
+//        TweetAPI.
+//    }
 
     // [START revokeAccess]
     private void revokeAccess() {
