@@ -85,18 +85,18 @@ public class PortfolioSerializer {
             JSONArray array = (JSONArray) new JSONTokener(jsonString.toString()).nextValue();
 
             for (int i = 0; i < array.length(); i++) {
-                    users.add(new User(array.getJSONObject(i)));
+                users.add(new User(array.getJSONObject(i)));
             }
         } catch (FileNotFoundException e){
             //
         }
         finally {
-                if (reader != null) {
-                    reader.close();
-                }
+            if (reader != null) {
+                reader.close();
             }
-            return users;
         }
+        return users;
+    }
 
     public List<Tweet> loadTweets() throws JSONException, IOException {
         List<Tweet> tweetList = new ArrayList<>();
@@ -126,5 +126,3 @@ public class PortfolioSerializer {
         return tweetList;
     }
 }
-
-

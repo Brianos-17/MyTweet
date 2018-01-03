@@ -1,18 +1,18 @@
 package org.wit.mytweet.models;
 
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.Random;
 
-public class Tweet implements Serializable {
+public class Tweet  {
 
     public String message;
     public String date;
     public int tweetId;
     public String userId;
+    public Marker marker = new Marker();
 
     //variables fields included for persistence to and from JSON
     private static final String JSON_MESSAGE = "message";
@@ -20,11 +20,17 @@ public class Tweet implements Serializable {
     private static final String JSON_USERID = "userId";
     private static final String JSON_TWEETID = "tweetId";
 
+    public Tweet() {
+        //Empty constructor used for DB
+    }
+
     public Tweet(String message, String date, String userId) {
         this.message = message;
         this.date = date;
         this.userId = userId;
         this.tweetId = unsignedInt();
+        this.marker.coords.latitude = 0;
+        this.marker.coords.longitude = 0;
     }
 
     private int unsignedInt() {

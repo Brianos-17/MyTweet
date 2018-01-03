@@ -20,6 +20,10 @@ public class User {
     private static final String JSON_PASSWORD = "password";
     private static final String JSON_USERID = "userId";
 
+    public User() {
+        //Empty constructor used for DB
+    }
+
     public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -27,6 +31,11 @@ public class User {
         this.password = password;
         UUID uuid = UUID.randomUUID();
         this.userId = uuid.toString();
+    }
+
+    public User (String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 
     //Write a User Object to Json format

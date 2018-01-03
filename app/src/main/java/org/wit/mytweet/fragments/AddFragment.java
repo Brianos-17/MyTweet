@@ -19,8 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.wit.mytweet.R;
-import org.wit.mytweet.activities.Base;
 import org.wit.mytweet.activities.Home;
+import org.wit.mytweet.api.TweetAPI;
+import org.wit.mytweet.main.MyTweetApp;
 import org.wit.mytweet.models.Tweet;
 
 import java.text.DateFormat;
@@ -38,21 +39,19 @@ public class AddFragment extends Fragment {
     private Intent data;
     private String emailAddress;
     private static final int REQUEST_CONTACT = 1;
-    private Base activity;
+    public MyTweetApp app = MyTweetApp.getInstance();
 
     public AddFragment() {
         //Empty Constructor
     }
 
     public static AddFragment newInstance() {
-        AddFragment fragment = new AddFragment();
-        return fragment;
+        return new AddFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -119,12 +118,14 @@ public class AddFragment extends Fragment {
     public void addNewTweet(View view) {
         String message = newTweet.getText().toString();
         String date = tweetDate.getText().toString();
-        String userId = activity.app.currentUserId;
+        String userId = app.googleToken;
         if (message.length() > 0) {
             Tweet tweet = new Tweet(message, date, userId);
-            activity.app.addTweet(tweet);
+            app.addTweet(tweet); //Persists in JSON
+            app.dbManager.insertTweet(tweet);//Persists in SQL
+            TweetAPI.postTweet("/api/tweet", tweet);//Persists in mLab
             Log.v("tweetcheck", "New Tweet added:" + message);
-            Log.v("tweetcheck", "This tweet belongs to the user" + activity.app.currentUserId);
+            Log.v("tweetcheck", "This tweet belongs to the user" + app.googleToken);
             Toast.makeText(getActivity(), "Tweet sent!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), Home.class);
             getActivity().startActivity(intent); // Brings user back to home class

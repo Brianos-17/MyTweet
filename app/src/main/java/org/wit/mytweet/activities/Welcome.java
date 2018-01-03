@@ -1,14 +1,17 @@
 package org.wit.mytweet.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import org.wit.mytweet.R;
+import org.wit.mytweet.main.MyTweetApp;
 
-public class Welcome extends Base implements View.OnClickListener {
+public class Welcome extends FragmentActivity implements View.OnClickListener {
+
+    public MyTweetApp app = MyTweetApp.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,7 @@ public class Welcome extends Base implements View.OnClickListener {
     }
 
     public void loginButtonPressed(View view) {
-        startActivity(new Intent(this, LogIn.class));
+        startActivity(new Intent(this, Login.class));
     }
 
     @Override
