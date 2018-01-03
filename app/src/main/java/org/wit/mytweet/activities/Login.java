@@ -25,6 +25,8 @@ import com.google.android.gms.location.LocationServices;
 import org.wit.mytweet.api.TweetAPI;
 import org.wit.mytweet.main.MyTweetApp;
 import org.wit.mytweet.R;
+import org.wit.mytweet.models.Tweet;
+import org.wit.mytweet.models.User;
 
 public class Login extends FragmentActivity implements
         GoogleApiClient.OnConnectionFailedListener,
@@ -167,11 +169,16 @@ public class Login extends FragmentActivity implements
     private void authenticate() {
         String email = ((TextView) findViewById(R.id.loginEmail)).getText().toString();
         String password = ((TextView) findViewById(R.id.loginPassword)).getText().toString();
-
-        if(app.validUser(email, password)) {
-            startActivity(new Intent(this, Home.class));
-        } else
-            Toast.makeText(this, "Email and Password do not match. \nPlease try again", Toast.LENGTH_SHORT).show();
+        if((email.isEmpty()) || (password.isEmpty())) {
+            Toast.makeText(this, "You've left some blank spaces!", Toast.LENGTH_SHORT).show();
+        } else {
+            User payload = new User(email, password);
+            TweetAPI.authenticate("/api/users/authenticate", payload);
+        }
+//        if(app.validUser(email, password)) {
+//            startActivity(new Intent(this, Home.class));
+//        } else
+//            Toast.makeText(this, "Email and Password do not match. \nPlease try again", Toast.LENGTH_SHORT).show();
     }
 
     // [START revokeAccess]

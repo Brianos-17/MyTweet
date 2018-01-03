@@ -33,6 +33,11 @@ public class User {
         this.userId = uuid.toString();
     }
 
+    public User (String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     //Write a User Object to Json format
     public User(JSONObject json) throws JSONException {
         firstName = json.getString(JSON_FIRSTNAME);

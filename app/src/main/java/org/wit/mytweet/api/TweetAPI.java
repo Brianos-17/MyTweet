@@ -32,7 +32,7 @@ import static org.wit.mytweet.activities.Home.app;
 
 public class TweetAPI {
 
-    private static final String hostURL = "https://calm-plains-62284.herokuapp.com";
+    private static final String hostURL = "https://damp-lowlands-36716.herokuapp.com";
     private static VolleyListener vListener;
     public static ProgressDialog  dialog;
 
@@ -222,31 +222,80 @@ public class TweetAPI {
         app.add(gsonRequest);
     }
 
-//    public static void authenticate(String url, String email, String password) {
-//        Log.v(TAG, "Attempting to authenticate with : " + url);
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET, hostURL + url, email, password,
+//    public static void authenticate(String url, User payload) {
+//    Log.v(TAG, "Authenticating with : " + url);
+//    Type objType = new TypeToken<User>(){}.getType();
+//    String json = new Gson().toJson(payload, objType);
+//    JSONObject jsonObject = null;
+//        try {
+//        jsonObject = new JSONObject(json);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//        Log.v(TAG, "Attempting to authenticate with " + url);
+//        // Request a string response
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST, hostURL + url, jsonObject,
 //                new Response.Listener<String>() {
 //                    @Override
 //                    public void onResponse(String response) {
 //                        // Result handling
-//                        User user = null;
-//                        //System.out.println("COFFEE JSON DATA : " + response);
-//                        Type collectionType = new TypeToken<User>() {
-//                        }.getType();
-//                        user = new Gson().fromJson(response, collectionType);
-//                        vListener.;
-//                        vListener.updateUI((Fragment) vListener);
+//                        User result = null;
+//                        Type collectionType = new TypeToken<User>(){}.getType();
+//                        result = new Gson().fromJson(response, collectionType);
+//                        app.currentUserId = result.userId;
+//                        Log.v("authenticate", result.toString());
 //                    }
 //                }, new Response.ErrorListener() {
-//                        @Override
-//                        public void onErrorResponse(VolleyError error) {
-//                            // Error handling
-//                            System.out.println("Something went wrong!");
-//                            error.printStackTrace();
-//                        }
-//                    });
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                // Error handling
+//                Log.v(TAG,"Something went wrong with GET ALL!");
+//                Log.v("authenticate", "Nothing here");
+//                error.printStackTrace();
+//            }
+//        });
 //        // Add the request to the queue
 //        app.add(stringRequest);
 //    }
+
+    public static void authenticate(String url, User user) {
+        Log.v(TAG, "Authenticating with : " + url);
+        Type objType = new TypeToken<User>(){}.getType();
+        String json = new Gson().toJson(user, objType);
+        JSONObject jsonObject = null;
+
+        try {
+            jsonObject = new JSONObject(json);
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest gsonRequest = new JsonObjectRequest( Request.Method.POST, hostURL + url, jsonObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.v(TAG, "authenticated user " + response.toString());
+                        try {
+                            String userId = response.getString("_id");
+                            Log.v("userID", "User ID is " + userId);
+                            app.currentUserId = userId;
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) { // Handle Error
+                        Log.v(TAG, "Unable to authenticate User");
+                    }
+                }) {
+        };
+
+        // Add the request to the queue
+        app.add(gsonRequest);
+    }
 }
 

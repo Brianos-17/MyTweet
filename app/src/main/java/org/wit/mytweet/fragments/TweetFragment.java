@@ -65,8 +65,20 @@ public class TweetFragment extends Fragment implements
         listView = (ListView) v.findViewById(R.id.tweetList);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         listView.setMultiChoiceModeListener(this);
+        mSwipeRefreshLayout =  (SwipeRefreshLayout) v.findViewById(R.id.refresh_layout);
+        setSwipeRefreshLayout();
+//        TweetAPI.get();
 
         return v;
+    }
+
+    protected void setSwipeRefreshLayout() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+//                TweetAPI.get("/api/tweet", mSwipeRefreshLayout);
+            }
+        });
     }
 
     @Override
@@ -84,13 +96,20 @@ public class TweetFragment extends Fragment implements
     @Override
     public void onResume() {
         super.onResume();
-//        ((TweetListAdapter) getListAdapter()).notifyDataSetChanged();
+        TweetAPI.attachListener(this);
+//        TweetAPI.get();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        TweetAPI.detachListener();
+    }
 
     @Override
     public void setList(List list) {
         app.tweetList = list;
+        updateUI();
     }
 
     @Override
@@ -98,10 +117,18 @@ public class TweetFragment extends Fragment implements
 
     }
 
-//    @Override
-//    public void updateUI(Fragment fragment) {
-//        fragment.onResume();
-//    }
+  public void updateUI() {
+      listAdapter = new TweetListAdapter(getActivity(), this, app.tweetList);
+      setListView(listView);
+      listAdapter.notifyDataSetChanged();
+  }
+
+    public void setListView(ListView listview) {
+        listview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        listview.setMultiChoiceModeListener(this);
+        listview.setAdapter (listAdapter);
+        listview.setOnItemClickListener(this);
+    }
 
     //Method which comes from ListFragment and acts as onClick listener for List Items
     @Override
@@ -202,6 +229,6 @@ public class TweetFragment extends Fragment implements
     @Override
     public void onDetach() {
         super.onDetach();
-//         mListener = null;
+        TweetAPI.detachListener();
     }
 }
