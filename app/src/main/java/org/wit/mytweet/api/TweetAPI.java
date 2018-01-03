@@ -31,7 +31,7 @@ import static com.android.volley.VolleyLog.TAG;
 
 public class TweetAPI {
 
-    private static final String hostURL = "https://damp-lowlands-36716.herokuapp.com";
+    private static final String hostURL = "https://powerful-refuge-48149.herokuapp.com";
     private static VolleyListener vListener;
     public static ProgressDialog  dialog;
     public static MyTweetApp app = MyTweetApp.getInstance();
@@ -60,22 +60,23 @@ public class TweetAPI {
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
-    public static void get(String url) {
+    public static void get(String url, final SwipeRefreshLayout mSwipeRefreshLayout) {
+        showDialog("Downloading your personal Tweets...");
         // Request a string response
         StringRequest stringRequest = new StringRequest(Request.Method.GET, hostURL + url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
                         // Result handling
                         List<Tweet> result = null;
                         //System.out.println("COFFEE JSON DATA : " + response);
                         Type collectionType = new TypeToken<List<Tweet>>() {
                         }.getType();
-
                         result = new Gson().fromJson(response, collectionType);
+                        Log.v("personaltweets", result.toString());
                         vListener.setList(result);
-//                        vListener.updateUI((Fragment) vListener);
+                        mSwipeRefreshLayout.setRefreshing(false);
+                        hideDialog();
                     }
                 }, new Response.ErrorListener() {
             @Override

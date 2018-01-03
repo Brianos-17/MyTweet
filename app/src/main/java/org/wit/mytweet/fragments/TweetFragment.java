@@ -67,7 +67,7 @@ public class TweetFragment extends Fragment implements
         listView.setMultiChoiceModeListener(this);
         mSwipeRefreshLayout =  (SwipeRefreshLayout) v.findViewById(R.id.refresh_layout);
         setSwipeRefreshLayout();
-//        TweetAPI.get();
+        TweetAPI.getAll("/api/users/" + app.currentUserId + "/tweets", mSwipeRefreshLayout);
 
         return v;
     }
@@ -76,7 +76,7 @@ public class TweetFragment extends Fragment implements
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                TweetAPI.get("/api/tweet", mSwipeRefreshLayout);
+                TweetAPI.getAll("/api/users/" + app.currentUserId + "/tweets", mSwipeRefreshLayout);
             }
         });
     }
@@ -97,7 +97,7 @@ public class TweetFragment extends Fragment implements
     public void onResume() {
         super.onResume();
         TweetAPI.attachListener(this);
-//        TweetAPI.get();
+        TweetAPI.getAll("/api/users/" + app.currentUserId + "/tweets", mSwipeRefreshLayout);
     }
 
     @Override
