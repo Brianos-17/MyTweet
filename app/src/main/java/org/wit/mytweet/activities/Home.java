@@ -137,7 +137,7 @@ public class Home extends AppCompatActivity
 
     // [START signOut]
     public void menuSignOut(MenuItem m) {
-
+        app.currentUserId = "";
         //https://stackoverflow.com/questions/38039320/googleapiclient-is-not-connected-yet-on-logout-when-using-firebase-auth-with-g
         app.mGoogleApiClient.connect();
         app.mGoogleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {

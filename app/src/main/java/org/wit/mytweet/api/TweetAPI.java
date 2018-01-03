@@ -1,6 +1,5 @@
 package org.wit.mytweet.api;
 
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -19,6 +18,7 @@ import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.wit.mytweet.main.MyTweetApp;
 import org.wit.mytweet.models.Tweet;
 import org.wit.mytweet.models.User;
 
@@ -28,13 +28,13 @@ import java.util.List;
 import java.util.Map;
 
 import static com.android.volley.VolleyLog.TAG;
-import static org.wit.mytweet.activities.Home.app;
 
 public class TweetAPI {
 
     private static final String hostURL = "https://damp-lowlands-36716.herokuapp.com";
     private static VolleyListener vListener;
     public static ProgressDialog  dialog;
+    public static MyTweetApp app = MyTweetApp.getInstance();
 
     public static void attachListener(VolleyListener fragment) {
         //System.out.println("Attaching Fragment : " + fragment);
@@ -222,65 +222,24 @@ public class TweetAPI {
         app.add(gsonRequest);
     }
 
-//    public static void authenticate(String url, User payload) {
-//    Log.v(TAG, "Authenticating with : " + url);
-//    Type objType = new TypeToken<User>(){}.getType();
-//    String json = new Gson().toJson(payload, objType);
-//    JSONObject jsonObject = null;
-//        try {
-//        jsonObject = new JSONObject(json);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//        Log.v(TAG, "Attempting to authenticate with " + url);
-//        // Request a string response
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, hostURL + url, jsonObject,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        // Result handling
-//                        User result = null;
-//                        Type collectionType = new TypeToken<User>(){}.getType();
-//                        result = new Gson().fromJson(response, collectionType);
-//                        app.currentUserId = result.userId;
-//                        Log.v("authenticate", result.toString());
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                // Error handling
-//                Log.v(TAG,"Something went wrong with GET ALL!");
-//                Log.v("authenticate", "Nothing here");
-//                error.printStackTrace();
-//            }
-//        });
-//        // Add the request to the queue
-//        app.add(stringRequest);
-//    }
-
     public static void authenticate(String url, User user) {
         Log.v(TAG, "Authenticating with : " + url);
         Type objType = new TypeToken<User>(){}.getType();
         String json = new Gson().toJson(user, objType);
         JSONObject jsonObject = null;
-
         try {
             jsonObject = new JSONObject(json);
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
-
         JsonObjectRequest gsonRequest = new JsonObjectRequest( Request.Method.POST, hostURL + url, jsonObject,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.v(TAG, "authenticated user " + response.toString());
                         try {
-                            String userId = response.getString("_id");
-                            Log.v("userID", "User ID is " + userId);
-                            app.currentUserId = userId;
+                            app.currentUserId = response.getString("_id");
+                            Log.v("userID", "Current user id is " + app.currentUserId);
                         } catch (JSONException e){
                             e.printStackTrace();
                         }
