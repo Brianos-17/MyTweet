@@ -118,14 +118,13 @@ public class AddFragment extends Fragment {
     public void addNewTweet(View view) {
         String message = newTweet.getText().toString();
         String date = tweetDate.getText().toString();
-        String userId = app.googleToken;
+        String user = app.currentUserId;
         if (message.length() > 0) {
-            Tweet tweet = new Tweet(message, date, userId);
-            app.addTweet(tweet); //Persists in JSON
-            app.dbManager.insertTweet(tweet);//Persists in SQL
+            Tweet tweet = new Tweet(message, date, user);
+//            app.addTweet(tweet); //Persists in JSON
+//            app.dbManager.insertTweet(tweet);//Persists in SQL
             TweetAPI.postTweet("/api/tweet", tweet);//Persists in mLab
-            Log.v("tweetcheck", "New Tweet added:" + message);
-            Log.v("tweetcheck", "This tweet belongs to the user" + app.googleToken);
+            Log.v("tweetcheck", "New Tweet added:" + tweet.message + tweet.date + tweet.user);
             Toast.makeText(getActivity(), "Tweet sent!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), Home.class);
             getActivity().startActivity(intent); // Brings user back to home class

@@ -34,7 +34,7 @@ public class DBManager {
 	public void insertTweet(Tweet tweet) {
 		ContentValues values = new ContentValues();
 		values.put(DBDesigner.COLUMN_ID, tweet.tweetId);
-		values.put(DBDesigner.COLUMN_USER_TWEET_ID, tweet.userId);
+		values.put(DBDesigner.COLUMN_USER_TWEET_ID, tweet.user);
 		values.put(DBDesigner.COLUMN_MESSAGE, tweet.message);
 		values.put(DBDesigner.COLUMN_DATE, tweet.date);
 
@@ -70,7 +70,7 @@ public class DBManager {
 	public void updateTweet(Tweet tweet) {
 		ContentValues values = new ContentValues();
 		values.put(DBDesigner.COLUMN_ID, tweet.tweetId);
-		values.put(DBDesigner.COLUMN_USER_TWEET_ID, tweet.userId);
+		values.put(DBDesigner.COLUMN_USER_TWEET_ID, tweet.user);
 		values.put(DBDesigner.COLUMN_MESSAGE, tweet.message);
 		values.put(DBDesigner.COLUMN_DATE, tweet.date);
 
@@ -165,7 +165,7 @@ public class DBManager {
 	private Tweet toTweet(Cursor cursor) {
 		Tweet pojo = new Tweet();
 		pojo.tweetId = cursor.getInt(0);
-		pojo.userId = cursor.getString(1);
+		pojo.user = cursor.getString(1);
 		pojo.message = cursor.getString(2);
 		pojo.date = cursor.getString(3);
 
