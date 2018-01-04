@@ -31,7 +31,7 @@ import static com.android.volley.VolleyLog.TAG;
 
 public class TweetAPI {
 
-    private static final String hostURL = "https://powerful-refuge-48149.herokuapp.com";
+    private static final String hostURL = "https://sheltered-coast-67223.herokuapp.com";
     private static VolleyListener vListener;
     public static ProgressDialog  dialog;
     public static MyTweetApp app = MyTweetApp.getInstance();
@@ -268,7 +268,6 @@ public class TweetAPI {
         }
 
         JsonObjectRequest gsonRequest = new JsonObjectRequest( Request.Method.PUT, hostURL + url,
-
                 jsonObject,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -291,7 +290,7 @@ public class TweetAPI {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         //   Handle Error
-                        Log.v(TAG, "Unable to update Coffee with error : " + error.getMessage());
+                        Log.v(TAG, "Unable to update Coffee with error : " + error);
                     }
                 }) {
             @Override

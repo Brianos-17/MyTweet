@@ -68,36 +68,14 @@ public class EditFragment extends Fragment implements VolleyListener{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_add, container, false);
+        View v = inflater.inflate(R.layout.fragment_edit, container, false);
 
         characterCount = (TextView) v.findViewById(R.id.characterCount);
-        editTweet = (Button) v.findViewById(R.id.sendTweet);
-        editedTweet = (EditText) v.findViewById(R.id.newTweet);
+        editTweet = (Button) v.findViewById(R.id.editTweet);
+        editedTweet = (EditText) v.findViewById(R.id.editedTweet);
         tweetDate = (TextView) v.findViewById(R.id.tweetDate);
         contactButton = (Button) v.findViewById(R.id.contactButton);
         emailButton = (Button) v.findViewById(R.id.emailButton);
-
-//        editedTweet.setText(tweetToEdit.message);
-//        characterCount.setText(String.valueOf(140 - tweetToEdit.message.length()));
-//        tweetDate.setText(tweetToEdit.date);
-
-
-        //TextWatcher which counts down value of character count
-        //Retrieved from: https://stackoverflow.com/questions/24110265/android-create-count-down-word-field-when-user-type-in-edittext
-        editedTweet.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                characterCount.setText(String.valueOf(140 - (editedTweet.getText().toString().length())));
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
 
         return v;
     }
@@ -144,13 +122,29 @@ public class EditFragment extends Fragment implements VolleyListener{
         editedTweet.setText(tweetToEdit.message);
         characterCount.setText(String.valueOf(140 - tweetToEdit.message.length()));
         tweetDate.setText(tweetToEdit.date);
+        //TextWatcher which counts down value of character count
+        //Retrieved from: https://stackoverflow.com/questions/24110265/android-create-count-down-word-field-when-user-type-in-edittext
+        editedTweet.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                characterCount.setText(String.valueOf(140 - (editedTweet.getText().toString().length())));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
     }
 
     public interface OnFragmentInteractionListener {
-        void edit(View v);
+        void update(View v);
     }
 
-    public void edit(View v) {
+    public void update(View v) {
         if(mListener != null) {
             String message = editTweet.getText().toString();
             if (message.length() > 0){
