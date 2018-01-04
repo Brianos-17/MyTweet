@@ -37,7 +37,6 @@ public class TweetAPI {
     public static MyTweetApp app = MyTweetApp.getInstance();
 
     public static void attachListener(VolleyListener fragment) {
-        //System.out.println("Attaching Fragment : " + fragment);
         vListener = fragment;
     }
 
@@ -102,7 +101,9 @@ public class TweetAPI {
                         result = new Gson().fromJson(response, collectionType);
                         vListener.setList(result);
                         Log.v("GETcheck", "Here are all the tweets" + result.toString());
-                        mSwipeRefreshLayout.setRefreshing(false);
+                        if(mSwipeRefreshLayout != null){
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
                         hideDialog();
                     }
                 }, new Response.ErrorListener() {

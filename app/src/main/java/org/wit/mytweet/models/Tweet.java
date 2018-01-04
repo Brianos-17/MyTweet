@@ -13,6 +13,9 @@ public class Tweet  {
     public String user;
     public String _id;
     public Marker marker = new Marker();
+    public String usertoken;
+    public String address;
+    public String googlephoto;
 
     //variables fields included for persistence to and from JSON
     private static final String JSON_MESSAGE = "message";
@@ -24,12 +27,14 @@ public class Tweet  {
         //Empty constructor used for DB
     }
 
-    public Tweet(String message, String date, String user) {
+    public Tweet(String message, String date, String user, String address, double lat,
+                 double lng) {
         this.message = message;
         this.date = date;
         this.user = user;
-        this.marker.coords.latitude = 0;
-        this.marker.coords.longitude = 0;
+        this.address = address;
+        this.marker.coords.latitude = lat;
+        this.marker.coords.longitude = lng;
     }
 
     private int unsignedInt() {

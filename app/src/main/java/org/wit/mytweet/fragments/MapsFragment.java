@@ -134,7 +134,7 @@ public class MapsFragment extends MapFragment implements
         super.onResume();
         getMapAsync(this);
         TweetAPI.attachListener(this);
-//        TweetAPI.getAll("/coffees/" + app.googleToken, null);
+        TweetAPI.getAll("/api/users/" + app.currentUserId + "/tweets", null);
         if (checkPermission()) {
             if (app.mCurrentLocation != null) {
                 Toast.makeText(getActivity(), "GPS location was found!", Toast.LENGTH_SHORT).show();

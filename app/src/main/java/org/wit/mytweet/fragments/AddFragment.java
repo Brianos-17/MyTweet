@@ -4,6 +4,9 @@ import android.Manifest;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -18,21 +21,29 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import org.wit.mytweet.R;
 import org.wit.mytweet.activities.Home;
 import org.wit.mytweet.api.TweetAPI;
 import org.wit.mytweet.main.MyTweetApp;
 import org.wit.mytweet.models.Tweet;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 
 import static org.wit.helpers.ContactHelper.getContact;
 import static org.wit.helpers.ContactHelper.getEmail;
 import static org.wit.helpers.ContactHelper.sendEmail;
 import static org.wit.helpers.IntentHelper.selectContact;
 
-public class AddFragment extends Fragment {
+public class AddFragment extends Fragment implements OnMapReadyCallback {
     private TextView characterCount, tweetDate;
     private EditText newTweet;
     private Button contactButton, emailButton, sendTweet;
@@ -120,14 +131,17 @@ public class AddFragment extends Fragment {
         String date = tweetDate.getText().toString();
         String user = app.currentUserId;
         if (message.length() > 0) {
-            Tweet tweet = new Tweet(message, date, user);
+            Tweet tweet = new Tweet(message, date, user,
+                    getAddressFromLocation( app.mCurrentLocation ),
+                    app.mCurrentLocation.getLatitude(),
+                    app.mCurrentLocation.getLongitude());
 //            app.addTweet(tweet); //Persists in JSON
 //            app.dbManager.insertTweet(tweet);//Persists in SQL
             TweetAPI.postTweet("/api/tweet", tweet);//Persists in mLab
             Log.v("tweetcheck", "New Tweet added:" + tweet.message + tweet.date + tweet.user);
             Toast.makeText(getActivity(), "Tweet sent!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getActivity(), Home.class);
-            getActivity().startActivity(intent); // Brings user back to home class
+//            Intent intent = new Intent(getActivity(), Home.class);
+//            getActivity().startActivity(intent); // Brings user back to home class
         } else {
             Toast.makeText(getActivity(), "Oops, looks like you haven't said anything!", Toast.LENGTH_SHORT).show();
         }
@@ -185,5 +199,39 @@ public class AddFragment extends Fragment {
         String name = getContact(getActivity(), data);
         emailAddress = getEmail(getActivity(), data);
         contactButton.setText(name + " : " + emailAddress);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        googleMap.clear();
+        addTweets(app.tweetList, googleMap);
+    }
+
+    public void addTweets(List<Tweet> tweetList, GoogleMap mMap) {
+        for(Tweet tweet : tweetList)
+            mMap.addMarker(new MarkerOptions()
+            .position(new LatLng(tweet.marker.coords.latitude, tweet.marker.coords.longitude))
+            .title(tweet.message)
+            .snippet(tweet.date)
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker)));
+    }
+
+    private String getAddressFromLocation( Location location ) {
+        Geocoder geocoder = new Geocoder( getActivity() );
+
+        String strAddress = "";
+        Address address;
+        try {
+            address = geocoder
+                    .getFromLocation( location.getLatitude(), location.getLongitude(), 1 )
+                    .get( 0 );
+            strAddress = address.getAddressLine(0) +
+                    " " + address.getAddressLine(1) +
+                    " " + address.getAddressLine(2);
+        }
+        catch (IOException e ) {
+        }
+
+        return strAddress;
     }
 }
