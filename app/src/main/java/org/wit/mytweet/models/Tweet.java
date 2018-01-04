@@ -10,15 +10,15 @@ public class Tweet  {
 
     public String message;
     public String date;
-    public int tweetId;
     public String user;
+    public String _id;
     public Marker marker = new Marker();
 
     //variables fields included for persistence to and from JSON
     private static final String JSON_MESSAGE = "message";
     private static final String JSON_DATE = "date";
     private static final String JSON_USER = "user";
-    private static final String JSON_TWEETID = "tweetId";
+    private static final String JSON_ID = "tweetId";
 
     public Tweet() {
         //Empty constructor used for DB
@@ -28,7 +28,6 @@ public class Tweet  {
         this.message = message;
         this.date = date;
         this.user = user;
-        this.tweetId = unsignedInt();
         this.marker.coords.latitude = 0;
         this.marker.coords.longitude = 0;
     }
@@ -46,7 +45,7 @@ public class Tweet  {
         message = json.getString(JSON_MESSAGE);
         date = json.getString(JSON_DATE);
         user = json.getString(JSON_USER);
-        tweetId = json.getInt(JSON_TWEETID);
+//        _id = json.getInt(JSON_ID);
     }
 
     //Reads a json object as a User object
@@ -55,7 +54,7 @@ public class Tweet  {
         json.put(JSON_MESSAGE, message);
         json.put(JSON_DATE, date);
         json.put(JSON_USER, user);
-        json.put(JSON_TWEETID, tweetId);
+//        json.put(JSON_ID, _id);
         return json;
     }
 }

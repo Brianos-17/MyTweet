@@ -174,7 +174,7 @@ public class Login extends FragmentActivity implements
         } else {
             User payload = new User(email, password);
             TweetAPI.authenticate("/api/users/authenticate", payload);
-            Log.v("logincheck", app.currentUserId);
+            Log.v("userID", app.currentUserId);
             if(app.currentUserId.equals("")){
                 Toast.makeText(this, "There was an error logging in. Please try again", Toast.LENGTH_SHORT).show();
             } else {

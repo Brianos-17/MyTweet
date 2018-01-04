@@ -19,7 +19,7 @@ public class TimelineItem {
     public TimelineItem(Context context, ViewGroup parent, OnClickListener deleteListener, Tweet tweet) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.content_timeline_item, parent, false);
-        view.setId(tweet.tweetId);
+        view.setTag(tweet._id);
         updateTimeline(tweet);
 
         deleteTweet = (ImageView) view.findViewById(R.id.deleteTweet);

@@ -60,22 +60,19 @@ public class TweetAPI {
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
-    public static void get(String url, final SwipeRefreshLayout mSwipeRefreshLayout) {
-        showDialog("Downloading your personal Tweets...");
+    public static void get(String url) {
+        showDialog("Downloading your Tweet...");
         // Request a string response
         StringRequest stringRequest = new StringRequest(Request.Method.GET, hostURL + url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // Result handling
-                        List<Tweet> result = null;
-                        //System.out.println("COFFEE JSON DATA : " + response);
-                        Type collectionType = new TypeToken<List<Tweet>>() {
-                        }.getType();
-                        result = new Gson().fromJson(response, collectionType);
+                        Tweet result = null;
+                        Type objType = new TypeToken<Tweet>(){}.getType();
+                        result = new Gson().fromJson(response, objType);
                         Log.v("personaltweets", result.toString());
-                        vListener.setList(result);
-                        mSwipeRefreshLayout.setRefreshing(false);
+                        vListener.setTweet(result);
                         hideDialog();
                     }
                 }, new Response.ErrorListener() {
@@ -237,7 +234,6 @@ public class TweetAPI {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.v(TAG, "authenticated user " + response.toString());
                         try {
                             app.currentUserId = response.getString("_id");
                             Log.v("userID", "Current user id is " + app.currentUserId);
@@ -254,6 +250,58 @@ public class TweetAPI {
                 }) {
         };
 
+        // Add the request to the queue
+        app.add(gsonRequest);
+    }
+
+    public static void put(String url,Tweet tweetToEdit) {
+        Log.v(TAG, "PUTing to : " + url);
+        showDialog("Updating your Tweet...");
+        Type objType = new TypeToken<Tweet>(){}.getType();
+        String json = new Gson().toJson(tweetToEdit, objType);
+
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest gsonRequest = new JsonObjectRequest( Request.Method.PUT, hostURL + url,
+
+                jsonObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Result handling
+                        Tweet result = null;
+                        Type objType = new TypeToken<Tweet>(){}.getType();
+
+                        try {
+                            result = new Gson().fromJson(response.getString("data"), objType);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        vListener.setTweet(result);
+                        hideDialog();
+                        Log.v(TAG, "Updating a Coffee successful with :" + result);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //   Handle Error
+                        Log.v(TAG, "Unable to update Coffee with error : " + error.getMessage());
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                //headers.put("User-agent", System.getProperty("http.agent"));
+                return headers;
+            }
+        };
         // Add the request to the queue
         app.add(gsonRequest);
     }
