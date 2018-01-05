@@ -31,7 +31,7 @@ import static com.android.volley.VolleyLog.TAG;
 
 public class TweetAPI {
 
-    private static final String hostURL = "https://sheltered-coast-67223.herokuapp.com";
+    private static final String hostURL = "https://morning-oasis-90335.herokuapp.com";
     private static VolleyListener vListener;
     public static ProgressDialog  dialog;
     public static MyTweetApp app = MyTweetApp.getInstance();
@@ -112,7 +112,9 @@ public class TweetAPI {
                 // Error handling
                 Log.v(TAG,"Something went wrong with GET ALL!");
                 Log.v("GETcheck", "Nothing here");
-                mSwipeRefreshLayout.setRefreshing(false);
+                if(mSwipeRefreshLayout != null){
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
                 error.printStackTrace();
             }
         });
