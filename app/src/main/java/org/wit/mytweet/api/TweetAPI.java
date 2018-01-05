@@ -31,7 +31,7 @@ import static com.android.volley.VolleyLog.TAG;
 
 public class TweetAPI {
 
-    private static final String hostURL = "https://morning-oasis-90335.herokuapp.com";
+    private static final String hostURL = "https://stormy-springs-79867.herokuapp.com";
     private static VolleyListener vListener;
     public static ProgressDialog  dialog;
     public static MyTweetApp app = MyTweetApp.getInstance();
