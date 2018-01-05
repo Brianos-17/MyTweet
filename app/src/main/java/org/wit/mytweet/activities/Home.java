@@ -128,16 +128,15 @@ public class Home extends AppCompatActivity
     }
 
     @Override
-    public void edit(View v) {
+    public void update(View v) {
         EditFragment editFrag = (EditFragment) getFragmentManager().findFragmentById(R.id.fragment_layout);
         if (editFrag != null) {
-            editFrag.edit(v);
+            editFrag.update(v);
         }
     }
 
-    // [START signOut]
     public void menuSignOut(MenuItem m) {
-
+        app.currentUserId = "";
         //https://stackoverflow.com/questions/38039320/googleapiclient-is-not-connected-yet-on-logout-when-using-firebase-auth-with-g
         app.mGoogleApiClient.connect();
         app.mGoogleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
@@ -183,5 +182,4 @@ public class Home extends AppCompatActivity
 //            ((TweetFragment)fragment).updateUI(fragment);
 //        }
 //    }
-    // [END signOut]
 }

@@ -11,7 +11,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import org.wit.mytweet.db.DBManager;
+//import org.wit.mytweet.db.DBManager;
 import org.wit.mytweet.models.Portfolio;
 import org.wit.mytweet.models.PortfolioSerializer;
 import org.wit.mytweet.models.Tweet;
@@ -36,7 +36,7 @@ public class MyTweetApp extends Application {
     public String currentUserId;//variable introduced in order to associate tweets with specific users
 
 //    public String currentUserId;//variable introduced in order to associate tweets with specific users
-    public DBManager  dbManager = new DBManager(this);//Persist data in SQL
+//    public DBManager  dbManager = new DBManager(this);//Persist data in SQL
     /* Client used to interact with Google APIs. */
     public GoogleApiClient mGoogleApiClient;
     public GoogleSignInOptions mGoogleSignInOptions;
@@ -61,7 +61,7 @@ public class MyTweetApp extends Application {
         PortfolioSerializer serializer = new PortfolioSerializer(this, FILENAME1, FILENAME2);
         portfolio = new Portfolio(serializer);//passes the PortfolioSerializer and List of users to the portfolio class for persistence
         currentUserId = "";
-        dbManager.open();
+//        dbManager.open();
         mInstance = this;
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
     }
@@ -69,7 +69,7 @@ public class MyTweetApp extends Application {
     @Override
     public void onTerminate() {
         super.onTerminate();
-        dbManager.close();
+//        dbManager.close();
     }
 
     public static synchronized MyTweetApp getInstance() {
@@ -101,14 +101,14 @@ public class MyTweetApp extends Application {
         portfolio.saveTweets();
     }
 
-    public void editTweet(String message, int tweetId) {
-        for(Tweet tweet : portfolio.tweetList) {
-            if(tweet.tweetId == tweetId) {
-                tweet.message = message;
-            }
-        }
-
-    }
+//    public void editTweet(String message, int _id) {
+//        for(Tweet tweet : portfolio.tweetList) {
+//            if(tweet.tweetId == _id) {
+//                tweet.message = message;
+//            }
+//        }
+//
+//    }
 
     public boolean validUser(String email, String password) {
         for (User user : portfolio.users) {

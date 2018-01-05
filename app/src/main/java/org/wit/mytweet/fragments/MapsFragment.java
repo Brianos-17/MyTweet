@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -99,7 +100,6 @@ public class MapsFragment extends MapFragment implements
         mLocationRequest.setInterval(UPDATE_INTERVAL);
         mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        //mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
     }
 
     /* Creates a callback for receiving location events.*/
@@ -134,7 +134,7 @@ public class MapsFragment extends MapFragment implements
         super.onResume();
         getMapAsync(this);
         TweetAPI.attachListener(this);
-//        TweetAPI.getAll("/coffees/" + app.googleToken, null);
+        TweetAPI.getAll("/api/users/" + app.currentUserId + "/tweets", null);
         if (checkPermission()) {
             if (app.mCurrentLocation != null) {
                 Toast.makeText(getActivity(), "GPS location was found!", Toast.LENGTH_SHORT).show();

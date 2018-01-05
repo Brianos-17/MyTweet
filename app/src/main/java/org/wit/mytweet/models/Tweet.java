@@ -10,27 +10,31 @@ public class Tweet  {
 
     public String message;
     public String date;
-    public int tweetId;
-    public String userId;
+    public String user;
+    public String _id;
     public Marker marker = new Marker();
+    public String usertoken;
+    public String address;
+    public String googlephoto;
 
     //variables fields included for persistence to and from JSON
     private static final String JSON_MESSAGE = "message";
     private static final String JSON_DATE = "date";
-    private static final String JSON_USERID = "userId";
-    private static final String JSON_TWEETID = "tweetId";
+    private static final String JSON_USER = "user";
+    private static final String JSON_ID = "tweetId";
 
     public Tweet() {
         //Empty constructor used for DB
     }
 
-    public Tweet(String message, String date, String userId) {
+    public Tweet(String message, String date, String user, String address, double lat,
+                 double lng) {
         this.message = message;
         this.date = date;
-        this.userId = userId;
-        this.tweetId = unsignedInt();
-        this.marker.coords.latitude = 0;
-        this.marker.coords.longitude = 0;
+        this.user = user;
+        this.address = address;
+        this.marker.coords.latitude = lat;
+        this.marker.coords.longitude = lng;
     }
 
     private int unsignedInt() {
@@ -45,8 +49,8 @@ public class Tweet  {
     public Tweet(JSONObject json) throws JSONException {
         message = json.getString(JSON_MESSAGE);
         date = json.getString(JSON_DATE);
-        userId = json.getString(JSON_USERID);
-        tweetId = json.getInt(JSON_TWEETID);
+        user = json.getString(JSON_USER);
+//        _id = json.getInt(JSON_ID);
     }
 
     //Reads a json object as a User object
@@ -54,8 +58,8 @@ public class Tweet  {
         JSONObject json = new JSONObject();
         json.put(JSON_MESSAGE, message);
         json.put(JSON_DATE, date);
-        json.put(JSON_USERID, userId);
-        json.put(JSON_TWEETID, tweetId);
+        json.put(JSON_USER, user);
+//        json.put(JSON_ID, _id);
         return json;
     }
 }

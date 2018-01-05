@@ -13,7 +13,7 @@ public class UserTweetFilter {
     public List<Tweet> filter(String currentUserId, List<Tweet> tweetList){
         List<Tweet> filteredTweets = new ArrayList<>();
         for(Tweet tweet: tweetList){
-            if(tweet.userId.equals(currentUserId)){
+            if(tweet.user.equals(currentUserId)){
                 filteredTweets.add(tweet);
             }
         }

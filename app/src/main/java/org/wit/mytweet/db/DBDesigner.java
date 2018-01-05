@@ -8,7 +8,7 @@ import android.util.Log;
 public class DBDesigner extends SQLiteOpenHelper
 {
 	public static final String TABLE_TWEET = "table_tweet";
-	public static final String COLUMN_ID = "tweetid";
+	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_USER_TWEET_ID = "userid";
 	public static final String COLUMN_MESSAGE = "message";
 	public static final String COLUMN_DATE = "date";

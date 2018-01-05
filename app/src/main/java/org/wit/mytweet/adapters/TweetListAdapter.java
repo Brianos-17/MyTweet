@@ -50,7 +50,7 @@ public class TweetListAdapter extends ArrayAdapter<Tweet> {
 
     @Override
     public long getItemId(int position) {
-        return tweetList.get(position).tweetId;
+        return position;
     }
 
     @Override

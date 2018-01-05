@@ -43,7 +43,7 @@ public class SignUp extends FragmentActivity {
         } else {
             User newUser = new User(firstName, lastName, email, password);
             app.addUser(newUser);//Persists in JSON
-            app.dbManager.insertUser(newUser);//Persists in SQL
+//            app.dbManager.insertUser(newUser);//Persists in SQL
             TweetAPI.postUser("/api/users", newUser);//Persists in mlab
             startActivity(new Intent(this, Login.class));
         }

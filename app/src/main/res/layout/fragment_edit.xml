@@ -23,25 +23,26 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/sendTweet"
+            android:id="@+id/editTweet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
             android:layout_marginTop="24dp"
+            android:onClick="update"
             android:text="@string/addTweet"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/newTweet"
+            android:id="@+id/editedTweet"
             android:layout_width="0dp"
             android:layout_height="110dp"
             android:layout_marginEnd="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="96dp"
+            android:layout_marginTop="128dp"
             android:ems="10"
             android:hint="@string/newTweetHint"
             android:inputType="textMultiLine"
@@ -59,26 +60,13 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="TextView"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/newTweet" />
-
-        <fragment
-            android:name="org.wit.mytweet.fragments.MapsFragment"
-            android:id="@+id/addmap"
-            android:layout_width="364dp"
-            android:layout_height="138dp"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginRight="8dp"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/tweetDate" />
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/editedTweet" />
 
         <Button
             android:id="@+id/contactButton"
@@ -88,11 +76,11 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="65dp"
             android:text="@string/contactButton"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/addmap" />
+            app:layout_constraintTop_toBottomOf="@+id/tweetDate" />
 
         <Button
             android:id="@+id/emailButton"

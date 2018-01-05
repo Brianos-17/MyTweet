@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -33,7 +32,7 @@ import java.util.List;
 //Help for this class retrieved from lab: https://wit-ictskills-2017.github.io/mobile-app-dev/topic07-a/book-coffeemate-lab-02/index.html#/03
 
 public class TweetFragment extends Fragment implements
-        AdapterView.OnItemClickListener, OnClickListener,
+        AdapterView.OnItemClickListener, View.OnClickListener,
         AbsListView.MultiChoiceModeListener, VolleyListener {
 
     private static TweetListAdapter listAdapter;
@@ -67,7 +66,7 @@ public class TweetFragment extends Fragment implements
         listView.setMultiChoiceModeListener(this);
         mSwipeRefreshLayout =  (SwipeRefreshLayout) v.findViewById(R.id.refresh_layout);
         setSwipeRefreshLayout();
-//        TweetAPI.get();
+        TweetAPI.getAll("/api/users/" + app.currentUserId + "/tweets", mSwipeRefreshLayout);
 
         return v;
     }
@@ -76,7 +75,7 @@ public class TweetFragment extends Fragment implements
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                TweetAPI.get("/api/tweet", mSwipeRefreshLayout);
+                TweetAPI.getAll("/api/users/" + app.currentUserId + "/tweets", mSwipeRefreshLayout);
             }
         });
     }
@@ -97,7 +96,7 @@ public class TweetFragment extends Fragment implements
     public void onResume() {
         super.onResume();
         TweetAPI.attachListener(this);
-//        TweetAPI.get();
+        TweetAPI.getAll("/api/users/" + app.currentUserId + "/tweets", mSwipeRefreshLayout);
     }
 
     @Override
@@ -134,8 +133,7 @@ public class TweetFragment extends Fragment implements
     @Override
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         Bundle activityInfo = new Bundle();
-        activityInfo.putInt("tweetID", v.getId());//ensures we have the id of the selected tweet
-        Log.v("itemcheck", "Item pressed: " + v.getId());
+        activityInfo.putString("tweetID", (String) v.getTag());//ensures we have the id of the selected tweet
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         Fragment fragment = EditFragment.newInstance(activityInfo);
@@ -187,10 +185,9 @@ public class TweetFragment extends Fragment implements
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                app.dbManager.deleteTweet(tweet.tweetId); // remove from our list
+//                app.dbManager.deleteTweet(tweet.tweetId); // remove from our list
                 listAdapter.tweetList.remove(tweet); // update adapters data
                 listAdapter.notifyDataSetChanged(); // refresh adapter
-//                activity.app.portfolio.saveTweets();
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -206,9 +203,8 @@ public class TweetFragment extends Fragment implements
         for(int i = listAdapter.getCount() -1; i >= 0; i --) {
             if(listView.isItemChecked(i)){
                 Log.v("deletetweet", "Deleting tweet: " + listAdapter.getItemId(i));
-                app.dbManager.deleteTweet(listAdapter.getItem(i).tweetId);
+//                app.dbManager.deleteTweet(listAdapter.getItem(i).tweetId);
                 listAdapter.tweetList.remove(listAdapter.getItem(i));//updates the adapter too to provide instant feedback
-//                activity.app.portfolio.saveTweets();
             }
         }
         actionMode.finish();
@@ -218,10 +214,9 @@ public class TweetFragment extends Fragment implements
     //Method to delete all tweets a user has
     public void deleteAllTweets() {
         for(int i = listAdapter.getCount() -1; i >= 0; i--){
-            app.dbManager.deleteTweet(listAdapter.getItem(i).tweetId);
+//            app.dbManager.deleteTweet(listAdapter.getItem(i).tweetId);
             listAdapter.tweetList.remove(listAdapter.getItem(i));//updates the adapter too to provide instant feedback
             listAdapter.notifyDataSetChanged(); // refresh adapter
-//            activity.app.portfolio.saveTweets();
             Log.v("deletetweet", "Deleting all tweets");
         }
     }
