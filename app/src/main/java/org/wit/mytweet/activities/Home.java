@@ -29,6 +29,7 @@ import org.wit.mytweet.api.TweetAPI;
 import org.wit.mytweet.api.VolleyListener;
 import org.wit.mytweet.fragments.AddFragment;
 import org.wit.mytweet.fragments.EditFragment;
+import org.wit.mytweet.fragments.FollowFragment;
 import org.wit.mytweet.fragments.GlobalTimelineFragment;
 import org.wit.mytweet.fragments.MapsFragment;
 import org.wit.mytweet.fragments.TweetFragment;
@@ -113,7 +114,11 @@ public class Home extends AppCompatActivity
             ft.replace(R.id.fragment_layout, fragment);
             ft.addToBackStack(null);
             ft.commit();
-
+        } else if (id == R.id.nav_follow) {
+            fragment = FollowFragment.newInstance();
+            ft.replace(R.id.fragment_layout, fragment);
+            ft.addToBackStack(null);
+            ft.commit();
         } else if (id == R.id.nav_map) {
             fragment = MapsFragment.newInstance();
             ft.replace(R.id.fragment_layout, fragment);
