@@ -307,5 +307,29 @@ public class TweetAPI {
         // Add the request to the queue
         app.add(gsonRequest);
     }
+
+    public static void delete(String url) {
+        Log.v(TAG, "DELETEing from " + url);
+
+        // Request a string response
+        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, hostURL + url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Result handling
+                        Log.v(TAG, "DELETE success " + response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Error handling
+                Log.v(TAG,"Something went wrong with DELETE!");
+                error.printStackTrace();
+            }
+        });
+
+        // Add the request to the queue
+        app.add(stringRequest);
+    }
 }
 

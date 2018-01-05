@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.wit.mytweet.R;
+import org.wit.mytweet.activities.Home;
+import org.wit.mytweet.fragments.GlobalTimelineFragment;
 import org.wit.mytweet.models.Tweet;
 
 public class TimelineItem {
@@ -22,9 +24,9 @@ public class TimelineItem {
         view.setTag(tweet._id);
         updateTimeline(tweet);
 
-        deleteTweet = (ImageView) view.findViewById(R.id.deleteTweet);
-        deleteTweet.setTag(tweet);//Sets tag for onClick for deleting
-        deleteTweet.setOnClickListener(deleteListener);
+//        deleteTweet = (ImageView) view.findViewById(R.id.deleteTweet);
+//        deleteTweet.setTag(tweet);//Sets tag for onClick for deleting
+//        deleteTweet.setOnClickListener(deleteListener);
 //        toggleDeleteButton(context);//removes delete button if viewed in global timeline
 
     }
@@ -38,9 +40,7 @@ public class TimelineItem {
         ((TextView) view.findViewById(R.id.tweetDate)).setText(tweet.date);
     }
 
-//    public void toggleDeleteButton(Context context){
-////        if (context instanceof GlobalTimeline){
-//            deleteTweet.setVisibility(View.INVISIBLE);
-////        }
-//    }
+    public void toggleDeleteButton(Context context){
+        deleteTweet.setVisibility(View.INVISIBLE);
+    }
 }
