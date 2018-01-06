@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import org.wit.mytweet.R;
+import org.wit.mytweet.fragments.GlobalTimelineFragment;
 import org.wit.mytweet.models.Tweet;
 
 import java.util.List;

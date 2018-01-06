@@ -12,6 +12,10 @@
             android:icon="@drawable/ic_send_black_24dp"
             android:title="Add a Tweet" />
         <item
+            android:id="@+id/nav_follow"
+            android:icon="@drawable/ic_group_black_24dp"
+            android:title="Following" />
+        <item
             android:id="@+id/nav_gt"
             android:icon="@drawable/ic_list_timeline"
             android:title="Global Timeline" />

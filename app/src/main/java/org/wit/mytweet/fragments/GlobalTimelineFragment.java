@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import org.wit.mytweet.R;
@@ -62,6 +63,8 @@ public class GlobalTimelineFragment extends Fragment
         listView = (ListView) v.findViewById(R.id.tweetList);
         mSwipeRefreshLayout =  (SwipeRefreshLayout) v.findViewById(R.id.gt_refresh_layout);
         setSwipeRefreshLayout();
+//        ImageView deleteTweet = (ImageView) v.findViewById(R.id.deleteTweet);
+//        deleteTweet.setVisibility(View.INVISIBLE);
         TweetAPI.getAll("/api/tweet", mSwipeRefreshLayout);
         return v;
     }

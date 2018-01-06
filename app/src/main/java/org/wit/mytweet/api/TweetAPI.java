@@ -31,7 +31,7 @@ import static com.android.volley.VolleyLog.TAG;
 
 public class TweetAPI {
 
-    private static final String hostURL = "https://morning-oasis-90335.herokuapp.com";
+    private static final String hostURL = "https://stormy-springs-79867.herokuapp.com";
     private static VolleyListener vListener;
     public static ProgressDialog  dialog;
     public static MyTweetApp app = MyTweetApp.getInstance();
@@ -306,6 +306,30 @@ public class TweetAPI {
         };
         // Add the request to the queue
         app.add(gsonRequest);
+    }
+
+    public static void delete(String url) {
+        Log.v(TAG, "DELETEing from " + url);
+
+        // Request a string response
+        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, hostURL + url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Result handling
+                        Log.v(TAG, "DELETE success " + response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Error handling
+                Log.v(TAG,"Something went wrong with DELETE!");
+                error.printStackTrace();
+            }
+        });
+
+        // Add the request to the queue
+        app.add(stringRequest);
     }
 }
 

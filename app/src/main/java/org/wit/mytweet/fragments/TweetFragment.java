@@ -185,7 +185,7 @@ public class TweetFragment extends Fragment implements
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-//                app.dbManager.deleteTweet(tweet.tweetId); // remove from our list
+                TweetAPI.delete("/api/tweet/" + tweet._id);
                 listAdapter.tweetList.remove(tweet); // update adapters data
                 listAdapter.notifyDataSetChanged(); // refresh adapter
             }
@@ -202,8 +202,8 @@ public class TweetFragment extends Fragment implements
     private void deleteMultiTweets(ActionMode actionMode){
         for(int i = listAdapter.getCount() -1; i >= 0; i --) {
             if(listView.isItemChecked(i)){
-                Log.v("deletetweet", "Deleting tweet: " + listAdapter.getItemId(i));
-//                app.dbManager.deleteTweet(listAdapter.getItem(i).tweetId);
+                Log.v("deletetweet", "Deleting tweet: " + (listAdapter.getItem(i))._id);
+                TweetAPI.delete("/api/tweet/" + (listAdapter.getItem(i))._id);
                 listAdapter.tweetList.remove(listAdapter.getItem(i));//updates the adapter too to provide instant feedback
             }
         }
@@ -214,7 +214,7 @@ public class TweetFragment extends Fragment implements
     //Method to delete all tweets a user has
     public void deleteAllTweets() {
         for(int i = listAdapter.getCount() -1; i >= 0; i--){
-//            app.dbManager.deleteTweet(listAdapter.getItem(i).tweetId);
+            TweetAPI.delete("/api/tweet");
             listAdapter.tweetList.remove(listAdapter.getItem(i));//updates the adapter too to provide instant feedback
             listAdapter.notifyDataSetChanged(); // refresh adapter
             Log.v("deletetweet", "Deleting all tweets");
